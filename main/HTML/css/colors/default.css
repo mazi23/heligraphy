@@ -1,0 +1,385 @@
+
+#page_scroller {
+    background: #d20023;
+}
+
+/** MAIN HEADER AREA START **/
+.main-header {
+    border-top: solid 2px #d20023;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+    color: #fff !important;
+    background: #d20023;
+}
+
+.main-header .navbar-default .nav > li > a:hover {
+    background: #d20023;
+}
+
+.navbar-nav .dropdown-menu > li > a:hover {
+    border-right: solid 5px #d20023;
+    color: #d20023;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #d20023;
+}
+
+.btn-view {
+    background: #d20023;
+}
+
+.btn-view:hover {
+    background: #be1233;
+}
+
+.car-box .detail header h5 a {
+    color: #d20023;
+}
+
+.car-box .detail header .price {
+    color: #d20023;
+}
+
+.car-box .detail .facilities-list li i {
+    color: #d20023;
+}
+
+.btn-details {
+    background: #d20023;
+}
+
+.btn-details:hover {
+    background: #be1233;
+}
+
+.book-btn-l {
+    border-right: 1px solid #ae0420;
+}
+
+.featured-ribon {
+    background: #d20023;
+}
+
+.overlap-btn {
+    background: #d20023;
+    border: solid 2px #d20023;
+}
+
+.overlap-btn:hover {
+    background: #be1233;
+    border: solid 2px #be1233;
+}
+
+
+.modal-title {
+    color: #d20023;
+}
+
+.sub-footer form .button-small {
+    border: solid 1px #d20023;
+    background: #d20023;
+}
+
+.breadcrumb-area .btn-default:hover {
+    background: #d20023;
+}
+
+.block-heading h4 {
+    background: #d20023;
+}
+
+.change-view-btn {
+    color: #d20023;
+    border: solid 1px #d20023;
+}
+
+.change-view-btn:hover {
+    border: solid 1px #d20023;
+    background: #d20023;
+}
+
+.active-view-btn {
+    background: #d20023;
+    border: solid 1px #d20023;
+}
+
+.active-view-btn:hover {
+    border: solid 1px #d20023;
+    color: #d20023;
+}
+
+.car-list-box .detail header h3 a {
+    color: #d20023;
+}
+
+.car-list-box .detail header .price {
+    color: #d20023;
+}
+
+.car-list-box .detail .facilities-list li i {
+    color: #d20023;
+}
+
+.pagination > li > a {
+    color: #d20023;
+}
+
+.pagination > li > a:hover {
+    background: #d20023;
+}
+
+.pagination > .active > a {
+    background: #d20023;
+    border-color: #d20023;
+}
+
+.pagination > .active > a:hover {
+    background: #d20023;
+    border-color: #d20023;
+}
+
+.sidebar-widget .title {
+    color: #d20023;
+}
+
+.section-heading .media .media-left i {
+    background: #d20023;
+}
+
+.section-heading .media .media-body h4 {
+    color: #d20023;
+}
+
+.sidebar-widget .title:after {
+    background-color: #d20023;
+}
+
+.helping-Center ul li i {
+    background: #d20023;
+}
+
+.slider.slider-horizontal .slider-selection {
+    background: #d20023;
+}
+
+.slider.slider-horizontal .slider-handle {
+    background: #d20023;
+}
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark {
+    color: #d20023;
+}
+
+.bootstrap-select .dropdown-menu li a {
+    color: #d20023;
+
+}
+
+.checkbox-theme input[type="checkbox"]:checked + label::before {
+    background-color: #d20023;
+    border-color: #d20023;
+}
+
+.recent-cars .media .media-body h3 a {
+    color: #d20023;
+
+}
+
+.option-bar .header-price h3 {
+    color: #d20023;
+}
+
+.car-details-body .title.title:after {
+    background-color: #d20023;
+}
+
+.amenities-box ul li i {
+    color: #d20023;
+}
+
+.book-btn {
+    background: #d20023;
+    border: 1px solid #d20023;
+}
+
+.reasons .media .media-left i {
+    background: #d20023;
+}
+
+.reasons .media .media-body h4 {
+    color: #d20023;
+}
+
+.twitter-feed a {
+    color: #d20023;
+}
+
+.details-sidebar .title {
+    color: #d20023;
+}
+
+.about-item .text h2:after {
+    background-color: #d20023;
+}
+
+.about-box .detail h3:after {
+    background-color: #d20023;
+}
+
+.we-best .content i {
+    background: #d20023;
+}
+
+.we-best .content h4 {
+    color: #d20023;
+}
+
+.contact-details .media .media-left i {
+    background: #d20023;
+}
+
+.contact-details .media .media-body h4:after {
+    background-color: #d20023;
+}
+
+.blog-box .detail h1:after {
+    background-color: #d20023;
+}
+
+.blog-box .detail h1 a {
+    color: #d20023;
+}
+
+.blog-box .detail .header a {
+    color: #d20023;
+}
+
+blockquote {
+    border-left: 4px solid #d20023;
+}
+
+.blog-box .title {
+    color: #d20023;
+}
+
+.comments-thread .title {
+    color: #d20023;
+}
+
+.comment-info span i {
+    color: #d20023;
+}
+
+.comment a {
+    background: #d20023;
+}
+
+.contact-form .title {
+    color: #d20023;
+}
+
+.form-content-box .header {
+    background: #d20023;
+}
+
+.btn-submit {
+    background: #d20023;
+}
+
+.btn-submit:hover{
+    background: #be1233;
+}
+
+
+.form-content-box .footer span a {
+    color: #d20023;
+}
+
+.banner .btn-default:hover{
+   background: #d20023;
+}
+
+.error404-content h2 {
+    color: #d20023;
+}
+
+.featured-car-slider .details h4 a {
+    color: #d20023;
+}
+
+.featured-car-slider .details .price {
+    color: #d20023;
+}
+
+.btn-div a span {
+    background: #d20023;
+}
+
+.features-item .detail h4:after {
+    background-color: #d20023;
+}
+
+.features-item .detail h4 a:hover {
+    color: #d20023;
+}
+
+.typography-page mark.color {
+    background-color: #d20023;
+}
+
+.list-3 li:before, .list-2 li:before, .list-1 li:before {
+    color: #d20023;
+}
+
+.numbered.color.filled ol > li::before {
+    background:  #d20023;
+    border: 1px solid #d20023;
+    background-color: #d20023;
+}
+
+.numbered.color ol > li::before {
+    border: 1px solid #d20023;
+    color: #d20023;
+}
+
+.panel-box .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+       background: #d20023;
+}
+
+.nav>li>a:hover{
+        background: #d20023;
+}
+
+.opening-hours h3:after {
+        background-color: #d20023;
+}
+
+.about-text ul li i {
+       color: #d20023;
+}
+
+.our-serivce-2 .media .media-left i {
+    background: #d20023;
+}
+
+.pricing-tables-box .price-header-red{
+    background: #d20023;
+}
+
+.panel-title i {
+    color: #d20023;
+}
+
+@media (max-width: 768px) {
+    .navbar-default .navbar-toggle {
+        background: #d20023;
+        border: solid 1px #d20023;
+    }
+}
