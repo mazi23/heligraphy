@@ -8,13 +8,18 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 @SpringBootApplication
 
-public class Application {
-
-
+public class Application extends SpringBootServletInitializer {
 
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(applicationClass, args);
   }
 
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    return application.sources(applicationClass);
+  }
 
+  private static Class<Application> applicationClass = Application.class;
 }
+
+

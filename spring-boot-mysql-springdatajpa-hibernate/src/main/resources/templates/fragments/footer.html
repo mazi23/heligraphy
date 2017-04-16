@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{index.page.title}">Page Title</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+<body>
+<div class="container " th:fragment="footer" >
+    <footer class="main-footer clearfix">
+        <div class="container">
+            <br/>
+            <!-- Footer info-->
+            <div class="footer-info">
+                <div class="row">
+                    <!-- About us -->
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <div class="footer-item">
+                            <h2 class="title">Kontakt</h2>
+                            <p>
+
+                            </p>
+                            <ul class="personal-info">
+                                <li>
+                                    <i class="fa fa-map-marker"></i>
+                                    Address: Pfarrgraben 6, 4713 Gallspach
+                                </li>
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    Email:<a href="mailto:sales@hotelempire.com">sales@autocardealer.com</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-phone"></i>
+                                    Phone: <a href="tel:+43 676 4677516">+43 676 4677516</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Links -->
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="footer-item">
+                            <h2 class="title">Links</h2>
+                            <ul class="links">
+                                <li>
+                                    <a href="index.html">Home</a>
+                                </li>
+                                <li>
+                                    <a href="about.html">Über uns</a>
+                                </li>
+                                <li>
+                                    <a href="contact.html">Kontakt</a>
+                                </li>
+                                <li>
+                                    <a href="services-2.html">Service</a>
+                                </li>
+                                <li>
+                                    <a href="pricing-tables.html">Preis</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Tags -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-item">
+
+                        </div>
+                    </div>
+                    <!-- Recent cars -->
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-item recent-car">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

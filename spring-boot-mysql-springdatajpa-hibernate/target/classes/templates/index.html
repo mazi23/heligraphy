@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>HeliGraphy - Aerial Photography</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="utf-8"/>
 
     <!-- External CSS libraries -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/slider.css"/>
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css"/>
-    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css"/>
-    <link rel="stylesheet" type="text/css" href="css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css" th:href="@{/css/animate.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/slider.css " th:href="@{/css/slider.css}"/>
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css" th:href="@{/fonts/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css" th:href="@{/fonts/linearicons/style.css}"/>
+    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css" th:href="@{/fonts/flaticon/font/flaticon.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/custom.css" th:href="@{/css/custom.css}"/>
 
-    <link href="css/bootstrap-select.min.css" type="text/css" rel="stylesheet"/>
+    <link href="css/bootstrap-select.min.css" type="text/css" rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}"/>
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -51,7 +52,7 @@
                 <span class="icon-bar"></span>
                 </button>
                 <a href="index.html" class="logo">
-                    <img src="images/logos/LOGOHeli.png"  alt="LOGO"/>
+                    <img src="images/logos/"  alt="LOGO"/>
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -838,75 +839,9 @@
 
 
 <!-- Footer start-->
-<footer class="main-footer clearfix">
-    <div class="container">
-        <br/>
-        <!-- Footer info-->
-        <div class="footer-info">
-            <div class="row">
-                <!-- About us -->
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <h2 class="title">Kontakt</h2>
-                        <p>
-                            
-                        </p>
-                        <ul class="personal-info">
-                            <li>
-                                <i class="fa fa-map-marker"></i>
-                                Address: Pfarrgraben 6, 4713 Gallspach
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                Email:<a href="mailto:sales@hotelempire.com">sales@autocardealer.com</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-phone"></i>
-                                Phone: <a href="tel:+43 676 4677516">+43 676 4677516</a>
-                            </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-                <!-- Links -->
-                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <h2 class="title">Links</h2>
-                        <ul class="links">
-                            <li>
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="about.html">Über uns</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Kontakt</a>
-                            </li>
-                            <li>
-                                <a href="services-2.html">Service</a>
-                            </li>
-                            <li>
-                                <a href="pricing-tables.html">Preis</a>
-                            </li>
-                           
-                        </ul>
-                    </div>
-                </div>
-                <!-- Tags -->
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        
-                    </div>
-                </div>
-                <!-- Recent cars -->
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-item recent-car">
-                        
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
     </div>
 </footer>
 <!-- Footer end-->
