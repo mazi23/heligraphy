@@ -116,12 +116,12 @@ body {
 }
 
 .logo {
-    padding: 20px 0px;
+    padding: 10px 0px;
     float: left;
 }
 
 .logo img {
-    height: 40px;
+    height: 62px;
 }
 
 .main-header .navbar-default .nav > li > a {
