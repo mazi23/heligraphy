@@ -12,7 +12,7 @@ import org.springframework.data.repository.CrudRepository;
  * The magic is that such methods must not be implemented, and moreover it is
  * possible create new query methods working only by defining their signature!
  * 
- * @author netgloo
+ * @author Matthias
  */
 @Transactional
 public interface UserDao extends CrudRepository<User, Long> {

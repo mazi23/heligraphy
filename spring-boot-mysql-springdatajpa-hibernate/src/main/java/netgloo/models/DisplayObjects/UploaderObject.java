@@ -11,16 +11,9 @@ public class UploaderObject {
 
     String adresse,plz,ort,land;
     List<MultipartFile> bilder;
-    String preis;
+    Integer preis;
     String fotograf;
 
-    public String getPrice() {
-        return preis;
-    }
-
-    public void setPrice(String preis) {
-        this.preis = preis;
-    }
 
     public String getFotograf() {
         return fotograf;
@@ -80,5 +73,23 @@ public class UploaderObject {
         this.ort = ort;
         this.land = land;
         this.bilder = bilder;
+    }
+
+    public UploaderObject(String adresse, String plz, String ort, String land, List<MultipartFile> bilder, Integer preis, String fotograf) {
+        this.adresse = adresse;
+        this.plz = plz;
+        this.ort = ort;
+        this.land = land;
+        this.bilder = bilder;
+        this.preis = preis;
+        this.fotograf = fotograf;
+    }
+
+    public Integer getPreis() {
+        return preis;
+    }
+
+    public void setPreis(Integer preis) {
+        this.preis = preis;
     }
 }

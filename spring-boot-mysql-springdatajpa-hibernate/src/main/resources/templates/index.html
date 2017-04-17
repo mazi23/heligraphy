@@ -19,17 +19,17 @@
     
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Wrapper for slides -->
+        <form th:action="@{/suchen}" th:object="${suchcode}" method="post">
         <div class="test">
              <h1><span>Finden Sie ihr</span> Haus</h1>
                         <!-- Paragraph -->
                         <p>Geben Sie den Code von ihrem Flyer ein.</p>
                         <!-- Input -->
-                        <input  type="text" class="codeInput btn" />
-            <a href="car-list.html" id="codeSuchen" class="btn btn-view">Haus suchen</a>
-        
+                        <input  type="text" class="codeInput btn" th:field="*{code}" />
+            <input type="submit" value="Haus Suchen" class="btn btn-view"/>
             
         </div>
-        
+        </form>
         
        
         <div class="carousel-inner" role="listbox">
@@ -105,7 +105,7 @@
                         <header class="clearfix">
                             <div class="pull-left">
                                 <h5 class="title">
-                                    <a href="car-details.html">Wohnhaus</a>
+                                    <a href="picture-details.html">Wohnhaus</a>
                                 </h5>
                                 
                             </div>
@@ -131,7 +131,7 @@
                                     <span>2017</span>
                                 </li>
                                 <li>
-                                   <a href="car-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
                                 </li>
                             </ul>
                         </div>
@@ -157,7 +157,7 @@
                         <header class="clearfix">
                             <div class="pull-left">
                                 <h5 class="title">
-                                    <a href="car-details.html">Vierkanter</a>
+                                    <a href="picture-details.html">Vierkanter</a>
                                 </h5>
                                 
                             </div>
@@ -182,7 +182,7 @@
                                     <span>2017</span>
                                 </li>
                                 <li>
-                                   <a href="car-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
                                 </li>
                             </ul>
                         </div>
@@ -207,7 +207,7 @@
                         <header class="clearfix">
                             <div class="pull-left">
                                 <h5 class="title">
-                                    <a href="car-details.html">Wohnhaus</a>
+                                    <a href="picture-details.html">Wohnhaus</a>
                                 </h5>
                                 
                             </div>
@@ -232,7 +232,7 @@
                                     <span>2017</span>
                                 </li>
                                 <li>
-                                   <a href="car-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
                                 </li>
                             </ul>
                         </div>

@@ -13,20 +13,20 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-          th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+          th:href="@{/css/old/vendor/bootstrap/css/bootstrap.min.css}"/>
 
 
     <!-- Plugin CSS -->
-    <link rel="stylesheet" th:href="@{/css/vendor/font-awesome/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/vendor/simple-line-icons/css/simple-line-icons.css}"/>
-    <link rel="stylesheet" th:href="@{/css/vendor/device-mockups/device-mockups.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/old/vendor/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/old/vendor/simple-line-icons/css/simple-line-icons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/old/vendor/device-mockups/device-mockups.min.css}"/>
 
     <!-- Theme CSS -->
     <link href="css/new-age.min.css" rel="stylesheet" th:href="@{/css/new-age.min.css}"/>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
-    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+    <link rel="stylesheet" th:href="@{/css/old/custom.css}"/>
 </head>
 
 <body class="greyback">
@@ -54,11 +54,11 @@
             <br/>
 
 
-            <p><select id="preis" >
-                <option value="200">200€</option>
-                <option value="220">220€</option>
-                <option value="250">250€</option>
-                <option value="000">Nach Angebot</option>
+            <p><select id="preis" th:field="*{preis}" >
+                <option th:value="200">200€</option>
+                <option th:value="220">220€</option>
+                <option th:value="250">250€</option>
+                <option th:value="000">Nach Angebot</option>
             </select>
             </p>
             <p>Fotograf: <input type="text" id="fotograf" th:field="*{fotograf}" class="form-control"/></p>
@@ -73,10 +73,16 @@
             <tr>
                 <th>Gruppen ID</th>
                 <th>Bild</th>
+                <td>Fotograf</td>
+                <th>Preis</th>
+                <th>Aktion</th>
             </tr>
             <tr th:each="bild : ${Bilder}" th:if="${bild.value.bild != null}">
                 <td th:text="${bild.value.id}">ID</td>
-                <td><img th:src="@{/upload/}+${bild.value.id}"/></td>
+                <td><img th:src="@{/upload/}+${bild.value.bildid}"/></td>
+                <td th:text="${bild.value.erzeuger}">Fotograf</td>
+                <td th:text="${bild.value.preis}">Preis</td>
+                <td><form th:action="@{upload/delet/}+${bild.value.bildid}"> <input type="submit" class="btn btn-warning" th:value="Löschen"/></form></td>
             </tr>
         </table>
 
@@ -85,11 +91,7 @@
 
 
 </div>
-<footer>
-    <div class="container" th:replace="fragments/footer :: footer">
-        <p>footer</p>
-    </div>
-</footer>
+
 <!-- jQuery -->
 <script th:src="@{/js/jquery/jquery.min.js}"></script>
 

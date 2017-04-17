@@ -6,9 +6,11 @@ import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
 import netgloo.models.DisplayObjects.BackendBild;
 import netgloo.models.DisplayObjects.UploaderObject;
+import netgloo.models.Preis;
 import netgloo.models.daos.AdresseDao;
 import netgloo.models.daos.BildDao;
 import netgloo.models.daos.BildgruppeDao;
+import netgloo.models.daos.PreisDao;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,8 @@ public class UploaderController {
     AdresseDao adresseDao;
     @Autowired
     BildgruppeDao bildgruppeDao;
+    @Autowired
+    PreisDao preisDao;
 
     HashMap<Integer, BackendBild> bilder = new HashMap<Integer, BackendBild>();
 
@@ -51,24 +55,26 @@ public class UploaderController {
         model.addAttribute("uploadObject", new UploaderObject());
 
 
-        List<Objects[]> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
+        List<Bild> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
 
         bilder =  new HashMap<Integer, BackendBild>();
 
-        for (Object[] o:list) {
-            if(o[0]!=null){
+            for (Bild o:list) {
+            if(o.getDatei()!=null){
                 BackendBild bild = new BackendBild();
-                bild.setBild((byte[]) o[2]);
-                bild.setBildid( Math.toIntExact((Long) o[0]));
-                bild.setId(Math.toIntExact((Long) o[1]));
-                model.addAttribute("image_id",Math.toIntExact((Long) o[0]));
-                bilder.put(Math.toIntExact((Long) o[0]),bild);
-            }
+                bild.setBild((byte[]) o.getThumbnail());
+                bild.setBildid( Math.toIntExact((Long) o.getId()));
+                bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
+                bild.setErzeuger((String)o.getErzeuger());
+                if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
+                model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
+                bilder.put(Math.toIntExact((Long) o.getId()),bild);
+            }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
         }
 
         model.addAttribute("Bilder",bilder);
 
-        return "BackendBilderUpload";
+        return "upload";
     }
 
     @RequestMapping(value="/upload/{id}", method = RequestMethod.GET)
@@ -80,7 +86,7 @@ public class UploaderController {
 
 
     @RequestMapping(value = "loadBilder", method = RequestMethod.POST)
-    public String  test(@Valid UploaderObject object) throws IOException {
+    public String test(@Valid UploaderObject object,Model model) throws IOException {
 
 
         Adresse adresse = new Adresse();
@@ -93,7 +99,10 @@ public class UploaderController {
         Bildgruppe bildgruppe = new Bildgruppe();
         bildgruppe.setAdresse(adresse);
         bildgruppeDao.save(bildgruppe);
-
+        Preis p = new Preis();
+        p.setMwst(20);
+        p.setPreis(object.getPreis());
+        preisDao.save(p);
 
         for (MultipartFile f:object.getBilder()) {
             Bild bild = new Bild();
@@ -101,23 +110,47 @@ public class UploaderController {
             bild.setBildgruppe(bildgruppe);
             bild.setDatei(f.getBytes());
             bild.setErzeuger(object.getFotograf());
+            bild.setPreis(p);
             BufferedImage scaledImg = Scalr.resize(thumbnail, 150);
-            scaledImg = Scalr.rotate(scaledImg,Scalr.Rotation.CW_180,null);
+            //scaledImg = Scalr.rotate(scaledImg,Scalr.Rotation.CW_180,null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(scaledImg, "jpg", baos);
 
             bild.setThumbnail(baos.toByteArray());
 
             bildDao.save(bild);
-
-
-
-
         }
-        return "BackendBilderUpload";
+        model.addAttribute("uploadObject", new UploaderObject());
+        return "redirect:upload";
     }
 
 
+
+    @RequestMapping(value = "/upload/delet/{id}", method = RequestMethod.GET)
+    public String deletBild(Model model,@PathVariable final String id){
+        bildDao.delete(Long.parseLong(id));
+        model.addAttribute("uploadObject", new UploaderObject());
+        List<Bild> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
+
+        bilder =  new HashMap<Integer, BackendBild>();
+
+        for (Bild o:list) {
+            if(o.getDatei()!=null){
+                BackendBild bild = new BackendBild();
+                bild.setBild((byte[]) o.getThumbnail());
+                bild.setBildid( Math.toIntExact((Long) o.getId()));
+                bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
+                bild.setErzeuger((String)o.getErzeuger());
+                if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
+                model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
+                bilder.put(Math.toIntExact((Long) o.getId()),bild);
+            }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
+        }
+
+        model.addAttribute("Bilder",bilder);
+
+          return "redirect:upload";
+    }
 
 
 

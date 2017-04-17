@@ -61,8 +61,8 @@ public class OldinCon {
 
                 bilder.put(Math.toIntExact((Long) o[0]),bild);
             }
-        }
-*/
+        }*/
+
 
         List<Bild> list = bildDao.findBildermitgruppe(bildgruppenId);
         for (Bild b:list) {
@@ -76,7 +76,6 @@ public class OldinCon {
 
         return "redirect:bilder";
     }
-
     @RequestMapping("secured")
     public String secured(){
         return "secured";

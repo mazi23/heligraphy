@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+<body>
+
+<!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Suchergebnisse</h2>
+                        <p>Hier finden Sie alle Bilder die wir von Ihrem Haus aufgenommen haben.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Car grid start-->
+<div class="car-grid content-area">
+    <div class="container">
+        <div class="row">
+             <div class="col-lg-12 col-md-12 col-xs-12">
+
+
+                <!-- Car grid start -->
+                <div class="row">
+
+                    <div th:each="bild,it : ${Bilder}" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <!-- Car box start-->
+                        <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
+                            <img th:src="@{/picture-grid/}+${bild.id}" src="http://placehold.it/360x257" alt="audi_q7_2017" />
+                            <!-- detail -->
+                            <div class="caption detail">
+                                <!-- Header ${bild.value.id}-->
+                                <header class="clearfix">
+                                    <div class="pull-left">
+                                        <h5 class="title">
+                                            <a href="picture-details.html">Audi q7 2017</a>
+                                        </h5>
+
+                                    </div>
+                                    <!-- Price -->
+                                    <div class="price">
+                                        <span th:text="'€'+${bild.preis.preis}">$42,605</span>
+                                    </div>
+                                </header>
+                                <!-- Paragraph -->
+                                <p hidden ="true">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                                </p>
+                                <!-- Facilities List -->
+                                <div  class="facilities-area">
+                                    <ul hidden="true" class="facilities-list clearfix">
+                                        <li>
+                                            <i class="flaticon-gasoline-pump"></i>
+                                            <span>Gasoline</span>
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-automatic-flash-symbol"></i>
+                                            <span>Automatic</span>
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-road-with-broken-line"></i>
+                                            <span>12000</span>
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-racing-flag"></i>
+                                            <span>Sports Car </span>
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-transport"></i>
+                                            <span>5 Gears</span>
+                                        </li>
+                                        <li>
+                                            <i class="flaticon-time"></i>
+                                            <span>2017</span>
+                                        </li>
+                                    </ul>
+                                    <form th:action="@{/picture-grid/detail/}+${bild.id}" method="post">
+                                        <input type="submit" th:value="Details"/>
+                                    </form>
+                                    <a th:href="'/picture-details/'+${bild.id}">det</a>
+                                </div>
+
+
+                            </div>
+
+                            <div hidden = "true" class="featured-ribon">
+                                <h2>Featured Car</h2>
+                            </div>
+                        </div>
+                        <!-- Car box end-->
+                    </div>
+
+
+
+
+                </div>
+                <!-- Car grid end-->
+
+                <!-- Page navigation Start-->
+                <nav hidden="" aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Page navigation end-->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Car grid end-->
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+</body>
+</html>

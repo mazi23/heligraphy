@@ -20,8 +20,8 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     public Bildgruppe findByid(@Param("id") String id);
 
 
-    @Query("SELECT   b.id, b.bildgruppe.id, b.thumbnail FROM Bild b")
-    public List<Objects[]> findBild();
+    @Query("FROM Bild b")
+    public List<Bild> findBild();
 
     @Query("SELECT b.id,b.thumbnail,bildgruppe from Bild b where bildgruppe=:bgruppe")
     public List<Objects[]> findBilder(@Param("bgruppe") Bildgruppe bgruppe);
