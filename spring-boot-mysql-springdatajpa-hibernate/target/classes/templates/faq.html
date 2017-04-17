@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+<body>
+<!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+    
+    
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Faq</h2>
+                        
+                        <a href="index.html" class="btn btn-details btn-index">Home</a>
+                        <a href="contact-2.html" class="btn btn-default">Kontakt</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Faq body start -->
+<div class="faq-body content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Häufig gestellte Fragen </h1>
+            <div class="border">
+                <div class="border-inner"></div>
+            </div>
+            <p>Hier finden Sie Antworten zu häufig gestellten Fragen. Sollte Ihre Frage nicht dabei sein, so können Sie sich persönlich an uns wenden.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xm-12">
+                <!-- Panel box start -->
+                <div class="panel-box">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#generalInformataion" data-toggle="tab" aria-expanded="true">Allgemeine Inforamtionen</a></li>                
+                    </ul>
+                    <div class="panel with-nav-tabs panel-default">
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active in" id="generalInformataion">
+                                    <div class="panel-div">
+                                        <div class="panel-group" role="tablist">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading active" role="tab" id="heading1">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+                                                            <i class="fa fa-plus"></i>Wie kann ich bezahlen?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                                    <div class="panel-body panel-body-2">
+                                                        <div class="row">
+                                                            
+                                                            <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                <p>Zum Zeitpunkt der eröffnung unserer Website ist nur bezahlen per Vorkasse oder per Nachname möglich. </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="heading2">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false">
+                                                            <i class="fa fa-plus"></i>Is the price you quote guaranteed?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                    <div class="panel-body panel-body-2">
+                                                        <div class="row">
+                                                            <div class="col-md-3 col-sm-4 col-xm-12">
+                                                                <img src="http://placehold.it/165x141" class="img-responsive" alt="ALT TEXT" />
+                                                            </div>
+                                                            <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nibh libero,
+                                                                    consequat sit amet nisl vitae, suscipit gravida mi. Nam auctor viverra
+                                                                    sodales. Quisque posuere tincidunt convallis. Ut viverra neque non diam
+                                                                    tempor, id tincidunt mauris cursus. Donec suscipit mattis viverra. Cras sit
+                                                                    amet odio sit amet dui aliquam tempus a ultrices felis. Proin sed imperdiet
+                                                                    ipsum, ultrices posuere leo.
+                                                                    Duis facilisis dapibus enim, ac venenatis nibh mattis in. Cras.</p>
+                                                            </div>
+                                                        </div>
+                                                        <ul>
+                                                            <li>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum</li>
+                                                            <li>Auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</li>
+                                                            <li>Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit.</li>
+                                                            <li>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit Class.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="heading3">
+                                                    <h4 class="panel-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false">
+                                                            <i class="fa fa-plus"></i> Why am I receiving renewal notices for a car I sold?
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                    <div class="panel-body panel-body-2">
+                                                        <div class="row">
+                                                            <div class="col-md-3 col-sm-4 col-xm-12">
+                                                                <img src="http://placehold.it/165x141" class="img-responsive" alt="ALT TEXT" />
+                                                            </div>
+                                                            <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nibh libero,
+                                                                    consequat sit amet nisl vitae, suscipit gravida mi. Nam auctor viverra
+                                                                    sodales. Quisque posuere tincidunt convallis. Ut viverra neque non diam
+                                                                    tempor, id tincidunt mauris cursus. Donec suscipit mattis viverra. Cras sit
+                                                                    amet odio sit amet dui aliquam tempus a ultrices felis. Proin sed imperdiet
+                                                                    ipsum, ultrices posuere leo.
+                                                                    Duis facilisis dapibus enim, ac venenatis nibh mattis in. Cras.</p>
+                                                            </div>
+                                                        </div>
+                                                        <ul>
+                                                            <li>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum</li>
+                                                            <li>Auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</li>
+                                                            <li>Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit.</li>
+                                                            <li>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit Class.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Panel box end -->
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Faq body end -->
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2017. All rights reserved by: HeliGraphy</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

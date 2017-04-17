@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+
+
+    <!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+ 
+<body>
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Unser Angebot</h2>
+                        <p>Ob privat oder kommerziell. Wir haben für jeden das Richtige dabei.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- our serivce start -->
+<div class="we-best content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Unsere Angebot</h1>
+            <div class="border">
+                <div class="border-inner"></div>
+            </div>
+            <p></p>
+        </div>
+
+        <div class="row mgn-btm">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-call-center-agent"></i>
+                    <h4>Persönliches Gespräch</h4>
+                    <p>Sie wünschen ein persönliches Gespräch um uns Ihre Wünsche zu berichten? Rufen Sie einfach an oder verwenden Sie das Kontaktformular.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-car"></i>
+                    <h4>Winter Aufnahmen</h4>
+                    <p>Sie wollen Ihr Haus im Wintermantel haben? Kein Problem. Wir fliegen auch im Winter.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-mixer"></i>
+                    <h4>Mit der besten Technik</h4>
+                    <p>Wir verwenden mondernste Technik um die Bilder auzunehmen, zu bearbeiten und zum Speichern.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-satellite-transmission"></i>
+                    <h4>Verfügbarkeit</h4>
+                    <p>Ihre Bilder sind jederzeit für Sie zugänlich. Egal ob Handy, Tablet oder PC.
+                    </p>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<!-- our serivce end -->
+<hr/>
+<!-- Counters strat -->
+<div class="counters" hidden="true">
+    <div class="counters-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter-box wow fadeInLeft delay-04s">
+                        <i class="flaticon-sedan-car-front"></i>
+                        <h1 class="counter">471</h1>
+                        <p>Vehicles in stock</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter-box wow fadeInLeft delay-04s">
+                        <i class="flaticon-bar-graph-in-speech-bubble"></i>
+                        <h1 class="counter">956</h1>
+                        <p>Dealer Reviews</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter-box wow fadeInRight delay-04s">
+                        <i class="flaticon-call-center-agent"></i>
+                        <h1 class="counter">396</h1>
+                        <p>Happy Customer Reviews</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter-box wow fadeInRight delay-04s">
+                        <i class="flaticon-cup"></i>
+                        <h1 class="counter">95</h1>
+                        <p>Awards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counters end -->
+
+<!-- service-center strat -->
+<div class="service-center content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="car-detail-slider simple-slider">
+                    <div id="carousel-custom" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-outer">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item next left">
+                                     <img src="images/testbilder/1_Privathaus_Heppenheim.jpg" class="img-preview" alt="blog-1" />
+                                </div>
+                                <div class="item">
+                                     <img src="images/testbilder/big_20745.jpg" class="img-preview" alt="blog-2" />
+                                </div>
+                                <div class="item active left">
+                                     <img src="http://placehold.it/555x332" class="img-preview" alt="blog-3" />
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-custom" role="button" data-slide="prev">
+                                    <span class="slider-mover-left no-bg" aria-hidden="true">
+                                         <img src="images/png/chevron-left.png" alt="chevron-left" />
+                                    </span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-custom" role="button" data-slide="next">
+                                    <span class="slider-mover-right no-bg" aria-hidden="true">
+                                         <img src="images/png/chevron-right.png" alt="chevron-right" />
+                                    </span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="about-text">
+                    <h3>Aufnahmen für Firmen</h3>
+                    <p>Sie wollen Ihre Firmenhallen fotografieren? Oder Sie möchten den Baufortschritt Ihres neuen Firmengebäudes aus der Luft festhalten. 
+                    </p>
+                    <ul class="clearfix">
+                        <li>
+                            <i class="fa fa-check-square"></i><span>Zeitraffer Aufnahmen 
+                        </span></li>
+                        <li>
+                            <i class="fa fa-check-square"></i><span>Panoramabilder</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-square"></i><span>Vier Jahreszeiten Aufnahmen</span>
+                        </li>
+                        <li hidden="true">
+                            <i class="fa fa-check-square"></i><span>Consuetudium dynamicus, qui sequitur mutationem lectorum.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- service-center strat -->
+
+<!-- Contact body start-->
+<div class="contact-body content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>service schedule</h1>
+            <div class="border">
+                <div class="border-inner"></div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                <!-- Contact form start -->
+            <div class="contact-form">
+                <form id="contact_form" action="index.html" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group fullname">
+                                <input type="text" name="full-name" class="input-text" placeholder="Name"/>
+                            </div>
+                            <div class="form-group enter-email">
+                                <input type="email" name="email" class="input-text" placeholder=" Email"/>
+                            </div>
+                            <div class="form-group subject">
+                                <input type="text" name="subject" class="input-text" placeholder="Betreff"/>
+                            </div>
+                            <div class="form-group number">
+                                <input type="text" name="phone" class="input-text" placeholder="Telefon"/>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group message">
+                                <textarea class="input-text" name="message" placeholder="Ihr Anliegen"></textarea>
+                            </div>
+                            <div class="form-group send-btn">
+                                <button type="submit" class="btn btn-submit">Nachricht senden</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Contact form end -->
+                
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="opening-hours">
+                        <h3>Öffnungszeiten</h3>
+                        <ul class="list-style-none">
+                           
+                            <li><strong>Montag</strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Dienstag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Mittwoch </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Donnerstag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Freitag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Samstag </strong> <span> geschlossen</span></li>
+                             <li><strong>Sonntag</strong> <span class="text-red"> geschlossen</span></li>
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact body start-->
+
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2016. All rights reserved by: Auto Car Dealer</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-89110077-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

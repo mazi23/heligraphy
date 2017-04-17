@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{index.page.title}">Page Title</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+<body>
+<div th:fragment="searchField">
+    <div class="container">
+        <div class="row">
+            <form action="#" th:action="@{/CodeSuchen}" th:object="${suchcode}" method="post">
+            <div class="col-sm-3">
+
+                    <input type="text" class="form-control" name="code" id="code" th:field="*{code}" />
+            </div>
+            <div class="col-sm-5">
+                <p><input  type="submit" value="Submit" class="btn btn-outline btn-xl page-scroll" /> </p>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

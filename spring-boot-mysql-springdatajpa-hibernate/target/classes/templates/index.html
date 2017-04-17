@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+    <!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+<body>
+
+
+
+<!-- Banner start-->
+<div class="banner">
+    
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Wrapper for slides -->
+        <form th:action="@{/suchen}" th:object="${suchcode}" method="post">
+        <div class="test">
+             <h1><span>Finden Sie ihr</span> Haus</h1>
+                        <!-- Paragraph -->
+                        <p>Geben Sie den Code von ihrem Flyer ein.</p>
+                        <!-- Input -->
+                        <input  type="text" class="codeInput btn" th:field="*{code}" />
+            <input type="submit" value="Haus Suchen" class="btn btn-view"/>
+            
+        </div>
+        </form>
+        
+       
+        <div class="carousel-inner" role="listbox">
+            <div class="item item-1 active height300">
+                <div class="container">
+                    <!-- Banner Slider Inner 1 -->
+                    <div class="banner-slider-inner">
+                       <h1><span></span></h1>
+                        <!-- Paragraph -->
+                        <p></p>
+                        <!-- Btn -->
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-2 height300">
+                <div class="container">
+                    <!-- Banner Slider Inner 1 -->
+                    <div class="banner-slider-inner">
+                        <h1><span></span></h1>
+                        <!-- Paragraph -->
+                        <p></p>
+                        <!-- Btn -->
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-3 height300">
+                <div class="container">
+                    <!-- Banner Slider Inner 1 -->
+                    <div class="banner-slider-inner">
+                        <h1><span></span></h1>
+                        <!-- Paragraph -->
+                        <p></p>
+                        <!-- Btn -->
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="slider-mover-left" aria-hidden="true">
+                <img   src="images/png/chevron-left.png" alt="chevron-left"/>
+            </span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="slider-mover-right" aria-hidden="true">
+                <img  src="images/png/chevron-right.png" alt="chevron-right" />
+            </span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- Banner end-->
+
+<!-- Featured car start-->
+<div class="featured-car content-area clearfix">
+    <div class="container">
+        <div class="main-title">
+            <h1>Beliebte Bilder</h1>
+            <p>Finden Sie Ihr Haus nicht? Machen Sie sich ein Bild von unserer Arbeit und kontaktieren Sie uns um auch Ihr Haus vor die Linse zu bekommen.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <!-- Car box start-->
+                <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
+                    <img  src="images/testbilder/1_Privathaus_Heppenheim.jpg" alt="bmw_emw_m3_diski_serie" />
+                    <!-- detail -->
+                    <div class="caption detail">
+                        <!-- Header -->
+                        <header class="clearfix">
+                            <div class="pull-left">
+                                <h5 class="title">
+                                    <a href="picture-details.html">Wohnhaus</a>
+                                </h5>
+                                
+                            </div>
+                            <!-- Price -->
+                            <div class="price">
+                                <span>ab 250€</span>
+                            </div>
+                       </header>
+                        <!-- Paragraph -->
+                        <p>
+                            
+                        </p>
+                        <!-- Facilities List -->
+                        <div class="facilities-area">
+                            <ul class="facilities-list clearfix">
+                                <li>
+                                    <i class="flaticon-automatic-flash-symbol"></i>
+                                    <span>ISO</span>
+                                </li>
+                                
+                                <li>
+                                    <i class="flaticon-time"></i>
+                                    <span>2017</span>
+                                </li>
+                                <li>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="featured-ribon">
+                        <h2>Empfohlene Bilder</h2>
+                    </div>
+
+                </div>
+                <!-- Car box end-->
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <!-- Car box start-->
+                <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
+                    <img  src="images/testbilder/big_20745.jpg" alt="vencer-sarthe-supercar" />
+                    <!-- detail -->
+                    <div class="caption detail">
+                        <!-- Header -->
+                        <header class="clearfix">
+                            <div class="pull-left">
+                                <h5 class="title">
+                                    <a href="picture-details.html">Vierkanter</a>
+                                </h5>
+                                
+                            </div>
+                            <!-- Price -->
+                            <div class="price">
+                                <span>ab 250€</span>
+                            </div>
+                        </header>
+                        <!-- Paragraph -->
+                        <p>
+                           
+                        </p>
+                        <!-- Facilities List -->
+                        <div class="facilities-area">
+                            <ul class="facilities-list clearfix">                           
+                                <li>
+                                    <i class="flaticon-road-with-broken-line"></i>
+                                    <span>12000</span>
+                                </li>                            
+                                <li>
+                                    <i class="flaticon-time"></i>
+                                    <span>2017</span>
+                                </li>
+                                <li>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                       
+                    </div>
+
+                    <div class="featured-ribon">
+                        <h2>Empfohlene Bilder</h2>
+                    </div>
+                </div>
+                <!-- Car box end-->
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <!-- Car box start-->
+                <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
+                    <img  src="images/testbilder/phpThumb_cache_heaven-eye.de_src88bc75fc2d29cbcdc43fe94b3a9c17d6_parbff4251230887c2036af20bb70952c9f_dat1340718075.jpeg" alt="gridmclaren_650s" />
+                    <!-- detail -->
+                    <div class="caption detail">
+                        <!-- Header -->
+                        <header class="clearfix">
+                            <div class="pull-left">
+                                <h5 class="title">
+                                    <a href="picture-details.html">Wohnhaus</a>
+                                </h5>
+                                
+                            </div>
+                            <!-- Price -->
+                            <div class="price">
+                                <span>ab 250€</span>
+                            </div>
+                        </header>
+                        <!-- Paragraph -->
+                        <p>
+                            
+                        </p>
+                        <!-- Facilities List -->
+                        <div class="facilities-area">
+                            <ul class="facilities-list clearfix">                        
+                                <li>
+                                    <i class="flaticon-road-with-broken-line"></i>
+                                    <span>12000</span>
+                                </li>
+                                <li>
+                                    <i class="flaticon-time"></i>
+                                    <span>2017</span>
+                                </li>
+                                <li>
+                                   <a href="unused/picture-list.html" id="codeSuchen" class="btn btn-primary">Bild kaufen</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="featured-ribon">
+                        <h2>Empfholene Bilder</h2>
+                    </div>
+                </div>
+                <!-- Car box end-->
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+<!-- Featured car end-->
+
+<!-- We best start-->
+<div class="we-best content-area">
+    <div class="container">
+        <div class="main-title">
+            <h1>Darum sind wir die Besten</h1>
+            <p>Überzeugen Sie sich selbst.</p>
+        </div>
+        <div class="row mgn-btm-30">
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-03s">
+                <div class="content">
+                    <i class="flaticon-security"></i>
+                    <h4>Sicherheit</h4>
+                    <p>Die Bilder von Ihrem Haus sind nur durch den Code auf Ihrem Flyer zugänglich. Somit haben nur Sie Zugriff auf die Bilder.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-03s">
+                <div class="content">
+                    <i class="flaticon-handshake"></i>
+                    <h4>Faire Preise</h4>
+                    <p>Wir bieten Ihnen faire Preise für jeden Gebrauch. Ob Digital oder auf einer Leinwand.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-03s">
+                <div class="content">
+                    <i class="flaticon-dollar-sticker"></i>
+                    <h4>Ihr persönliches Angebot</h4>
+                    <p>Und ist doch nicht das Richtige für Sie dabei, zögern Sie nicht uns nach Ihrem persönlichen Wünschen zu fragen.</p>
+                </div>
+            </div>
+            
+        </div>
+      
+    </div>
+</div>
+<!-- We best end -->
+
+<!-- Customers say strat -->
+<div class="customers-say content-area nichtsichtbar" >
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Our Satisfied Customers</h1>
+            <div class="border">
+                <div class="border-inner"></div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wow fadeInUp delay-03s">
+                <!-- Customers-say-box start-->
+                <div class="customers-say-box">
+                    <!--header -->
+                    <div class="header bg-danger clearfix">
+                        <h2>John Doe</h2>
+                        <h4>CEO of xzy company</h4>
+                        <img  src="http://placehold.it/95x95" alt="profile-01" class="profile-img" />
+                    </div>
+                    <!-- Detail -->
+                    <div class="detail clearfix">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+                    </div>
+                </div>
+                <!-- Customers-say-box end-->
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wow fadeInUp delay-03s">
+                <!-- Customers-say-box start-->
+                <div class="customers-say-box">
+                    <!--header -->
+                    <div class="header bg-danger clearfix">
+                        <h2>Jason Roy</h2>
+                        <h4>CEO of xzy company</h4>
+                        <img  src="http://placehold.it/95x95" alt="profile-05" class="profile-img" />
+                    </div>
+                    <!-- Detail -->
+                    <div class="detail clearfix">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+                    </div>
+                </div>
+                <!-- Customers-say-box end-->
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 wow fadeInUp delay-03s">
+                <!-- Customers-say-box start-->
+                <div class="customers-say-box">
+                    <!--header -->
+                    <div class="header bg-danger clearfix">
+                        <h2>Silva Naymar Doe</h2>
+                        <h4>CEO of xzy company</h4>
+                        <img  src="http://placehold.it/95x95" alt="profile-01" class="profile-img" />
+                    </div>
+                    <!-- Detail -->
+                    <div class="detail clearfix">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+                    </div>
+                </div>
+                <!-- Customers-say-box end-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Customers say -->
+
+<!-- Latest offers-2 two start-->
+<div class="content-area latest-offers-2 nichtsichtbar">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Latest Offers</h1>
+            <div class="border">
+                <div class="border-inner"></div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan. interdum hendrerit lacinia.</p>
+        </div>
+        <div class="row wow animated">
+            <div class="col-lg-12 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-sm-3 col-pad wow fadeInLeft delay-03s">
+                        <div class="category">
+                            <div class="category_bg_box" style="background-image: url(http://placehold.it/272x210);">
+                                <div class="category-overlay">
+                                    <span class="category-content">
+                                        <span class="category-title">Ferrari</span><br/>
+                                        <span class="category-subtitle">$28,490</span>
+                                    </span><!-- /.category-content -->
+                                </div>
+                            </div>
+                            <div class="category-view-more">
+                                <a href="#" class="btn btn-submit">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-pad wow fadeInLeft delay-03s">
+                        <div class="category">
+                            <div class="category_bg_box" style="background-image: url(http://placehold.it/272x210);">
+                                <div class="category-overlay">
+                                    <span class="category-content">
+                                        <span class="category-title">Porscse Cayen</span><br/>
+                                        <span class="category-subtitle">$36,000</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="category-view-more">
+                                <a href="#" class="btn btn-submit ">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-pad wow fadeInRight delay-03s">
+                        <div class="category">
+                            <div class="category_bg_box" style="background-image: url(http://placehold.it/272x210);">
+                                <div class="category-overlay">
+                                    <span class="category-content">
+                                        <span class="category-title">Ferrari 458 Italia</span><br/>
+                                        <span class="category-subtitle">$49,000</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="category-view-more">
+                                <a href="#" class="btn btn-submit">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-pad wow fadeInRight delay-03s">
+                        <div class="category">
+                            <div class="category_bg_box" style="background-image: url(http://placehold.it/272x210);">
+                                <div class="category-overlay">
+                                    <span class="category-content">
+                                        <span class="category-title">Audi q7 2017</span><br/>
+                                        <span class="category-subtitle">$49,000</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="category-view-more">
+                                <a href="#" class="btn btn-submit">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Latest offers-2 end-->
+
+<!-- Testimonial style two start-->
+<div class="testimonial-style-two nichtsichtbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                <div class="sec-title-three">
+                    <h4>Happy Clients</h4>
+                    <h2>Our Happy<br/>Clients Feedbacks</h2>
+                    <div class="text">
+                        Dolor sit amet auctor egestas libero is arcu. Wisi anteati lis pulvinar officiiss neque massa egestas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+                <div class="testimonials">
+                    <div id="carouse2-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                            For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                       John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content active clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                            For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                             <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                            For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                       John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12 ">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                            For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sup>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sup>
+
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carouse2-example-generic" role="button" data-slide="prev">
+                            <span class="slider-mover-left" aria-hidden="true">
+                                <img  src="images/png/chevron-left.png" alt="left-chevron" />
+                            </span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carouse2-example-generic" role="button" data-slide="next">
+                            <span class="slider-mover-right" aria-hidden="true">
+                                <img  src="images/png/chevron-right.png" alt="right-chevron" />
+                            </span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial style two end-->
+
+<!-- Counters strat -->
+<div class="counters ">
+    <div class="counters-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 wow fadeInLeft delay-04s">
+                    <div class="counter-box">
+                        <i class="flaticon-sedan-car-front"></i>
+                        <h1 class="counter">471</h1>
+                        <p>Bilder</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInLeft delay-04s">
+                    <div class="counter-box">
+                        <i class="flaticon-bar-graph-in-speech-bubble"></i>
+                        <h1 class="counter">956</h1>
+                        <p>Verkaufte Bilder</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight delay-04s">
+                    <div class="counter-box">
+                        <i class="flaticon-call-center-agent"></i>
+                        <h1 class="counter">396</h1>
+                        <p>Zufriedene Kunden</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 wow fadeInRight delay-04s">
+                    <div class="counter-box">
+                        <i class="flaticon-cup"></i>
+                        <h1 class="counter">95</h1>
+                        <p>Flugstunden</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counters end -->
+
+<!-- Partners block start -->
+<div class="partners-block nichtsichtbar">
+    <div class="container">
+        <h3>Brands $ Partners</h3>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="carousel our-partners slide" id="ourPartners">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <a href="#">
+                                    <img  src="http://placehold.it/180x105" alt="brand-1" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <a href="#">
+                                    <img  src="http://placehold.it/180x105" alt="/brand-2" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <a href="#">
+                                    <img  src="http://placehold.it/180x105" alt="brand-3" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <a href="#">
+                                    <img  src="http://placehold.it/180x105" alt="brand-4" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <a href="#">
+                                    <img  src="http://placehold.it/180x105" alt="brand-5" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#ourPartners" data-slide="prev"><i class="fa fa-chevron-left icon-prev"></i></a>
+                    <a class="right carousel-control" href="#ourPartners" data-slide="next"><i class="fa fa-chevron-right icon-next"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partners block end -->
+
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2016. All rights reserved by: Auto Car Dealer</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+<!-- Car Viedo Modal -->
+<div class="modal fade" id="carVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Vencer Sarthe Supercar</h4>
+            </div>
+            <div class="modal-body">
+                <iframe src="https://www.youtube.com/embed/m5_AKjDdqaU"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Car Gallary Modal -->
+<div class="modal fade" id="carGallary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">Vencer Sarthe Supercar</h4>
+            </div>
+            <div class="modal-body">
+                <div id="carGallaryCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img  src="http://placehold.it/700x500" alt="Vencer-Sarthe-Supercar" />
+                        </div>
+
+                        <div class="item">
+                            <img  src="http://placehold.it/700x500" alt="Vencer-Sarthe-Supercar" />
+                        </div>
+
+                        <div class="item">
+                            <img  src="http://placehold.it/700x500" alt="Vencer-Sarthe-Supercar" />
+                        </div>
+
+                        <div class="item">
+                            <img  src="http://placehold.it/700x500" alt="Vencer-Sarthe-Supercar" />
+                        </div>
+                    </div>
+                    <!-- Left and right controls -->
+
+                    <a class="left carousel-control" href="#carGallaryCarousel" role="button" data-slide="prev">
+                            <span class="slider-mover-left" aria-hidden="true">
+                                <img  src="images/png/chevron-left.png" alt="left-chevron" />
+                            </span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carGallaryCarousel" role="button" data-slide="next">
+                            <span class="slider-mover-right" aria-hidden="true">
+                                <img  src="images/png/chevron-right.png" alt="right-chevron" />
+                            </span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+#page_scroller {
+    background: #b3c211;
+}
+
+/** MAIN HEADER AREA START **/
+.main-header {
+    border-top: solid 2px #b3c211;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > .active > a:hover {
+    color: #fff !important;
+    background: #b3c211;
+}
+
+.main-header .navbar-default .nav > li > a:hover {
+    background: #b3c211;
+}
+
+.navbar-nav .dropdown-menu > li > a:hover {
+    border-right: solid 5px #b3c211;
+    color: #b3c211;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #b3c211;
+}
+
+.btn-view {
+    background: #b3c211;
+}
+
+.btn-view:hover {
+    background: #9ba901;
+}
+
+.car-box .detail header h5 a {
+    color: #b3c211;
+}
+
+.car-box .detail header .price {
+    color: #b3c211;
+}
+
+.car-box .detail .facilities-list li i {
+    color: #b3c211;
+}
+
+.btn-details {
+    background: #b3c211;
+}
+
+.btn-details:hover {
+    background: #9ba901;
+}
+
+
+.book-btn-l {
+    border-right: 1px solid #8b9705;
+}
+
+.featured-ribon {
+    background: #b3c211;
+}
+
+.overlap-btn {
+    background: #b3c211;
+    border: solid 2px #b3c211;
+}
+
+.overlap-btn:hover {
+    background: #9ba901;
+    border: solid 2px #9ba901;
+}
+
+.modal-title {
+    color: #b3c211;
+}
+
+.sub-footer form .button-small {
+    border: solid 1px #b3c211;
+    background: #b3c211;
+}
+
+.breadcrumb-area .btn-default:hover {
+    background: #b3c211;
+}
+
+.block-heading h4 {
+    background: #b3c211;
+}
+
+.change-view-btn {
+    color: #b3c211;
+    border: solid 1px #b3c211;
+}
+
+.change-view-btn:hover {
+    border: solid 1px #b3c211;
+    background: #b3c211;
+}
+
+.active-view-btn {
+    background: #b3c211;
+    border: solid 1px #b3c211;
+}
+
+.active-view-btn:hover {
+    border: solid 1px #b3c211;
+    color: #b3c211;
+}
+
+.car-list-box .detail header h3 a {
+    color: #b3c211;
+}
+
+.car-list-box .detail header .price {
+    color: #b3c211;
+}
+
+.car-list-box .detail .facilities-list li i {
+    color: #b3c211;
+}
+
+.pagination > li > a {
+    color: #b3c211;
+}
+
+.pagination > li > a:hover {
+    background: #b3c211;
+}
+
+.pagination > .active > a {
+    background: #b3c211;
+    border-color: #b3c211;
+}
+
+.pagination > .active > a:hover {
+    background: #b3c211;
+    border-color: #b3c211;
+}
+
+.sidebar-widget .title {
+    color: #b3c211;
+}
+
+.section-heading .media .media-left i {
+    background: #b3c211;
+}
+
+.section-heading .media .media-body h4 {
+    color: #b3c211;
+}
+
+.sidebar-widget .title:after {
+    background-color: #b3c211;
+}
+
+.helping-Center ul li i {
+    background: #b3c211;
+}
+
+.slider.slider-horizontal .slider-selection {
+    background: #b3c211;
+}
+
+.slider.slider-horizontal .slider-handle {
+    background: #b3c211;
+}
+
+.bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a span.check-mark {
+    color: #b3c211;
+}
+
+.bootstrap-select .dropdown-menu li a {
+    color: #b3c211;
+
+}
+
+.checkbox-theme input[type="checkbox"]:checked + label::before {
+    background-color: #b3c211;
+    border-color: #b3c211;
+}
+
+.recent-cars .media .media-body h3 a {
+    color: #b3c211;
+
+}
+
+.option-bar .header-price h3 {
+    color: #b3c211;
+}
+
+.car-details-body .title.title:after {
+    background-color: #b3c211;
+}
+
+.amenities-box ul li i {
+    color: #b3c211;
+}
+
+.book-btn {
+    background: #b3c211;
+    border: 1px solid #b3c211;
+}
+
+.reasons .media .media-left i {
+    background: #b3c211;
+}
+
+.reasons .media .media-body h4 {
+    color: #b3c211;
+}
+
+.twitter-feed a {
+    color: #b3c211;
+}
+
+.details-sidebar .title {
+    color: #b3c211;
+}
+
+.about-item .text h2:after {
+    background-color: #b3c211;
+}
+
+.about-box .detail h3:after {
+    background-color: #b3c211;
+}
+
+.we-best .content i {
+    background: #b3c211;
+}
+
+.we-best .content h4 {
+    color: #b3c211;
+}
+
+.contact-details .media .media-left i {
+    background: #b3c211;
+}
+
+.contact-details .media .media-body h4:after {
+    background-color: #b3c211;
+}
+
+.blog-box .detail h1:after {
+    background-color: #b3c211;
+}
+
+.blog-box .detail h1 a {
+    color: #b3c211;
+}
+
+.blog-box .detail .header a {
+    color: #b3c211;
+}
+
+blockquote {
+    border-left: 4px solid #b3c211;
+}
+
+.blog-box .title {
+    color: #b3c211;
+}
+
+.comments-thread .title {
+    color: #b3c211;
+}
+
+.comment-info span i {
+    color: #b3c211;
+}
+
+.comment a {
+    background: #b3c211;
+}
+
+.contact-form .title {
+    color: #b3c211;
+}
+
+.form-content-box .header {
+    background: #b3c211;
+}
+
+.btn-submit {
+    background: #b3c211;
+}
+
+.btn-submit:hover{
+    background: #9ba901;
+}
+
+.form-content-box .footer span a {
+    color: #b3c211;
+}
+
+.banner .btn-default:hover{
+    background: #b3c211;
+}
+
+.error404-content h2 {
+    color: #b3c211;
+}
+
+.featured-car-slider .details h4 a {
+    color: #b3c211;
+}
+
+.featured-car-slider .details .price {
+    color: #b3c211;
+}
+
+.btn-div a span {
+    background: #b3c211;
+}
+
+.features-item .detail h4:after {
+    background-color: #b3c211;
+}
+
+.features-item .detail h4 a:hover {
+    color: #b3c211;
+}
+
+.typography-page mark.color {
+    background-color: #b3c211;
+}
+
+.list-3 li:before, .list-2 li:before, .list-1 li:before {
+    color: #b3c211;
+}
+
+.numbered.color.filled ol > li::before {
+    background:  #b3c211;
+    border: 1px solid #b3c211;
+    background-color: #b3c211;
+}
+
+.numbered.color ol > li::before {
+    border: 1px solid #b3c211;
+    color: #b3c211;
+}
+
+.panel-box .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background: #b3c211;
+}
+
+.nav>li>a:hover{
+    background: #b3c211;
+}
+
+.opening-hours h3:after {
+    background-color: #b3c211;
+}
+
+.about-text ul li i {
+    color: #b3c211;
+}
+
+.our-serivce-2 .media .media-left i {
+    background: #b3c211;
+}
+
+.pricing-tables-box .price-header-red{
+    background: #b3c211;
+}
+
+.panel-title i {
+    color: #b3c211;
+}
+
+@media (max-width: 768px) {
+    .navbar-default .navbar-toggle {
+        background: #b3c211;
+        border: solid 1px #b3c211;
+    }
+}

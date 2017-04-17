@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+
+
+    <!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Error404-content start -->
+                <div class="error404-content">
+                    <h1>404</h1>
+                    <h2>page Not Found</h2>
+                    <p>Sorry, the page you requested may have been moved or deleted</p>
+                    <form action="index.html" method="post">
+                        <button type="submit" class="btn btn-submit">Back To Home</button>
+                    </form>
+                </div>
+                <!-- Error404-content end -->
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="container" th:replace="fragments/footer :: footer">
+            <p>footer</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-slider.js"></script>
+    <script type="text/javascript" src="js/wow.min.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- Custom javascript -->
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

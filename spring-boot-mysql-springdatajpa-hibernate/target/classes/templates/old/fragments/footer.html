@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{index.page.title}">Page Title</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+<body>
+<div class="container " th:fragment="footer" >
+    <div id="footer" class="navbar  navbar-fixed-bottom footer">
+        <div class="container " >
+            <p class="navbar-text pull-left footer">© 2017 - HeliPic</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

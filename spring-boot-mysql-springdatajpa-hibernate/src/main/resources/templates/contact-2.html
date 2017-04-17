@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+
+
+    <!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+ 
+<body>
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Kontakt</h2>
+                        <p>Der beste Weg uns zu erreichen.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Contact body start -->
+<div class="contact-body content-area">
+    <div class="container">
+        <div class="contact-box">
+            <!-- Main title -->
+            <div class="main-title">
+                <h1>So erreichen Sie uns</h1>
+                <div class="border">
+                    <div class="border-inner"></div>
+                </div>
+                <p>Gerne können Sie uns auch Ihre speziellen Wünsche nennen. </p>
+            </div>
+            <!-- Contact form start -->
+            <div class="contact-form">
+                <form id="contact_form" action="index.html" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group fullname">
+                                <input type="text" name="full-name" class="input-text" placeholder="Name"/>
+                            </div>
+                            <div class="form-group enter-email">
+                                <input type="email" name="email" class="input-text" placeholder=" Email"/>
+                            </div>
+                            <div class="form-group subject">
+                                <input type="text" name="subject" class="input-text" placeholder="Betreff"/>
+                            </div>
+                            <div class="form-group number">
+                                <input type="text" name="phone" class="input-text" placeholder="Telefon"/>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group message">
+                                <textarea class="input-text" name="message" placeholder="Ihr Anliegen"></textarea>
+                            </div>
+                            <div class="form-group send-btn">
+                                <button type="submit" class="btn btn-submit">Nachricht senden</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Contact form end -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="opening-hours">
+                        <h3>Öffnungszeiten</h3>
+                        <ul class="list-style-none">
+                           
+                            <li><strong>Montag</strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Dienstag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Mittwoch </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Donnerstag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Freitag </strong> <span> 14:00 – 18:00</span></li>
+                            <li><strong>Samstag </strong> <span> geschlossen</span></li>
+                             <li><strong>Sonntag</strong> <span class="text-red"> geschlossen</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contact-details">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-map-marker"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3>Office Adresse</h3>
+                                        <p>Pfarrgaben 6  <br/>
+                                            4713 Gallspach,
+                                            Austria</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3>Telefon</h3>
+                                        <p>
+                                            <a href="tel:+43 676 4677 516">Mobile: +43 676 4677 516</a>
+                                        </p>
+                                        <p>
+                                        <br/></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-fax"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3>Fax</h3>
+                                        <p>
+                                            <a href="tel:+1-800-624-5462">1-800- 624-5462</a>
+                                        </p>
+                                        <p>
+                                            <a href="tel:+55-417-634-7071">Mobile: +55 417 634 7071</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3>Email</h3>
+                                        <p>
+                                            <a href="mailto:sales@realhouse.com">sales@realhouse.com</a>
+                                        </p>
+                                        <p>
+                                            <a href="www.example.com" target="_blank">www.example.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact body end -->
+
+<!-- Google map start -->
+<div class="section">
+    <div class="map">
+        <div id="map" class="contact-map"></div>
+    </div>
+</div>
+<!-- Google map end -->
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2016. All rights reserved by: HeliGraphy</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0N5pbJN10Y1oYFRd0MJ_v2g8W2QT74JE"></script>
+<script type="text/javascript" src="js/custom.js">
+</script>
+</body>
+</html>
