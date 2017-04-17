@@ -193,7 +193,7 @@ body {
 .banner .item-1 {
     background-color: rgba(0, 0, 0, 0);
     background-repeat: no-repeat;
-    background: url(/images/bilder/Luftaufnahme_ueberseehafen_KF.jpg);
+    background: url(../images/bilder/Luftaufnahme_ueberseehafen_KF.jpg);
     background-size: cover;
     background-position: center center;
     width: 100%;
@@ -206,7 +206,7 @@ body {
 .banner .item-2 {
     background-color: rgba(0, 0, 0, 0);
     background-repeat: no-repeat;
-    background: url(/images/bilder/luftaufnahmen-privathaus-02.jpg);
+    background: url(../images/bilder/luftaufnahmen-privathaus-02.jpg);
     background-size: cover;
     background-position: center center;
     width: 100%;
@@ -218,7 +218,7 @@ body {
 .banner .item-3 {
     background-color: rgba(0, 0, 0, 0);
     background-repeat: no-repeat;
-    background: url(/images/bilder/Muri.jpg);
+    background: url(../images/bilder/Muri.jpg);
     background-size: cover;
     background-position: center center;
     width: 100%;
@@ -803,8 +803,8 @@ body {
 /** FOOTER AREA START **/
 footer {
     width: 100%;
-    background: #2A2A2A;
-    color: #7e7e7e;
+    background: gray;
+    color: white;
     padding-bottom: 20px;
 }
 
@@ -3999,7 +3999,7 @@ mark {
     }
 
     .logo img {
-        height: 30px;
+        height: 62px;
     }
 }
 

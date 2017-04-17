@@ -1,9 +1,9 @@
-	/*
-  	Flaticon icon font: Flaticon
-  	Creation date: 30/03/2017 10:19
-  	*/
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 30/03/2017 10:19
+    */
 
-@font-face {
+    @font-face {
   font-family: "Flaticon";
   src: url("./Flaticon.eot");
   src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
@@ -21,15 +21,22 @@
   }
 }
 
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
-[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
-  font-family: Flaticon;
-        font-size: auto;
-font-style: normal;
-margin-left: 0px;
-}
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
 
-.flaticon-cup:before { content: "\f100"; }
+    .flaticon-cup:before { content: "\f100"; }
 .flaticon-call-center-woman:before { content: "\f101"; }
 .flaticon-call-center-agent:before { content: "\f102"; }
 .flaticon-female-call-center-agent:before { content: "\f103"; }
@@ -63,3 +70,38 @@ margin-left: 0px;
 .flaticon-call-center-operator:before { content: "\f11f"; }
 .flaticon-handshake:before { content: "\f120"; }
 .flaticon-security:before { content: "\f121"; }
+    
+    $font-Flaticon-cup: "\f100";
+    $font-Flaticon-call-center-woman: "\f101";
+    $font-Flaticon-call-center-agent: "\f102";
+    $font-Flaticon-female-call-center-agent: "\f103";
+    $font-Flaticon-interface: "\f104";
+    $font-Flaticon-bar-graph-in-speech-bubble: "\f105";
+    $font-Flaticon-dollar-sticker: "\f106";
+    $font-Flaticon-satellite-transmission: "\f107";
+    $font-Flaticon-mixer: "\f108";
+    $font-Flaticon-car: "\f109";
+    $font-Flaticon-car-tire-change: "\f10a";
+    $font-Flaticon-wrench: "\f10b";
+    $font-Flaticon-key: "\f10c";
+    $font-Flaticon-placeholder: "\f10d";
+    $font-Flaticon-factory-stock-house: "\f10e";
+    $font-Flaticon-paint-brush: "\f10f";
+    $font-Flaticon-engine: "\f110";
+    $font-Flaticon-dollar-symbol: "\f111";
+    $font-Flaticon-rim: "\f112";
+    $font-Flaticon-man-and-recycling-bin: "\f113";
+    $font-Flaticon-settings: "\f114";
+    $font-Flaticon-plug: "\f115";
+    $font-Flaticon-car-door: "\f116";
+    $font-Flaticon-speedometer: "\f117";
+    $font-Flaticon-sedan-car-front: "\f118";
+    $font-Flaticon-time: "\f119";
+    $font-Flaticon-transport: "\f11a";
+    $font-Flaticon-racing-flag: "\f11b";
+    $font-Flaticon-road-with-broken-line: "\f11c";
+    $font-Flaticon-automatic-flash-symbol: "\f11d";
+    $font-Flaticon-gasoline-pump: "\f11e";
+    $font-Flaticon-call-center-operator: "\f11f";
+    $font-Flaticon-handshake: "\f120";
+    $font-Flaticon-security: "\f121";

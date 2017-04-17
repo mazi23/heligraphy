@@ -34,12 +34,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/js/**",
             "/images/**",
             "/",
-            "/index"
+            "/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+       /*http
                 .authorizeRequests()//.anyRequest().permitAll();
                 .antMatchers("/resources/**", "/registration","/index","/").permitAll()
                 .anyRequest().authenticated()
@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		/*	antMatchers("/**").*/
                 antMatchers(PUBLIC_MATCHERS).
                 permitAll().anyRequest().authenticated();
-
+/*
         http
                 .csrf().disable()
                 .formLogin().failureUrl("/login?error").defaultSuccessUrl("/")
@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
                 .and()
                 .rememberMe();
-
+*/
     }
 
     @Autowired
