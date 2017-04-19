@@ -53,14 +53,14 @@
         <div class="col-md-6">
             <br/>
 
-
+<!--
             <p><select id="preis" th:field="*{preis}" >
                 <option th:value="200">200€</option>
                 <option th:value="220">220€</option>
                 <option th:value="250">250€</option>
                 <option th:value="000">Nach Angebot</option>
             </select>
-            </p>
+            </p>-->
             <p>Fotograf: <input type="text" id="fotograf" th:field="*{fotograf}" class="form-control"/></p>
             <input type="file" name="bild" accept="image/*" multiple="true" th:field="*{bilder}" class="form-control"/>
             <br/>
@@ -74,14 +74,14 @@
                 <th>Gruppen ID</th>
                 <th>Bild</th>
                 <td>Fotograf</td>
-                <th>Preis</th>
+
                 <th>Aktion</th>
             </tr>
             <tr th:each="bild : ${Bilder}" th:if="${bild.value.bild != null}">
                 <td th:text="${bild.value.id}">ID</td>
                 <td><img th:src="@{/upload/}+${bild.value.bildid}"/></td>
                 <td th:text="${bild.value.erzeuger}">Fotograf</td>
-                <td th:text="${bild.value.preis}">Preis</td>
+
                 <td><form th:action="@{upload/delet/}+${bild.value.bildid}"> <input type="submit" class="btn btn-warning" th:value="Löschen"/></form></td>
             </tr>
         </table>

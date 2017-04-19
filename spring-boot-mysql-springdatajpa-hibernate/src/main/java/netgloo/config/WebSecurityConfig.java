@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/upload","/loadBilder","/upload/*","/upload/*/*","/BackendBilderUpload",
             "/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
             "/picture-list.html","/picture-grid.html","/picture-grid","/picture-grid/**","/picture-details/**","/picture-details",
-            "/suchen"
+            "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**"
     };
 
     @Override
@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();*/
-
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/404.html");
 
         http
                 .authorizeRequests().

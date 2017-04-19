@@ -29,4 +29,9 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
 
     @Query("from Bild b where bildgruppe=:bgruppe")
     public List<Bild> findBildermitgruppe(@Param("bgruppe") Bildgruppe bgruppe);
+
+
+    @Query(" from Bild b where id=:id")
+    public Bild findBildByid(@Param("id") Long id);
+
 }

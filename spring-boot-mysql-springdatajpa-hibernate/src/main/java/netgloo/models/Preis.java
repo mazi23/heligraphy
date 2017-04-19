@@ -12,11 +12,14 @@ public class Preis {
     private long id;
     private int preis;
     private int mwst;
+    private String preisPlan;
 
 
-    public Preis(int preis, int mwst) {
+
+    public Preis(int preis, int mwst, String preisPlan) {
         this.preis = preis;
         this.mwst = mwst;
+        this.preisPlan = preisPlan;
     }
 
     public Preis() {
@@ -45,5 +48,13 @@ public class Preis {
 
     public void setMwst(int mwst) {
         this.mwst = mwst;
+    }
+
+    public String getPreisPlan() {
+        return preisPlan;
+    }
+
+    public void setPreisPlan(String preisPlan) {
+        this.preisPlan = preisPlan;
     }
 }
