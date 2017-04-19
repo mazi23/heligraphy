@@ -44,20 +44,21 @@
                     <div th:each="bild,it : ${Bilder}" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <!-- Car box start-->
                         <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
-                            <img th:src="@{/picture-grid/}+${bild.id}" src="http://placehold.it/360x257" alt="audi_q7_2017" />
+                            <img th:src="@{/picture-grid/}+${bild.id}" src="http://placehold.it/360x257" alt="Error" />
                             <!-- detail -->
                             <div class="caption detail">
                                 <!-- Header ${bild.value.id}-->
                                 <header class="clearfix">
                                     <div class="pull-left">
                                         <h5 class="title">
-                                            <a href="picture-details.html">Audi q7 2017</a>
+                                                <a hidden="true" th:href="@{/picture-grid/detail/}+${it.index}" th:text="'Bild '+${bild.id}"></a>
+
                                         </h5>
 
                                     </div>
                                     <!-- Price -->
-                                    <div class="price">
-                                        <span th:text="'€'+${bild.preis.preis}">$42,605</span>
+                                    <div hidden="true" class="price">
+                                      <!-- <span hidden="true" th:text="'€'+${bild.preis.preis}">$42,605</span>-->
                                     </div>
                                 </header>
                                 <!-- Paragraph -->
@@ -93,9 +94,9 @@
                                         </li>
                                     </ul>
                                     <form th:action="@{/picture-grid/detail/}+${bild.id}" method="post">
-                                        <input type="submit" th:value="Details"/>
+                                        <input class="btn btn-view" type="submit" th:value="Details"/>
                                     </form>
-                                    <a th:href="'/picture-details/'+${bild.id}">det</a>
+
                                 </div>
 
 

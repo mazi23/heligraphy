@@ -19,8 +19,7 @@ public class Bild implements Serializable{
     @Lob
     private byte[] thumbnail;
     private String erzeuger;
-    @OneToOne
-    private Preis preis;
+
     @OneToOne
     private Bildgruppe bildgruppe;
 
@@ -28,12 +27,12 @@ public class Bild implements Serializable{
     public Bild() {
     }
 
-    public Bild(Integer privat, byte[] datei, byte[] thumbnail, String erzeuger, Preis preis, Bildgruppe bildgruppe) {
+    public Bild(Integer privat, byte[] datei, byte[] thumbnail, String erzeuger, Bildgruppe bildgruppe) {
         this.privat = privat;
         this.datei = datei;
         this.thumbnail = thumbnail;
         this.erzeuger = erzeuger;
-        this.preis = preis;
+
         this.bildgruppe = bildgruppe;
     }
 
@@ -77,13 +76,6 @@ public class Bild implements Serializable{
         this.erzeuger = erzeuger;
     }
 
-    public Preis getPreis() {
-        return preis;
-    }
-
-    public void setPreis(Preis preis) {
-        this.preis = preis;
-    }
 
     public Bildgruppe getBildgruppe() {
         return bildgruppe;

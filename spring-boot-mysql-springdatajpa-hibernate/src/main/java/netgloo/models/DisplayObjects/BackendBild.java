@@ -9,7 +9,7 @@ public class BackendBild {
     byte[] bild;
     int bildid;
     String erzeuger;
-    Integer preis;
+   // Integer preis;
 
     public int getBildid() {
         return bildid;
@@ -43,12 +43,12 @@ public class BackendBild {
         this.bild = bild;
     }
 
-    public BackendBild(int id, byte[] bild, int bildid, String erzeuger, int preis) {
+    public BackendBild(int id, byte[] bild, int bildid, String erzeuger) {
         this.id = id;
         this.bild = bild;
         this.bildid = bildid;
         this.erzeuger = erzeuger;
-        this.preis = preis;
+
     }
 
     public String getErzeuger() {
@@ -59,11 +59,5 @@ public class BackendBild {
         this.erzeuger = erzeuger;
     }
 
-    public Integer getPreis() {
-        return preis;
-    }
 
-    public void setPreis(Integer preis) {
-        this.preis = preis;
-    }
 }

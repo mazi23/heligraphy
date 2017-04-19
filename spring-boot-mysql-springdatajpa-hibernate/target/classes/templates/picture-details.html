@@ -41,19 +41,19 @@
                             <div class="section-heading">
                                 <div class="media">
                                     <div class="media-left">
-                                        <i class="flaticon-sedan-car-front"></i>
+                                        <i hidden="true" class="flaticon-sedan-car-front"></i>
                                     </div>
                                     <div class="media-body hidden-xs">
-                                        <h4>CHEVROLET IMPALA</h4>
+                                        <h4>Ihr Haus</h4>
                                         <div class="border"></div>
-                                        <p>Details of Chevrolet Impala</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="header-price">
-                                <h3 th:text="'€ '+${bild.preis}">$399,500</h3>
+                                <h3 hidden="true" >$399,500</h3>
                                 <p>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -102,9 +102,9 @@
                                                 <i class="flaticon-sedan-car-front"></i>
                                             </div>
                                             <div class="media-body">
-                                                <h4>Car Specifications</h4>
+                                                <h4>Details zum Bild</h4>
                                                 <div class="border"></div>
-                                                <p>Check the car specifications</p>
+                                                <p></p>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <!-- Reviews Box -->
-                        <div class="reviews-box clearfix">
+                        <div hidden="true" class="reviews-box clearfix">
                             <ul class="reviews-star-list">
                                 <li>
                                     <i class="fa fa-star"></i>
@@ -127,7 +127,7 @@
                                     <i class="fa fa-star"></i>
                                 </li>
                                 <li>
-                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star"></i>
                                 </li>
                             </ul>
                             <div class="reviews">156 reviews</div>
@@ -135,16 +135,9 @@
                                 <i class="fa fa-plus-circle"></i>Add Review
                             </a>
                         </div>
-                        <p>Voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui voluptatem sequi nesciunt.<br/><br/>
-                            Neque porro quisqua. Sed ut perspiciatis unde omnis ste natus error sit voluptatem.</p>
 
-                        <a href="#" class="wishlist-btn">
-                            <span class="wishlist-btn-l">
-                                <i class="fa fa-plus"></i>
-                            </span>
-                            <span class="wishlist-btn-r">Add to favorite list</span>
-                            <div class="clear"></div>
-                        </a>
+
+
                         <a href="#" class="book-btn">
                             <span class="book-btn-l"><i class="fa fa-check"></i></span>
                             <span class="book-btn-r">Add to favorite list</span>
@@ -157,9 +150,6 @@
                     <div class="panel-box">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab1default" data-toggle="tab" aria-expanded="true">General Information</a></li>
-                            <li class=""><a href="#tab2default" data-toggle="tab" aria-expanded="false">Extra feature</a></li>
-                            <li class=""><a href="#tab3default" data-toggle="tab" aria-expanded="false">Technical Specifications</a></li>
-                            <li class=""><a href="#tab4default" data-toggle="tab" aria-expanded="false">Video</a></li>
                         </ul>
                         <div class="panel with-nav-tabs panel-default">
                             <div class="panel-body">
@@ -293,51 +283,38 @@
                         <div class="section-heading option-bar">
                             <div class="media">
                                 <div class="media-left">
-                                    <i class="flaticon-sedan-car-front"></i>
+                                    <i hidden="true" class="flaticon-sedan-car-front"></i>
                                 </div>
                                 <div class="media-body">
-                                    <h4>Car Specifications</h4>
+                                    <h4>Informationen zum Bild</h4>
                                     <div class="border"></div>
-                                    <p>Check the car specifications</p>
+                                    <p>Diese Infos richten sich nach der verwendeten Kamera</p>
                                 </div>
                             </div>
                         </div>
-
+                        <form action="#" th:action="@{/addToChart}" th:object="${Item}"  method="post">
                         <ul>
-                            <li>
-                                <span>Aufnamedatum</span><p th:text="${bild.AufnahmeDatum}"></p>
+
+                            <li th:each="values: ${bild.metadata}">
+                                <span th:text="${values.key}"></span><p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}" th:field="*{id}" />
                             </li>
                             <li>
-                                <span>Model</span>5-series
+                                <span>Preis</span>
+                               <select th:field="*{price}">
+                                   <option th:each="preis : ${preise}" th:value="${preis.id} " th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'" ></option>
+                               </select>
                             </li>
                             <li>
-                                <span>Registration date</span>2017
+                                <span>Land</span>Österreich
                             </li>
                             <li>
-                                <span>Mileage</span>34,000 mi
+
+                                <span></span> <input class="btn btn-view" th:value="Kaufen" type="submit"/>
+
                             </li>
-                            <li>
-                                <span>Condition</span>Brand New
-                            </li>
-                            <li>
-                                <span>Interior Color</span>Brown (Leather)
-                            </li>
-                            <li>
-                                <span>Transmission</span>Automatic
-                            </li>
-                            <li>
-                                <span>Engine</span>3.4L Mid-Engine V6
-                            </li>
-                            <li>
-                                <span>No. of Gears:</span>5
-                            </li>
-                            <li>
-                                <span>Location</span>Toronto
-                            </li>
-                            <li>
-                                <span>Fuel Type</span>Gasoline Fuel
-                            </li>
+
                         </ul>
+                        </form>
                     </div>
                     <!-- Car details end -->
 

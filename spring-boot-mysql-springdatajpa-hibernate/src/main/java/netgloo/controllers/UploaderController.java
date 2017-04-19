@@ -66,7 +66,7 @@ public class UploaderController {
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
                 bild.setErzeuger((String)o.getErzeuger());
-                if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
+                //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);
             }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
@@ -99,18 +99,18 @@ public class UploaderController {
         Bildgruppe bildgruppe = new Bildgruppe();
         bildgruppe.setAdresse(adresse);
         bildgruppeDao.save(bildgruppe);
-        Preis p = new Preis();
+        /*Preis p = new Preis();
         p.setMwst(20);
         p.setPreis(object.getPreis());
         preisDao.save(p);
-
+*/
         for (MultipartFile f:object.getBilder()) {
             Bild bild = new Bild();
             BufferedImage thumbnail = ImageIO.read(new ByteArrayInputStream(f.getBytes()));
             bild.setBildgruppe(bildgruppe);
             bild.setDatei(f.getBytes());
             bild.setErzeuger(object.getFotograf());
-            bild.setPreis(p);
+            //bild.setPreis(p);
             BufferedImage scaledImg = Scalr.resize(thumbnail, 150);
             //scaledImg = Scalr.rotate(scaledImg,Scalr.Rotation.CW_180,null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -141,7 +141,7 @@ public class UploaderController {
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
                 bild.setErzeuger((String)o.getErzeuger());
-                if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
+                //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);
             }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
