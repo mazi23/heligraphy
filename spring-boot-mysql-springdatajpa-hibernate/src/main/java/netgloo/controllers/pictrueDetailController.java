@@ -2,20 +2,13 @@ package netgloo.controllers;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.StringValue;
-import com.drew.metadata.Tag;
-import com.drew.metadata.exif.ExifIFD0Descriptor;
-import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import netgloo.models.Bild;
 import netgloo.models.DisplayObjects.BildDetailObject;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.DisplayObjects.ShoppingChart;
-import netgloo.models.Preis;
 import netgloo.models.daos.PreisDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,15 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 

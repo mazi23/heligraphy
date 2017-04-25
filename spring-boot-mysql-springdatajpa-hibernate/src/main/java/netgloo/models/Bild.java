@@ -2,7 +2,6 @@ package netgloo.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Created by mazi on 14.01.17.
