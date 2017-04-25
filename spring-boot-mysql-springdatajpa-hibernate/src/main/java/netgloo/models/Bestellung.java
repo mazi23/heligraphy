@@ -1,6 +1,6 @@
 package netgloo.models;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

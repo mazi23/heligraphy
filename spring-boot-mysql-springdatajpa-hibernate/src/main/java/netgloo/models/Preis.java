@@ -1,6 +1,8 @@
 package netgloo.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by mazi on 14.01.17.

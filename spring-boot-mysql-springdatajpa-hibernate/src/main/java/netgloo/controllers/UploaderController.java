@@ -6,7 +6,6 @@ import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
 import netgloo.models.DisplayObjects.BackendBild;
 import netgloo.models.DisplayObjects.UploaderObject;
-import netgloo.models.Preis;
 import netgloo.models.daos.AdresseDao;
 import netgloo.models.daos.BildDao;
 import netgloo.models.daos.BildgruppeDao;
@@ -29,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by mazi on 21.01.17.

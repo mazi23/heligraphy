@@ -1,7 +1,5 @@
 package netgloo.controllers;
 
-import netgloo.models.Bild;
-import netgloo.models.Bildgruppe;
 import netgloo.models.Code;
 import netgloo.models.daos.BildDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by mazi on 16.04.17.

@@ -1,12 +1,8 @@
 package netgloo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User {
 
     // ------------------------
     // PRIVATE FIELDS
@@ -53,12 +49,12 @@ public class User implements UserDetails{
     @OneToMany
     private Set<Bestellung> bestellung = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<UserRole> userRoles = new HashSet<>();
-    // ------------------------
-    // PUBLIC METHODS
-    // ------------------------
+    private Role role;
+
+
+
+
+
 
     public User() { }
 
@@ -66,7 +62,7 @@ public class User implements UserDetails{
         this.id = id;
     }
 
-    public User(String email, String nachname, String titel, String vorname, boolean enabled, String telefon, String art, Adresse adresse, Integer idBildgruppe, String username, String passwort, Set<Bestellung> bestellung, Set<UserRole> userRoles) {
+    public User(String email, String nachname, String titel, String vorname, boolean enabled, String telefon, String art, Adresse adresse, Integer idBildgruppe, String username, String passwort, Set<Bestellung> bestellung, Role role) {
         this.email = email;
         this.nachname = nachname;
         this.titel = titel;
@@ -79,7 +75,7 @@ public class User implements UserDetails{
         this.username = username;
         this.passwort = passwort;
         this.bestellung = bestellung;
-        this.userRoles = userRoles;
+        this.role = role;
     }
 
     public Set<Bestellung> getBestellung() {
@@ -130,14 +126,6 @@ public class User implements UserDetails{
         this.vorname = vorname;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getTelefon() {
         return telefon;
@@ -171,36 +159,24 @@ public class User implements UserDetails{
         this.idBildgruppe = idBildgruppe;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorites = new HashSet<>();
-        userRoles.forEach(ur -> authorites.add(new Authority(ur.getRole().getName())));
-
-        return authorites;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    @Override
-    public String getPassword() {
-        return passwort;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getUsername() {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public Role getRole() {
+        return role;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setUsername(String username) {
@@ -215,11 +191,5 @@ public class User implements UserDetails{
         this.passwort = passwort;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
 } // class User
