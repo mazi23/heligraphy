@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+<body>
+<!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Bestelldetails</h2>
+                        <p></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form id="contact_form" th:action="@{/VersandDetails}" th:object="${AdressenCommand}" method="POST" enctype="multipart/form-data">
+    <div class="col-md-12  col-sm-12  col-xs-8 " style="background:#fff; padding:30px;" >
+
+        <div class="row">
+            <div style="display: table; margin: auto;">
+            <span class="step step_complete"> <a href="/shoppingchartSum" class="check-bc">Warenkorb</a> <span
+                    class="step_line step_complete"> </span> <span class="step_line backline"> </span> </span>
+                <span class="step step_complete"> <a href="#" class="check-bc">Versanddetails</a> <span
+                        class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
+
+                <span class="step "> <a href="#" class="check-bc">Übersicht</a> <span class="step_line "> </span> <span
+                        class="step_line "> </span> </span>
+                <span class="step_thankyou check-bc step_complete">Fertig</span>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h3 class="text-center">Versand Adresse</h3>
+
+            <hr/>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Vorname" id="first_name" class="form-control input-md"
+                           placeholder="Vorname"
+                           th:field="*{vornameVA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Nachname" id="last_name" class="form-control input-md"
+                           placeholder="Nachname"
+                           th:field="*{nachnameVA}"/>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Email" id="email" class="form-control input-md" placeholder="Email"
+                           th:field="*{emailVA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="tel" id="tel" class="form-control input-md" placeholder="Telefonnummer"
+                           th:field="*{telVA}"/>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="strasse" id="strasse" class="form-control input-md" placeholder="Straße"
+                           th:field="*{strasseVA}"/>
+                </div>
+            </div>
+
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="ort" id="ort" class="form-control input-md" placeholder="Ort"
+                           th:field="*{ortVA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="land" id="land" class="form-control input-md" placeholder="Land"
+                           th:field="*{landVA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="plz" id="plz" class="form-control input-md" placeholder="PLZ"
+                           th:field="*{plzVA}"/>
+                </div>
+            </div>
+
+            <div style="margin-left: 20px;">
+                <input class="coupon_question" id="cbAdr" type="checkbox" name="coupon_question" value="1"/>
+                <span class="item-text">Andere Rechnungsadresse als Versandadresse</span>
+            </div>
+            <div class="form-group send-btn">
+                <button type="submit" class="btn btn-submit">Nachricht senden</button>
+            </div>
+        </div>
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="REadresse" hidden="true">
+            <h3 class="text-center">Rechnungs Adresse</h3>
+
+            <hr/>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Vorname" id="first_nameRA" class="form-control input-md"
+                           placeholder="Vorname"
+                           th:field="*{vornameRA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Nachname" id="last_nameRA" class="form-control input-md"
+                           placeholder="Nachname"
+                           th:field="*{nachnameRA}"/>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="Email" id="emailRA" class="form-control input-md" placeholder="Email"
+                           th:field="*{emailRA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="tel" id="telRA" class="form-control input-md" placeholder="Telefonnummer"
+                           th:field="*{telRA}"/>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="strasse" id="strasseRA" class="form-control input-md" placeholder="Straße"
+                           th:field="*{strasseRA}"/>
+                </div>
+            </div>
+
+
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="ort" id="ortRA" class="form-control input-md" placeholder="Ort"
+                           th:field="*{ortRA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="land" id="landRA" class="form-control input-md" placeholder="Land"
+                           th:field="*{landRA}"/>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <input type="text" name="plz" id="plzRA" class="form-control input-md" placeholder="PLZ"
+                           th:field="*{plzRA}"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </form>
+</div>
+
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2017. All rights reserved by: Heligrapy</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+<script>
+
+    $('#cbAdr').click(function () {
+        if ($('#cbAdr:checked').length > 0) {
+            $("#REadresse").show();
+        } else {
+            $("#REadresse").hide();
+        }
+    });
+
+
+</script>
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

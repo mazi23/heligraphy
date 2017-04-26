@@ -4,7 +4,7 @@
 
 /** MAIN HEADER AREA START **/
 .main-header {
-    border-top: solid 2px #0088CC;
+   /** border-top: solid 2px #0088CC;**/
 }
 
 .navbar-default .navbar-nav > .active > a,
