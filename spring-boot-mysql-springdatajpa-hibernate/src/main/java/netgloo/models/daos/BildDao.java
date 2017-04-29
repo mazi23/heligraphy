@@ -34,4 +34,6 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query(" from Bild b where id=:id")
     public Bild findBildByid(@Param("id") Long id);
 
+
+
 }

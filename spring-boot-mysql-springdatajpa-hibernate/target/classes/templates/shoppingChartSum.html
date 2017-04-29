@@ -59,7 +59,9 @@
             </td>
             <td data-th="Subtotal" class="text-center" th:text="${item.price}*${item.quantity}" style="vertical-align: middle"></td>
             <td class="actions" data-th="" style="vertical-align: middle">
-                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+               <form th:action="@{/itemDelete/}+${it.index}">
+                   <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+               </form>
             </td>
         </tr>
         </tbody>
@@ -68,10 +70,10 @@
             <td class="text-center"><strong>Total 1.99</strong></td>
         </tr>
         <tr>
-            <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td><a th:href="@{/weiterEinkaufen}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Weiter einkaufen</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center" id="total"><strong>Total $1.99</strong></td>
-            <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td><a href="/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
         </tr>
         </tfoot>
     </table>

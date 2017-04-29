@@ -1,6 +1,7 @@
 package netgloo.controllers;
 
 import netgloo.models.Code;
+import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.BildDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class indexController {
 
     @Autowired
     BildDao bildDao;
+
+    @Autowired
+    ShoppingCart shoppingChart;
 
     @RequestMapping({"/", "/index",""})
     public String getIndex(Model model){

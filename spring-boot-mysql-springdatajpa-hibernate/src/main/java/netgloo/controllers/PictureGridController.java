@@ -2,6 +2,7 @@ package netgloo.controllers;
 
 import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
+import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.BildDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class PictureGridController {
     BildDao bildDao;
 
     HashMap<Integer, Bild> bilder ;
+
+    @Autowired
+    ShoppingCart shoppingChart;
 
     @RequestMapping(value = {"/picture-grid","/picture-grid.html"})
     public String getPictureSite(@ModelAttribute("code") String code, Model model){

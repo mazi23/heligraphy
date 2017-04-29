@@ -1,12 +1,16 @@
 package netgloo.controllers;
 
+import netgloo.comands.ContactCommand;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.*;
+
 import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 /**
  * Created by mazi on 16.04.17.
@@ -15,15 +19,25 @@ import javax.activation.*;
 public class serviceController {
     @RequestMapping({"/services-2"})
     public String start(Model model){
+
+        model.addAttribute("contactCommand",new ContactCommand());
         return "services-2";
     }
 
 
 
-    public void sendMail()
+    @RequestMapping("/send")
+    public String send(@ModelAttribute(value = "contactCommand") ContactCommand contactCommand, Model model, BindingResult bindingResult){
+
+        sendMail(contactCommand.getMail(),contactCommand.getBetreff(),contactCommand.getNachricht(),contactCommand.getTelefon());
+
+        return "services-2";
+    }
+
+    public void sendMail(String from,String subject, String text,String telefon)
     {
-        final String username = "grieskirchenMeldungen@gmail.com";
-        final String password = "grieskirchenMeldungen1";
+        final String username = "mac.matthias@gmail.com";
+        final String password = "macbook1";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -39,19 +53,17 @@ public class serviceController {
                 });
 
         try {
-
+            Object[] adressen = new Object[]{InternetAddress.parse("mac.matthias@gmail.com"),InternetAddress.parse(from)};
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("grieskirchenMeldungen@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("mac.matthias@gmail.com"));
-            //message.setRecipients(Message.RecipientType.TO,
-            //      InternetAddress.parse(problem.getEmail()));
-            message.setSubject("");
-            message.setText("");
+            message.setFrom(new InternetAddress(from));
+            message.setRecipients(Message.RecipientType.TO, (Address[]) adressen);
+            message.setSubject("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n"+ "Telefon: "+telefon);
+            message.setText(text);
 
             Transport.send(message);
 
-            System.out.println("Done");
+
+
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

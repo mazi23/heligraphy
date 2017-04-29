@@ -1,6 +1,6 @@
 package netgloo.controllers;
 
-import netgloo.models.DisplayObjects.ShoppingChart;
+import netgloo.models.DisplayObjects.ShoppingCart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @Autowired
-    ShoppingChart shoppingChart;
+    ShoppingCart shoppingChart;
 
     @RequestMapping(value = {"/login.html","/login"})
     public String start(Model model){

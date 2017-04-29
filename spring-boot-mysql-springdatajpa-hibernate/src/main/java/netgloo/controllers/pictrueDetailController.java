@@ -8,7 +8,7 @@ import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
 import netgloo.models.Bild;
 import netgloo.models.DisplayObjects.BildDetailObject;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
-import netgloo.models.DisplayObjects.ShoppingChart;
+import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.PreisDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ import java.util.Locale;
 public class pictrueDetailController {
 
     @Autowired
-    ShoppingChart shoppingChart;
+    ShoppingCart shoppingChart;
 
     @Autowired
     PreisDao preisDao;
@@ -109,6 +109,7 @@ public class pictrueDetailController {
         shoppingCartItem.setPrice(preisDao.findOne(Long.valueOf(priceid)).getPreis());
         shoppingCartItem.setId(bildDetailObject.getId());
         shoppingCartItem.setQuantity(1);
+        shoppingChart.setBildgruppe( b.getBildgruppe().getUniqCode());
 
         if (shoppingChart.getItems()==null){
             shoppingChart.items = new ArrayList<>();
