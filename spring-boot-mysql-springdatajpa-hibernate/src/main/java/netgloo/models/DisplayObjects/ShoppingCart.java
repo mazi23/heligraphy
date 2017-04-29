@@ -13,19 +13,20 @@ import java.util.List;
  */
 @Component
 @Scope(value="session", proxyMode= ScopedProxyMode.TARGET_CLASS)
-public class ShoppingChart implements Serializable {
+public class ShoppingCart implements Serializable {
 
     public List<ShoppingCartItem> items;
 
     public double total;
 
+    private String bildgruppe;
 
-    public ShoppingChart(List<ShoppingCartItem> items, double total) {
+    public ShoppingCart(List<ShoppingCartItem> items, double total) {
         this.items = items;
         this.total = total;
     }
 
-    public ShoppingChart() {
+    public ShoppingCart() {
         this.items = new ArrayList<ShoppingCartItem>();
     }
 
@@ -43,5 +44,13 @@ public class ShoppingChart implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getBildgruppe() {
+        return bildgruppe;
+    }
+
+    public void setBildgruppe(String bildgruppe) {
+        this.bildgruppe = bildgruppe;
     }
 }
