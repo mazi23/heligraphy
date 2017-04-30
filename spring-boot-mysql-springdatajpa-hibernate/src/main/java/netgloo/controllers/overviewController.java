@@ -1,5 +1,8 @@
 package netgloo.controllers;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import netgloo.Mail;
 import netgloo.comands.AdressenCommand;
 import netgloo.models.*;
 import netgloo.models.DisplayObjects.OverviewPrice;
@@ -12,7 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 /**
  * Created by mazi on 29.04.17.
@@ -48,7 +54,7 @@ public class overviewController {
         if (zahlungsart==null) overviewPrice.setVersandkosten(5);
         else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
         else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
-        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme()+overviewPrice.getVersandkosten());
+
 
 
 
@@ -122,7 +128,7 @@ public class overviewController {
             kunde.addBestellung(bestellung);
         }
 
-
+        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme()+overviewPrice.getVersandkosten());
         model.addAttribute("overviewPrice",overviewPrice);
         model.addAttribute("Items",shoppingCart.getItems());
         return "overview";
@@ -141,19 +147,114 @@ public class overviewController {
         redirectAttributes.addFlashAttribute("code",shoppingCart.getBildgruppe());
         return "redirect:picture-grid";
     }
-/*
+
     @RequestMapping(value = "/BestellungAbsenden")
-    public String bestellungAbsenden(Model model)
-    {
+    public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
+        Mail mailToPrint = new Mail();
 
 
-    return "";
+        //mailToPrint.setAbsenderMail("info@heligraphy.at");
+        //ToDO: email auf Druckerei ändern
+        mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
+        HashMap<Integer,Bild> bilder = new HashMap();
+
+        //
+        String textprintPaper = "";
+        String textprintLeinwand ="";
+        for (ShoppingCartItem item: shoppingCart.getItems()){
+            if(item.getPrice()==280||item.getPrice()==500) {
+                bilder.put(item.getId(),bildDao.findBildByid((long) item.getId()));
+                if(item.getPrice()==280) textprintPaper+= "image"+ item.getId()+".jpg,";
+                if(item.getPrice()==500) textprintLeinwand+= "image" + item.getId()+".jpg,";
+                //bilder.add(bildDao.findBildByid((long) item.getId()));
+            }
+        }
+       if(!textprintPaper.equals("")){
+            textprintPaper+= " als Lambda-Abzug auf\n" +
+                   "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
+       }
+       if (!textprintLeinwand.equals("")){
+           textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
+       }
+
+        String textPrint ="";
+        if (bestellung.getVersandart().equals("Nachname")){
+            textPrint= "Sehr geehrte Damen und Herren," +
+                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                    "Gewünscht wird: " + textprintLeinwand +textprintPaper  + "\n Bitte mit der Versandart Nachname." +
+                    "\r\n Rechnungsadresse: \r\n" +
+                    "Matthias Oberegger \r\n" +
+                    "Pfarrgraben 6 \r\n" +
+                    "4713 Gallspach \r\n" +
+                    "Österreich \r\n \r\n" +
+                    "Versandadresse: \r\n " + kunde.getVorname() + " " + kunde.getNachname() + "\r\n" +
+                    kunde.getAdresse().getAnschrift() +"\r\n" +
+                    kunde.getAdresse().getPlz() + " " +kunde.getAdresse().getOrt()+ "\r\n" +
+                    kunde.getAdresse().getLand()+"\r\n" +
+                    "Mit freundlichen Grüßen \r\n" +
+                    "Matthis Oberegger";
+        }
+        else {
+            textPrint= "Sehr geehrte Damen und Herren," +
+                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                    "Gewünscht wird: " + textprintLeinwand +textprintPaper  +
+                    "\r\n\n Rechnungsadresse: \r\n" +
+                    "Matthias Oberegger \r\n" +
+                    "Pfarrgraben 6 \r\n" +
+                    "4713 Gallspach \r\n" +
+                    "Österreich \r\n \r\n" +
+                    "Versandadresse: \r\n " + kunde.getVorname() + " " + kunde.getNachname() + "\r\n" +
+                    kunde.getAdresse().getAnschrift() +"\r\n" +
+                    kunde.getAdresse().getPlz() + " " +kunde.getAdresse().getOrt()+ "\r\n" +
+                    kunde.getAdresse().getLand()+"\r\n" +
+                    "Mit freundlichen Grüßen \r\n" +
+                    "Matthis Oberegger";
+        }
+
+
+
+        mailToPrint.sendMail("HeliGrapyh Druckanfrage",textPrint,bilder);
+
+
+
+        String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getNachname() +", \r\n \r\n "+
+                "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
+                "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
+
+
+        Mail mailtoCustomer = new Mail();
+        generateReport(bestellung);
+
+
+    return "bestellungAbgeschlossen";
     }
+    public void generateReport(Bestellung bs) throws JRException {
+        JasperReport jasperReport;
+        JasperPrint jasperPrint;
+        HashMap<String, Object> parameter = new HashMap<String, Object>();
+        jasperReport = JasperCompileManager
+                .compileReport("src/main/resources/static/jasper/Invoice.jrxml");
 
+
+        //for (BestellElement bestellElement :bs.getBilder()){
+
+
+
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
+        parameter.put("ItemDataSource", itemsJRBean);
+        parameter.put("test", "Hallo Welt");
+
+
+        jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
+        JasperExportManager.exportReportToPdfFile(jasperPrint,
+                "./Example1.pdf");
+    }
 
     public void sendBestellung()
     {
 
     }
-*/
+
 }

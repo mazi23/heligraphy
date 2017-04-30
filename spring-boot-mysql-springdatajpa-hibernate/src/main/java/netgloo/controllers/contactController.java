@@ -38,10 +38,10 @@ public class contactController {
         final String password = "macbook1";
 
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("Mail.smtp.auth", "true");
+        props.put("Mail.smtp.starttls.enable", "true");
+        props.put("Mail.smtp.host", "smtp.gmail.com");
+        props.put("Mail.smtp.port", "587");
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {

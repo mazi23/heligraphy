@@ -269,3 +269,10 @@ img {
     color: #fff;
     background-color: #5bc0de;
 }
+#wasserzeichen{
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    top: 50px;
+    opacity: 0.35;
+}
