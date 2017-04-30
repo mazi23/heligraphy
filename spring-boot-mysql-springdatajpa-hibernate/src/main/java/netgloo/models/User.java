@@ -86,6 +86,11 @@ public class User {
         this.bestellung = bestellung;
     }
 
+    //Bestellung zu User hinzufügen
+    public void addBestellung(Bestellung bestellung){
+       this.bestellung.add(bestellung);
+    }
+
     public long getId() {
         return id;
     }

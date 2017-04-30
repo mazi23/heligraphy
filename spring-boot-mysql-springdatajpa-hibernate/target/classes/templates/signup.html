@@ -25,16 +25,37 @@
                 <!-- Details -->
                 <div class="Details">
                     <!-- form -->
-                    <form th:action="@{/register}" th:object="${user}">
+                    <form th:action="@{/register}" th:object="${SignInCommand}">
+
+
+
+
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            <p>Invalid username and password.</p>
+                        </div>
+
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            <p>You've been logged out.</p>
+                        </div>
+
+
 
                         <div class="form-group">
                             <input type="text" name="titel" class="input-text" id="titel" th:field="*{titel}"
                                    placeholder="Titel"/>
                         </div>
+
+                        <span class="help-block" th:if="${#fields.hasErrors('vorname')}">
+                                    <p th:each="err : ${#fields.errors('vorname')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
                             <input type="text" name="vorname" class="input-text" id="vorname" th:field="*{vorname}"
                                    placeholder="Vorname"/>
                         </div>
+
+                        <span class="help-block" th:if="${#fields.hasErrors('nachname')}">
+                                    <p th:each="err : ${#fields.errors('nachname')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
                             <input type="text" name="nachname" class="input-text" id="nachname" th:field="*{nachname}"
                                    placeholder="Nachname"/>
@@ -44,30 +65,55 @@
                             <option th:value="Geschaeftlich">Geschäftlich</option>
                         </select>
 
+
+                        <span class="help-block" th:if="${#fields.hasErrors('anschrift')}">
+                                    <p th:each="err : ${#fields.errors('anschrift')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
-                            <input type="text" name="street" class="input-text" id="street" placeholder="Strasse" th:field="*{adresse.anschrift}"/>
+                            <input type="text" name="street" class="input-text" id="street" placeholder="Strasse" th:field="*{anschrift}"/>
                         </div>
+
+                        <span class="help-block" th:if="${#fields.hasErrors('plz')}">
+                                    <p th:each="err : ${#fields.errors('plz')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
-                            <input type="text" name="plz" class="input-text" id="plz" placeholder="PLZ" th:field="*{adresse.plz}"/>
+                            <input type="text" name="plz" class="input-text" id="plz" placeholder="PLZ" th:field="*{plz}"/>
                         </div>
+
+                        <span class="help-block" th:if="${#fields.hasErrors('ort')}">
+                                    <p th:each="err : ${#fields.errors('ort')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
-                            <input type="text" name="ort" class="input-text" id="ort" placeholder="Ort" th:field="*{adresse.ort}"/>
+                            <input type="text" name="ort" class="input-text" id="ort" placeholder="Ort" th:field="*{ort}"/>
                         </div>
+
+                        <span class="help-block" th:if="${#fields.hasErrors('email')}">
+                                    <p th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
                             <input type="email" name="email" class="input-text" id="email-eddress" th:field="*{email}"
                                    placeholder="Email Address"/>
                         </div>
+
                         <div class="form-group">
                             <input type="text" name="tel" class="input-text" id="tel" th:field="*{telefon}"
                                    placeholder="Telefon"/>
                         </div>
+
+
+                        <span class="help-block" th:if="${#fields.hasErrors('username')}">
+                                    <p th:each="err : ${#fields.errors('username')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
                             <input type="text" name="username" class="input-text" id="username" th:field="*{username}"
                                    placeholder="Bentzername"/>
                         </div>
 
+                        <span class="help-block" th:if="${#fields.hasErrors('passwort')}">
+                                    <p th:each="err : ${#fields.errors('passwort')}" th:text="${err}"/>
+                        </span>
                         <div class="form-group">
-                            <input type="password" name="password" class="input-text" id="password" th:field="*{passwort}"
+                            <input type="password" name="passwort" class="input-text" id="passwort" th:field="*{passwort}"
                                    placeholder="Password"/>
                         </div>
                         <div class="form-group">

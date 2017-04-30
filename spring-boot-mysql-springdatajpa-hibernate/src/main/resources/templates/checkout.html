@@ -50,32 +50,38 @@
                 <h3 class="text-center">Versand Adresse</h3>
 
                 <hr/>
-
+                <span class="help-block" th:if="${#fields.hasErrors('vornameVA')}">
+                                    <p th:each="err : ${#fields.errors('vornameVA')}" th:text="${err}"/>
+                        </span>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="Vorname" id="first_name" class="form-control input-md"
                                placeholder="Vorname"
-                               th:field="*{vornameVA}"/>
+                               th:field="*{vornameVA}"    />
                     </div>
                 </div>
+
+                <span class="help-block" th:if="${#fields.hasErrors('nachnameVA')}">
+                                    <p th:each="err : ${#fields.errors('nachnameVA')}" th:text="${err}"/>
+                        </span>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="Nachname" id="last_name" class="form-control input-md"
                                placeholder="Nachname"
-                               th:field="*{nachnameVA}"/>
+                               th:field="*{nachnameVA}"    />
                     </div>
                 </div>
 
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <input type="text" name="Email" id="email" class="form-control input-md" placeholder="Email"
-                               th:field="*{emailVA}"/>
+                        <input type="email" name="Email" id="email" class="form-control input-md" placeholder="Email"
+                               th:field="*{emailVA}"     />
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="tel" id="tel" class="form-control input-md" placeholder="Telefonnummer"
-                               th:field="*{telVA}"/>
+                               th:field="*{telVA}"    />
                     </div>
                 </div>
 
@@ -83,7 +89,7 @@
                     <div class="form-group">
                         <input type="text" name="strasse" id="strasse" class="form-control input-md"
                                placeholder="Straße"
-                               th:field="*{strasseVA}"/>
+                               th:field="*{strasseVA}"    />
                     </div>
                 </div>
 
@@ -91,19 +97,19 @@
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="ort" id="ort" class="form-control input-md" placeholder="Ort"
-                               th:field="*{ortVA}"/>
+                               th:field="*{ortVA}"    />
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="land" id="land" class="form-control input-md" placeholder="Land"
-                               th:field="*{landVA}"/>
+                               th:field="*{landVA}"  />
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="plz" id="plz" class="form-control input-md" placeholder="PLZ"
-                               th:field="*{plzVA}"/>
+                               th:field="*{plzVA}"     />
                     </div>
                 </div>
 
@@ -138,7 +144,7 @@
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text" name="Email" id="emailRA" class="form-control input-md" placeholder="Email"
-                               th:field="*{emailRA}"/>
+                               th:field="*{emailRA}" />
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">

@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class AdressenCommand {
 
     @NotEmpty
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 50,message = "Vorname ist ungültig")
     private String vornameVA;
     @NotEmpty
     @Size(min = 2, max = 50)
@@ -40,28 +40,27 @@ public class AdressenCommand {
     private String plzVA;
 
 
-    @Size(min = 2, max = 50)
+
     private String vornameRA;
 
-    @Size(min = 2, max = 50)
     private String nachnameRA;
 
-    @Size(min = 2, max = 50)
+
     private String emailRA;
 
-    @Size(min = 2, max = 50)
+
     private String telRA;
 
-    @Size(min = 2, max = 50)
+
     private String strasseRA;
 
-    @Size(min = 2, max = 70)
+
     private String ortRA;
 
-    @Size(min = 2, max = 50)
+
     private String landRA;
 
-    @Size(min = 2, max = 4)
+
     private String plzRA;
 
     private String zahlungsart;
