@@ -20,12 +20,12 @@ public class ShopingCartController {
     @Autowired
     BildDao bildDao;
     @Autowired
-    ShoppingCart shoppingChart;
+    ShoppingCart shoppingCart;
 
     @RequestMapping(value = "/shoppingchartSum")
     public String start(Model model){
 
-        model.addAttribute("Items",shoppingChart.getItems());
+        model.addAttribute("Items",shoppingCart.getItems());
 
         return "shoppingChartSum";
     }
@@ -41,14 +41,14 @@ public class ShopingCartController {
 
     @RequestMapping(value = "/weiterEinkaufen")
     public String weiterEinkaufen(Model model,RedirectAttributes redirectAttributes){
-        System.out.println(shoppingChart.getBildgruppe());
-        redirectAttributes.addFlashAttribute("code",shoppingChart.getBildgruppe());
+        System.out.println(shoppingCart.getBildgruppe());
+        redirectAttributes.addFlashAttribute("code",shoppingCart.getBildgruppe());
         return "redirect:picture-grid";
     }
 
     @RequestMapping(value="/itemDelete/{id}", method = RequestMethod.GET)
     public String loeschen(@PathVariable final String id) {
-        shoppingChart.getItems().remove(Integer.parseInt(id));
+        shoppingCart.getItems().remove(Integer.parseInt(id));
 
         return "redirect:/shoppingchartSum";
     }

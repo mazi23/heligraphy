@@ -63,7 +63,7 @@ public class UploaderController {
                 bild.setBild((byte[]) o.getThumbnail());
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
-                bild.setErzeuger((String)o.getErzeuger());
+                bild.setErzeuger(o.getErzeuger().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);
@@ -138,7 +138,7 @@ public class UploaderController {
                 bild.setBild((byte[]) o.getThumbnail());
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
-                bild.setErzeuger((String)o.getErzeuger());
+                bild.setErzeuger(o.getErzeuger().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);

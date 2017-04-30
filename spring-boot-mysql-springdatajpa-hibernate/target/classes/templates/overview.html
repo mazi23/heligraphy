@@ -12,12 +12,130 @@
 </header>
 <!-- Header end -->
 
+<!-- Header end -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Übersicht</h2>
+                        <p></p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
 
 
+<div class="container">
+    <div class="row">
+        <div style="display: table; margin: auto;">
+            <span class="step step_complete"> <a href="/shoppingchartSum" class="check-bc">Warenkorb</a> <span
+                    class="step_line step_complete"> </span> <span class="step_line backline"> </span> </span>
+            <span class="step step_complete"> <a href="#" class="check-bc">Versanddetails</a> <span
+                    class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
+
+            <span class="step step_complete"> <a href="#" class="check-bc">Übersicht</a> <span
+                    class="step_line "> </span> <span class="step_line step_complete"> </span> </span>
+            <span class="step_thankyou check-bc step_complete">Fertig</span>
+        </div>
+    </div>
+
+    <hr/>
 
 
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover" th:object="${overviewPrice}">
+                <thead>
+                <tr>
+                    <th>Bild</th>
+                    <th>Stück</th>
+                    <th> </th>
+                    <th class="text-center">Preis</th>
+                    <th class="text-right">Gesamt</th>
 
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item,it :${Items}" >
+                    <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left"> <img th:src="@{/overview/}+${item.id}" src="http://placehold.it/100x100" alt="..." class="img-responsive" style="width: 72px; height: 72px;"/> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"></h4>
+                                <h5 class="media-heading"> von Fotograf</h5>
+                                <span>Lieferzeit: </span><span class="text-success"><strong>ca. 7 Werktage</strong></span>
+                            </div>
+                        </div></td>
+                    <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <strong th:value="${item.quantity}"> </strong>
+                    </td>
+                    <td class="col-sm-1 col-md-1"></td>
+                    <td class="col-sm-1 col-md-1 text-center" ><strong th:text="${item.price}+'€'">$4.87</strong></td>
+                    <td class="col-sm-1 col-md-1 text-right"><strong th:text="${item.price}*${item.quantity} +' €'">$14.61</strong></td>
+                </tr>
 
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td><h5>Zwischensumme</h5></td>
+                    <td class="text-right"><h5><strong th:text="*{zwischenSumme} +' €'">$24.59</strong></h5></td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td><h5>Versandkosten</h5></td>
+                    <td class="text-right"><h5><strong th:text="*{versandkosten}+ ' €'">$6.94</strong></h5></td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td><h3>Gesamtbetrag</h3></td>
+                    <td class="text-right"><h3><strong th:text="*{gesamtkosten} + ' €'">$31.53</strong></h3></td>
+                </tr>
+                <tr>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>   </td>
+                    <td>
+                        <a href="/weitereinkaufen"><button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Weiter einkaufen
+                        </button></a></td>
+                    <td>
+                        <button type="button" class="btn btn-success">
+                            Zahlungspflichtig bestellen <span class="glyphicon glyphicon-play"></span>
+                        </button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2017. All rights reserved by: Heligrapy</p>
+    </div>
+</div>
+<!-- Copy right end-->
 
 
 

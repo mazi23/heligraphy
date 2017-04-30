@@ -57,7 +57,7 @@
             <td data-th="Stück" style="vertical-align: middle">
                 <input type="number" class="form-control text-center" value="1" th:value="${item.quantity}"/>
             </td>
-            <td data-th="Subtotal" class="text-center" th:text="${item.price}*${item.quantity}" style="vertical-align: middle"></td>
+            <td data-th="Subtotal" class="text-center" th:text="${item.price}*${item.quantity} + ' €'" style="vertical-align: middle"></td>
             <td class="actions" data-th="" style="vertical-align: middle">
                <form th:action="@{/itemDelete/}+${it.index}">
                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>

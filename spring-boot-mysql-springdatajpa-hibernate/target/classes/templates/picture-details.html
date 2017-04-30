@@ -303,6 +303,7 @@
                                <select th:field="*{price}">
                                    <option th:each="preis : ${preise}" th:value="${preis.id} " th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'" ></option>
                                </select>
+                                <span>zzgl. Versandkosten</span>
                             </li>
                             <li>
                                 <span>Land</span>Österreich

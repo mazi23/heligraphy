@@ -1,12 +1,17 @@
 package netgloo.comands;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Size;
 
 /**
  * Created by mazi on 26.04.17.
  */
+@Component
+@Scope(value="session", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class AdressenCommand {
 
     @NotEmpty
@@ -58,6 +63,8 @@ public class AdressenCommand {
 
     @Size(min = 2, max = 4)
     private String plzRA;
+
+    private String zahlungsart;
 
 
     public AdressenCommand(String vornameVA, String nachnameVA, String emailVA, String telVA, String strasseVA, String ortVA, String landVA, String plzVA, String vornameRA, String nachnameRA, String emailRA, String telRA, String strasseRA, String ortRA, String landRA, String plzRA) {
@@ -210,5 +217,13 @@ public class AdressenCommand {
 
     public void setPlzRA(String plzRA) {
         this.plzRA = plzRA;
+    }
+
+    public String getZahlungsart() {
+        return zahlungsart;
+    }
+
+    public void setZahlungsart(String zahlungsart) {
+        this.zahlungsart = zahlungsart;
     }
 }
