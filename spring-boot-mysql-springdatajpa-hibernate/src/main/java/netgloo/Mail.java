@@ -87,7 +87,7 @@ public class Mail {
     }
 
 
-    public void sendMailWithBill(String to,  String text,String pdf) throws MessagingException, IOException {
+    public void sendMailWithBill(String to,  String text,byte[] pdf) throws MessagingException, IOException {
         //Adres[] adressen = new Object[]{InternetAddress.parse(to)};
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("mac.matthias@gmail.com"));
@@ -103,11 +103,12 @@ public class Mail {
         mainPart.setText(text);
         content.addBodyPart(mainPart);
 
-
+            File outputFile = new File("Rechnung.pdf");
             MimeBodyPart imagePart = new MimeBodyPart();
-            //jasper PDF hier einfügen
-
-            //imagePart.attachFile(outputFile);
+            FileOutputStream outputStream = new FileOutputStream(outputFile);
+            outputStream.write(pdf);
+            outputStream.close();
+            imagePart.attachFile(outputFile);
             content.addBodyPart(imagePart);
 
         message.setContent(content);

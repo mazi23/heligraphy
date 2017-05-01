@@ -100,7 +100,7 @@ public class overviewController {
 
 
 
-
+        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme()+overviewPrice.getVersandkosten());
         bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
         bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
         bestellung.setMwst(20);
@@ -127,8 +127,10 @@ public class overviewController {
         }else{
             kunde.addBestellung(bestellung);
         }
+        bestellung.setuser(kunde);
+        bestellungDao.save(bestellung);
 
-        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme()+overviewPrice.getVersandkosten());
+
         model.addAttribute("overviewPrice",overviewPrice);
         model.addAttribute("Items",shoppingCart.getItems());
         return "overview";
@@ -224,12 +226,12 @@ public class overviewController {
 
 
         Mail mailtoCustomer = new Mail();
-        generateReport(bestellung);
-
+        byte[]pdf = generateReport(bestellung);
+        mailtoCustomer.sendMailWithBill(kunde.getEmail(),textCustomer,pdf);
 
     return "bestellungAbgeschlossen";
     }
-    public void generateReport(Bestellung bs) throws JRException {
+    public byte[] generateReport(Bestellung bs) throws JRException {
         JasperReport jasperReport;
         JasperPrint jasperPrint;
         HashMap<String, Object> parameter = new HashMap<String, Object>();
@@ -237,19 +239,33 @@ public class overviewController {
                 .compileReport("src/main/resources/static/jasper/Invoice.jrxml");
 
 
-        //for (BestellElement bestellElement :bs.getBilder()){
-
 
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
-        parameter.put("test", "Hallo Welt");
+
+        parameter.put("summenetto",bs.getSummenetto());
+        parameter.put("summebrutto",(bs.getSummebrutto()*100)/1000);
+        parameter.put("summemwst",bs.getSummemwst());
+        parameter.put("auftragsDatum",bs.getAuftragsDatum());
+        parameter.put("idBestellung",bs.getIdBestellung());
+        parameter.put("RAName",kunde.getVorname() + " " + kunde.getNachname());
+        parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
+        parameter.put("RAOrt",bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
+        parameter.put("RALand",bs.getRechnungsAdresse().getLand());
+
+        parameter.put("VAName",kunde.getVorname() + " " + kunde.getNachname());
+        parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
+        parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
+        parameter.put("VALand", bs.getLieferAdresse().getLand());
 
 
         jasperPrint =
                 JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
-        JasperExportManager.exportReportToPdfFile(jasperPrint,
-                "./Example1.pdf");
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+        //JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example4.pdf");
+
+
     }
 
     public void sendBestellung()
