@@ -300,11 +300,11 @@
                                 <span th:text="${values.key}"></span><p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}" th:field="*{id}" />
                             </li>
                             <li>
-                                <span>Preis</span>
+                                <span>Preis zzgl. Versand</span>
                                <select th:field="*{price}">
                                    <option th:each="preis : ${preise}" th:value="${preis.id} " th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'" ></option>
                                </select>
-                                <span>zzgl. Versandkosten</span>
+
                             </li>
                             <li>
                                 <span>Land</span>Österreich

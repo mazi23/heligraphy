@@ -5,6 +5,7 @@ import netgloo.models.Bildgruppe;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     //String  stmt = "Select g.id From Bildgruppe g  where uniqCode='"+code+"'";
     @Query(" from Bildgruppe g where uniqCode=:id")
     public Bildgruppe findByid(@Param("id") String id);
+
 
 
     @Query("FROM Bild b")
@@ -37,7 +39,7 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query(" from Bild b where id=:id")
     public Bild findBildByid(@Param("id") Long id);
 
-    @Query(" DELETE FROM Bild b WHERE bildgruppe =:id")
-    public void deletByBildgruppe(@Param("id") String id);
+    @Transactional
+    public Long deleteByBildgruppe(Bildgruppe bildgruppe);
 
 }

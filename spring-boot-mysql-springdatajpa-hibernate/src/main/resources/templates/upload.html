@@ -61,7 +61,14 @@
                                 <option th:value="000">Nach Angebot</option>
                             </select>
                             </p>-->
-                <p>Fotograf: <input type="text" id="fotograf" th:field="*{fotograf}" class="form-control"/></p>
+                <p>Fotograf: <!--<input type="text" id="fotograf" th:field="*{fotograf}" class="form-control"/></p>-->
+                <select th:field="*{fotograf}" th:remove="all-but-first">
+                    <option th:each="fotog : ${fotografen}"
+                            th:value="${fotog.id}" th:text="${fotog.name}+' ('+${fotog.anteil} + '%)'">Credit card</option>
+                    <option>Another payment method</option>
+                    <option>Another payment method</option>
+                </select>
+                </p>
                 <input type="file" name="bild" accept="image/*" multiple="true" th:field="*{bilder}"
                        class="form-control"/>
                 <br/>

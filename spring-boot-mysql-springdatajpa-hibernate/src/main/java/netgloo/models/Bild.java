@@ -17,7 +17,8 @@ public class Bild implements Serializable{
     private byte[] datei;
     @Lob
     private byte[] thumbnail;
-    private String erzeuger;
+    @OneToOne
+    private Fotograf fotograf;
 
     @OneToOne
     private Bildgruppe bildgruppe;
@@ -26,14 +27,7 @@ public class Bild implements Serializable{
     public Bild() {
     }
 
-    public Bild(Integer privat, byte[] datei, byte[] thumbnail, String erzeuger, Bildgruppe bildgruppe) {
-        this.privat = privat;
-        this.datei = datei;
-        this.thumbnail = thumbnail;
-        this.erzeuger = erzeuger;
 
-        this.bildgruppe = bildgruppe;
-    }
 
     public long getId() {
         return id;
@@ -67,14 +61,13 @@ public class Bild implements Serializable{
         this.thumbnail = thumbnail;
     }
 
-    public String getErzeuger() {
-        return erzeuger;
+    public Fotograf getFotograf() {
+        return fotograf;
     }
 
-    public void setErzeuger(String erzeuger) {
-        this.erzeuger = erzeuger;
+    public void setFotograf(Fotograf fotograf) {
+        this.fotograf = fotograf;
     }
-
 
     public Bildgruppe getBildgruppe() {
         return bildgruppe;

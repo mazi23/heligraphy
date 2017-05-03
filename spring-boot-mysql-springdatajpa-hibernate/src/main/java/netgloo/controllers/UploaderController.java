@@ -6,10 +6,8 @@ import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
 import netgloo.models.DisplayObjects.BackendBild;
 import netgloo.models.DisplayObjects.UploaderObject;
-import netgloo.models.daos.AdresseDao;
-import netgloo.models.daos.BildDao;
-import netgloo.models.daos.BildgruppeDao;
-import netgloo.models.daos.PreisDao;
+import netgloo.models.Fotograf;
+import netgloo.models.daos.*;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +44,8 @@ public class UploaderController {
     BildgruppeDao bildgruppeDao;
     @Autowired
     PreisDao preisDao;
+    @Autowired
+    FotografDao fotografDao;
 
     HashMap<Integer, BackendBild> bilder = new HashMap<Integer, BackendBild>();
 
@@ -66,13 +66,14 @@ public class UploaderController {
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bildgruppenids.add(o.getBildgruppe().getId());
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
-                bild.setErzeuger(o.getErzeuger().toString());
+                bild.setErzeuger(o.getFotograf().getName().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);
             }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
         }
 
+        model.addAttribute("fotografen",fotografDao.findAll());
         model.addAttribute("Bilder",bilder);
         model.addAttribute("ids", bildgruppenids);
 
@@ -102,6 +103,7 @@ public class UploaderController {
         Bildgruppe bildgruppe = new Bildgruppe();
         bildgruppe.setAdresse(adresse);
         bildgruppeDao.save(bildgruppe);
+        Fotograf fotograf = fotografDao.findOne(Long.parseLong(object.getFotograf()));
         /*Preis p = new Preis();
         p.setMwst(20);
         p.setPreis(object.getPreis());
@@ -112,7 +114,7 @@ public class UploaderController {
             BufferedImage thumbnail = ImageIO.read(new ByteArrayInputStream(f.getBytes()));
             bild.setBildgruppe(bildgruppe);
             bild.setDatei(f.getBytes());
-            bild.setErzeuger(object.getFotograf());
+            bild.setFotograf(fotograf);
             //bild.setPreis(p);
             BufferedImage scaledImg = Scalr.resize(thumbnail, 150);
             //scaledImg = Scalr.rotate(scaledImg,Scalr.Rotation.CW_180,null);
@@ -143,7 +145,7 @@ public class UploaderController {
                 bild.setBild((byte[]) o.getThumbnail());
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
-                bild.setErzeuger(o.getErzeuger().toString());
+                bild.setErzeuger(o.getFotograf().getName().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
                 model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
                 bilder.put(Math.toIntExact((Long) o.getId()),bild);
@@ -159,7 +161,9 @@ public class UploaderController {
     @RequestMapping(value = "/bildgruppel/{id}", method = RequestMethod.GET)
     public String deleteBilder(Model model, @PathVariable final String id){
 
-        bildDao.deletByBildgruppe(id);
+
+        Bildgruppe bildgruppe = bildgruppeDao.findOne(Long.parseLong(id));
+         bildDao.deleteByBildgruppe(bildgruppe);
         bildgruppeDao.delete(Long.parseLong(id));
         return "redirect:/upload";
     }
