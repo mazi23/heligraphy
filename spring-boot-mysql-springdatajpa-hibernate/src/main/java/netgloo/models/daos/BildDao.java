@@ -37,6 +37,7 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query(" from Bild b where id=:id")
     public Bild findBildByid(@Param("id") Long id);
 
-
+    @Query(" DELETE FROM Bild b WHERE bildgruppe =:id")
+    public void deletByBildgruppe(@Param("id") String id);
 
 }

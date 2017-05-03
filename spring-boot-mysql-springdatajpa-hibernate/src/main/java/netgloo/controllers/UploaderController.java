@@ -27,7 +27,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mazi on 21.01.17.
@@ -54,7 +56,7 @@ public class UploaderController {
 
 
         List<Bild> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
-
+        Set<Long> bildgruppenids = new HashSet<>();
         bilder =  new HashMap<Integer, BackendBild>();
 
             for (Bild o:list) {
@@ -62,6 +64,7 @@ public class UploaderController {
                 BackendBild bild = new BackendBild();
                 bild.setBild((byte[]) o.getThumbnail());
                 bild.setBildid( Math.toIntExact((Long) o.getId()));
+                bildgruppenids.add(o.getBildgruppe().getId());
                 bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
                 bild.setErzeuger(o.getErzeuger().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
@@ -71,6 +74,8 @@ public class UploaderController {
         }
 
         model.addAttribute("Bilder",bilder);
+        model.addAttribute("ids", bildgruppenids);
+
 
         return "upload";
     }
@@ -151,5 +156,12 @@ public class UploaderController {
     }
 
 
+    @RequestMapping(value = "/bildgruppel/{id}", method = RequestMethod.GET)
+    public String deleteBilder(Model model, @PathVariable final String id){
+
+        bildDao.deletByBildgruppe(id);
+        bildgruppeDao.delete(Long.parseLong(id));
+        return "redirect:/upload";
+    }
 
 }
