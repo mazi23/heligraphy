@@ -62,14 +62,14 @@ public class UploaderController {
             for (Bild o:list) {
             if(o.getDatei()!=null){
                 BackendBild bild = new BackendBild();
-                bild.setBild((byte[]) o.getThumbnail());
-                bild.setBildid( Math.toIntExact((Long) o.getId()));
+                bild.setBild(o.getThumbnail());
+                bild.setBildid( Math.toIntExact(o.getId()));
                 bildgruppenids.add(o.getBildgruppe().getId());
-                bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
+                bild.setId(Math.toIntExact(o.getBildgruppe().getId()));
                 bild.setErzeuger(o.getFotograf().getName().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
-                model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
-                bilder.put(Math.toIntExact((Long) o.getId()),bild);
+                model.addAttribute("image_id",Math.toIntExact(o.getId()));
+                bilder.put(Math.toIntExact(o.getId()),bild);
             }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
         }
 
@@ -142,13 +142,13 @@ public class UploaderController {
         for (Bild o:list) {
             if(o.getDatei()!=null){
                 BackendBild bild = new BackendBild();
-                bild.setBild((byte[]) o.getThumbnail());
-                bild.setBildid( Math.toIntExact((Long) o.getId()));
-                bild.setId(Math.toIntExact((Long) o.getBildgruppe().getId()));
+                bild.setBild(o.getThumbnail());
+                bild.setBildid( Math.toIntExact(o.getId()));
+                bild.setId(Math.toIntExact(o.getBildgruppe().getId()));
                 bild.setErzeuger(o.getFotograf().getName().toString());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
-                model.addAttribute("image_id",Math.toIntExact((Long) o.getId()));
-                bilder.put(Math.toIntExact((Long) o.getId()),bild);
+                model.addAttribute("image_id",Math.toIntExact(o.getId()));
+                bilder.put(Math.toIntExact(o.getId()),bild);
             }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
         }
 

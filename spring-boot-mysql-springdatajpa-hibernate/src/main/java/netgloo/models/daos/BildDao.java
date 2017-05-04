@@ -18,28 +18,28 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
 
     //String  stmt = "Select g.id From Bildgruppe g  where uniqCode='"+code+"'";
     @Query(" from Bildgruppe g where uniqCode=:id")
-    public Bildgruppe findByid(@Param("id") String id);
+    Bildgruppe findByid(@Param("id") String id);
 
 
 
     @Query("FROM Bild b")
-    public List<Bild> findBild();
+    List<Bild> findBild();
 
     @Query("SELECT b.id,b.thumbnail,bildgruppe from Bild b where bildgruppe=:bgruppe")
-    public List<Objects[]> findBilder(@Param("bgruppe") Bildgruppe bgruppe);
+    List<Objects[]> findBilder(@Param("bgruppe") Bildgruppe bgruppe);
 
 
     @Query("from Bild b where bildgruppe=:bgruppe")
-    public List<Bild> findBildermitgruppe(@Param("bgruppe") Bildgruppe bgruppe);
+    List<Bild> findBildermitgruppe(@Param("bgruppe") Bildgruppe bgruppe);
 
     @Query("Select b.thumbnail from Bild b where bildgruppe=:bgruppe")
-    public List<Bild> findBildermitgruppeThumbnail(@Param("bgruppe") Bildgruppe bgruppe);
+    List<Bild> findBildermitgruppeThumbnail(@Param("bgruppe") Bildgruppe bgruppe);
 
 
     @Query(" from Bild b where id=:id")
-    public Bild findBildByid(@Param("id") Long id);
+    Bild findBildByid(@Param("id") Long id);
 
     @Transactional
-    public Long deleteByBildgruppe(Bildgruppe bildgruppe);
+    Long deleteByBildgruppe(Bildgruppe bildgruppe);
 
 }

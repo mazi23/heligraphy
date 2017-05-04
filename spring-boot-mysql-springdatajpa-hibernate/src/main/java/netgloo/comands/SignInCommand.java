@@ -5,8 +5,6 @@ import netgloo.models.Role;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-;
-
 /**
  * Created by mazi on 20.04.17.
  */

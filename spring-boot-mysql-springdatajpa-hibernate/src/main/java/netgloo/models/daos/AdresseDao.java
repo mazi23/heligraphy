@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 public interface AdresseDao extends CrudRepository<Adresse, Long> {
-    public Adresse findByid(long id);
+    Adresse findByid(long id);
 
 
 
