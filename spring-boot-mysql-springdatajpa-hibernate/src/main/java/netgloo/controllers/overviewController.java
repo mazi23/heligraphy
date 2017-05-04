@@ -164,10 +164,12 @@ public class overviewController {
         String textprintPaper = "";
         String textprintLeinwand ="";
         for (ShoppingCartItem item: shoppingCart.getItems()){
-            if(item.getPrice()==280||item.getPrice()==500) {
+            System.out.println(item.getPrice()+ " Item");
+            System.out.println(PreisPlan.BASIC.getValue() + " Preisplan");
+            if(item.getPrice()==PreisPlan.BASIC.getValue()||item.getPrice()==PreisPlan.PREMIUM.getValue()) {
                 bilder.put(item.getId(),bildDao.findBildByid((long) item.getId()));
-                if(item.getPrice()==280) textprintPaper+= "image"+ item.getId()+".jpg,";
-                if(item.getPrice()==500) textprintLeinwand+= "image" + item.getId()+".jpg,";
+                if(item.getPrice()==PreisPlan.BASIC.getValue()) textprintPaper+= "image"+ item.getId()+".jpg,";
+                if(item.getPrice()==PreisPlan.PREMIUM.getValue()) textprintLeinwand+= "image" + item.getId()+".jpg,";
                 //bilder.add(bildDao.findBildByid((long) item.getId()));
             }
         }
@@ -231,6 +233,8 @@ public class overviewController {
 
     return "bestellungAbgeschlossen";
     }
+
+
     public byte[] generateReport(Bestellung bs) throws JRException {
         JasperReport jasperReport;
         JasperPrint jasperPrint;

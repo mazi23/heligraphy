@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ShoppingCartItem {
 
      private int id;
-     private int price;
+     private double price;
      private int quantity;
 
 
@@ -33,11 +33,11 @@ public class ShoppingCartItem {
         this.id = id;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

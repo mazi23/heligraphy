@@ -12,20 +12,18 @@ public class Preis {
     @Id
     @GeneratedValue
     private long id;
-    private int preis;
+    private double preis;
     private int mwst;
-    private String preisPlan;
+    private PreisPlan preisPlan;
 
 
-
-    public Preis(int preis, int mwst, String preisPlan) {
+    public Preis(double preis, int mwst, PreisPlan preisPlan) {
         this.preis = preis;
         this.mwst = mwst;
         this.preisPlan = preisPlan;
     }
 
     public Preis() {
-
     }
 
     public long getId() {
@@ -36,11 +34,15 @@ public class Preis {
         this.id = id;
     }
 
-    public int getPreis() {
+    public void setPreis(int preis) {
+        this.preis = preis;
+    }
+
+    public double getPreis() {
         return preis;
     }
 
-    public void setPreis(int preis) {
+    public void setPreis(double preis) {
         this.preis = preis;
     }
 
@@ -52,11 +54,11 @@ public class Preis {
         this.mwst = mwst;
     }
 
-    public String getPreisPlan() {
+    public PreisPlan getPreisPlan() {
         return preisPlan;
     }
 
-    public void setPreisPlan(String preisPlan) {
+    public void setPreisPlan(PreisPlan preisPlan) {
         this.preisPlan = preisPlan;
     }
 }

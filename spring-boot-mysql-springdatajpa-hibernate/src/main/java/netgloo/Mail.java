@@ -90,7 +90,7 @@ public class Mail {
     public void sendMailWithBill(String to,  String text,byte[] pdf) throws MessagingException, IOException {
         //Adres[] adressen = new Object[]{InternetAddress.parse(to)};
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("mac.matthias@gmail.com"));
+        message.setFrom(new InternetAddress("info@heligraphy.at"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));//(Address[]) adressen);
         message.setSubject("Bestellbestätigung");//"Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n");
         //message.setText(text);
