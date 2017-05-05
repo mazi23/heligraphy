@@ -116,7 +116,7 @@ public class UploaderController {
             bild.setDatei(f.getBytes());
             bild.setFotograf(fotograf);
             //bild.setPreis(p);
-            BufferedImage scaledImg = Scalr.resize(thumbnail, 150);
+            BufferedImage scaledImg = Scalr.resize(thumbnail, 200);
             //scaledImg = Scalr.rotate(scaledImg,Scalr.Rotation.CW_180,null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(scaledImg, "jpg", baos);

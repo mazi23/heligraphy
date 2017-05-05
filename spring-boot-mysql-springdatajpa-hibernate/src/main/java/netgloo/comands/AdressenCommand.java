@@ -36,7 +36,7 @@ public class AdressenCommand {
     @Size(min = 2, max = 50)
     private String landVA;
     @NotEmpty
-    @Size(min = 2, max = 4)
+    @Size(min = 2, max = 8)
     private String plzVA;
 
 

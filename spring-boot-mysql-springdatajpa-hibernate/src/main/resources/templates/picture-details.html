@@ -78,7 +78,7 @@
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class='item active'>
-                                        <img th:src="@{/picture-details/}+${bild.id}" src='http://placehold.it/708x524' class="thumb-preview" alt='Chevrolet Impala'  />
+                                        <img th:src="@{/picture-details/}+${bild.id}"  class="thumb-preview auto-height" id="auto-height" alt='Chevrolet Impala' style="height: 100px"  />
                                         <img src="images/logos/logo.png" id="wasserzeichen"/>
                                     </div>
 
@@ -150,16 +150,30 @@
                     <!-- Panel box start -->
                     <div class="panel-box">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1default" data-toggle="tab" aria-expanded="true">General Information</a></li>
+                            <li class="active"><a href="#tab1default" data-toggle="tab" aria-expanded="true">Allgemeine Infos</a></li>
+                            <li class=""><a href="#tab2default" data-toggle="tab" aria-expanded="false">Preise</a></li>
+                            <li class=""><a href="#tab3default" data-toggle="tab" aria-expanded="false">Häufige Fragen</a></li>
                         </ul>
                         <div class="panel with-nav-tabs panel-default">
                             <div class="panel-body">
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="tab1default">
-                                        <p>Eine wunder schöne Aufnahme die wir von Ihrem Haus gemacht haben.</p>
+                                        <p>Das Kopieren dieses Bildes ist ausdrücklich verboden. </p>
+                                        <p></p>
 
                                     </div>
 
+                                    <div class="tab-pane fade technical" id="tab2default">
+                                        <p>Preisinfos finden Sie unter <a href="pricing-tables.html">Preise.</a>
+                                        </p>
+
+                                    </div>
+
+                                    <div class="tab-pane fade technical" id="tab3default">
+                                        <p> <a href="faq.html">Infos zu häufig gesellten Fragen.</a>
+                                        </p>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -300,15 +314,16 @@
                                 <span th:text="${values.key}"></span><p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}" th:field="*{id}" />
                             </li>
                             <li>
+                                <span>Land</span>Österreich
+                            </li>
+                            <li>
                                 <span>Preis zzgl. Versand</span>
                                <select th:field="*{price}">
                                    <option th:each="preis : ${preise}" th:value="${preis.id} " th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'" ></option>
                                </select>
 
                             </li>
-                            <li>
-                                <span>Land</span>Österreich
-                            </li>
+
                             <li>
 
                                 <span></span> <input class="btn btn-view" th:value="Kaufen" type="submit"/>

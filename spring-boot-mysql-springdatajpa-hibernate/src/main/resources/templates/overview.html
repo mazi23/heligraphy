@@ -62,58 +62,67 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item,it :${Items}" >
+                <tr th:each="item,it :${Items}">
                     <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left"> <img th:src="@{/overview/}+${item.id}" src="http://placehold.it/100x100" alt="..." class="img-responsive" style="width: 72px; height: 72px;"/> </a>
+                            <a class="pull-left"> <img th:src="@{/overview/}+${item.id}"
+                                                                  alt="Bild konnte nicht geladen werden"
+                                                                 class="img-responsive"
+                                                                 style="width: 72px; height: 72px;"/> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"></h4>
-                                <h5 class="media-heading"> von Fotograf</h5>
-                                <span>Lieferzeit: </span><span class="text-success"><strong>ca. 7 Werktage</strong></span>
+                                <h5 class="media-heading" th:text="'Bild ' + ${it.count}"> von Fotograf</h5>
+                                <span>Lieferzeit: </span><span
+                                    class="text-success"><strong>ca. 7 Werktage</strong></span>
                             </div>
-                        </div></td>
+                        </div>
+                    </td>
                     <td class="col-sm-1 col-md-1" style="text-align: center">
                         <strong th:value="${item.quantity}"> </strong>
                     </td>
                     <td class="col-sm-1 col-md-1"></td>
-                    <td class="col-sm-1 col-md-1 text-center" ><strong th:text="${item.price}+'€'">$4.87</strong></td>
-                    <td class="col-sm-1 col-md-1 text-right"><strong th:text="${item.price}*${item.quantity} +' €'">$14.61</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong th:text="${item.price}+'€'">$4.87</strong></td>
+                    <td class="col-sm-1 col-md-1 text-right"><strong th:text="${item.price}*${item.quantity} +' €'">$14.61</strong>
+                    </td>
                 </tr>
 
                 <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
                     <td><h5>Zwischensumme</h5></td>
                     <td class="text-right"><h5><strong th:text="*{zwischenSumme} +' €'">$24.59</strong></h5></td>
                 </tr>
                 <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
                     <td><h5>Versandkosten</h5></td>
                     <td class="text-right"><h5><strong th:text="*{versandkosten}+ ' €'">$6.94</strong></h5></td>
                 </tr>
                 <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td>  </td>
                     <td><h3>Gesamtbetrag</h3></td>
                     <td class="text-right"><h3><strong th:text="*{gesamtkosten} + ' €'">$31.53</strong></h3></td>
                 </tr>
+
                 <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                        <a href="/weitereinkaufen"><button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Weiter einkaufen
-                        </button></a></td>
+                    <td>  <a href="/weitereinkaufen">
+                        <button type="button"  class="btn btn-default">
+                             Weiter einkaufen
+                        </button>
+                    </a></td>
+                    <td>  </td>
+                    <td>  </td>
+                    <td> <p><input type="checkbox" id="checkbox"/> Ich nehme die <a href="agb.html">AGBs</a>zur Kenntnis. </p></td>
                     <td>
                         <a href="/BestellungAbsenden">
-                        <button type="button" class="btn btn-success">
-                            Zahlungspflichtig bestellen <span class="glyphicon glyphicon-play"></span>
-                        </button></a>
+                            <button type="button" class="btn btn-success" id="kaufen" disabled="true">
+                                Zahlungspflichtig bestellen
+                            </button>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -138,7 +147,17 @@
     </div>
 </div>
 <!-- Copy right end-->
+<script>
 
+    $('#checkbox').click(function () {
+        if (!$(this).is(':checked')) {
+            $('#kaufen').attr("disabled", "true");
+        } else {
+            $('#kaufen').removeAttr("disabled");
+        }
+
+    });
+</script>
 
 
 <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>

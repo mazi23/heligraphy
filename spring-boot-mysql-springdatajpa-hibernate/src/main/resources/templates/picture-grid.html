@@ -44,14 +44,14 @@
                     <div th:each="bild,it : ${Bilder}" class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <!-- Car box start-->
                         <div class="thumbnail car-box clearfix wow fadeInUp delay-03s">
-                            <img th:src="@{/picture-grid/}+${bild.id}" src="http://placehold.it/360x257" alt="Error" />
+                            <img th:src="@{/picture-grid/}+${bild.value.Bildid}" src="http://placehold.it/360x257" alt="Error" />
                             <!-- detail -->
                             <div class="caption detail">
                                 <!-- Header ${bild.value.id}-->
                                 <header class="clearfix">
                                     <div class="pull-left">
                                         <h5 class="title">
-                                                <a hidden="true" th:href="@{/picture-grid/detail/}+${it.index}" th:text="'Bild '+${bild.id}"></a>
+                                                <a hidden="true" th:href="@{/picture-grid/detail/}+${it.index}" th:text="'Bild '+${bild.value.Bildid}"></a>
 
                                         </h5>
 
@@ -93,7 +93,7 @@
                                             <span>2017</span>
                                         </li>
                                     </ul>
-                                    <form th:action="@{/picture-grid/detail/}+${bild.id}" method="post">
+                                    <form th:action="@{/picture-grid/detail/}+${bild.value.Bildid}" method="post">
                                         <input class="btn btn-view" type="submit" th:value="Details"/>
                                     </form>
 

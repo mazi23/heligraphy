@@ -2,6 +2,7 @@ package netgloo.models.daos;
 
 import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
+import netgloo.models.DisplayObjects.PictureGridObject;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -32,8 +33,8 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query("from Bild b where bildgruppe=:bgruppe")
     List<Bild> findBildermitgruppe(@Param("bgruppe") Bildgruppe bgruppe);
 
-    @Query("Select b.thumbnail from Bild b where bildgruppe=:bgruppe")
-    List<Bild> findBildermitgruppeThumbnail(@Param("bgruppe") Bildgruppe bgruppe);
+    @Query("Select b.id, b.thumbnail from Bild b where bildgruppe=:bgruppe")
+    List<Object[]> findThumbnailbyBildgruppe(@Param("bgruppe") Bildgruppe bgruppe);
 
 
     @Query(" from Bild b where id=:id")
