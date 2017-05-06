@@ -61,4 +61,6 @@ public class Preis {
     public void setPreisPlan(PreisPlan preisPlan) {
         this.preisPlan = preisPlan;
     }
+
+
 }

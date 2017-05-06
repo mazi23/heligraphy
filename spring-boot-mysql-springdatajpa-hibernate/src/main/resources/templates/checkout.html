@@ -190,12 +190,12 @@
                 <div class="funkyradio ">
                     <div class="funkyradio-default col-md-6">
                         <input type="radio" name="radio" id="radio1" th:field="*{zahlungsart}"
-                               value="Vorrauskasse" checked="true"/>
+                               value="Vorrauskasse" checked="true" required="true"/>
                         <label for="radio1">Vorrauskasse</label>
                     </div>
                     <div class="funkyradio-default col-md-6">
                         <input type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
-                        <label for="radio2">Nachname (+8€)</label>
+                        <label for="radio2">Nachname (+8€   Nur möglich bei Basic und Professional)</label>
                     </div>
 
                 </div>

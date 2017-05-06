@@ -1,6 +1,7 @@
 package netgloo.controllers;
 
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.daos.BildDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 /**
  * Created by mazi on 18.04.17.
@@ -24,7 +27,7 @@ public class ShopingCartController {
 
     @RequestMapping(value = "/shoppingchartSum")
     public String start(Model model){
-
+        List<ShoppingCartItem> l = shoppingCart.getItems();
         model.addAttribute("Items",shoppingCart.getItems());
 
         return "shoppingChartSum";

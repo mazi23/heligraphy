@@ -105,8 +105,8 @@ public class pictrueDetailController {
     public String addToChart(@ModelAttribute("Item") ShoppingCartItem shoppingCartItem)
     {
 
-        int priceid = shoppingCartItem.getId();
-        shoppingCartItem.setPrice(preisDao.findOne(Long.valueOf(priceid+1)).getPreis());
+        int priceid = (int) shoppingCartItem.getPrice();
+        shoppingCartItem.setPrice(preisDao.findOne(Long.valueOf(priceid)).getPreis());
         shoppingCartItem.setId(bildDetailObject.getId());
         shoppingCartItem.setQuantity(1);
         shoppingChart.setBildgruppe( b.getBildgruppe().getUniqCode());

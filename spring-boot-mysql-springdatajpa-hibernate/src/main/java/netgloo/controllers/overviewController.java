@@ -19,6 +19,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by mazi on 29.04.17.
@@ -40,10 +41,18 @@ public class overviewController {
     BestellungDao bestellungDao;
     @Autowired
     BestellElementDao bestellElementDao;
+    @Autowired
+            PreisDao preisDao;
+    @Autowired
+    FotografDao fotografDao;
+
+    @Autowired
+    FotografAbrechnungDao abrechnungDao;
 
 
     User kunde;
     Bestellung bestellung;
+    LinkedList<FotografAbrechnung> abrechnungen = new LinkedList<>();
 
     @RequestMapping("/overview")
     public String start (Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand){
@@ -164,13 +173,23 @@ public class overviewController {
         String textprintPaper = "";
         String textprintLeinwand ="";
         for (ShoppingCartItem item: shoppingCart.getItems()){
-            System.out.println(item.getPrice()+ " Item");
-            System.out.println(PreisPlan.BASIC.getValue() + " Preisplan");
+            FotografAbrechnung abrechnung = new FotografAbrechnung();
+            Bild aktBild = bildDao.findBildByid((long) item.getId());
             if(item.getPrice()==PreisPlan.BASIC.getValue()||item.getPrice()==PreisPlan.PREMIUM.getValue()) {
-                bilder.put(item.getId(),bildDao.findBildByid((long) item.getId()));
+
+                abrechnung.setFotograf(aktBild.getFotograf());
+                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                abrechnungen.add(abrechnung);
+                bilder.put(item.getId(),aktBild);
                 if(item.getPrice()==PreisPlan.BASIC.getValue()) textprintPaper+= "image"+ item.getId()+".jpg,";
                 if(item.getPrice()==PreisPlan.PREMIUM.getValue()) textprintLeinwand+= "image" + item.getId()+".jpg,";
                 //bilder.add(bildDao.findBildByid((long) item.getId()));
+            }else {
+                abrechnung.setFotograf(aktBild.getFotograf());
+                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+
+                //TODO: Download für Bilder
+
             }
         }
        if(!textprintPaper.equals("")){
@@ -230,8 +249,27 @@ public class overviewController {
         Mail mailtoCustomer = new Mail();
         byte[]pdf = generateReport(bestellung);
         mailtoCustomer.sendMailWithBill(kunde.getEmail(),textCustomer,pdf);
+        AbrechnungGenerieren();
 
     return "bestellungAbgeschlossen";
+    }
+
+    public void AbrechnungGenerieren(){
+        for (FotografAbrechnung ab:abrechnungen) {
+            Preis p = ab.getPreis();
+            double mwst;
+            double druckpreis =0.0;
+            if(p.getPreis()==PreisPlan.BASIC.getValue()){
+                druckpreis = 6.0;
+            }
+            if (p.getPreis()==PreisPlan.PREMIUM.getValue()){
+                druckpreis = 80.0;
+            }
+            mwst = p.getPreis()/1.2*0.2;
+            ab.setGekauftwann();
+            ab.setSumme((p.getPreis()-mwst-druckpreis)*ab.getFotograf().getAnteil()/100);
+            abrechnungDao.save(ab);
+        }
     }
 
 
