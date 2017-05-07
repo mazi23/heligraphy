@@ -1,22 +1,21 @@
 package netgloo.controllers;
 
 
-import netgloo.models.Adresse;
-import netgloo.models.Bild;
-import netgloo.models.Bildgruppe;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import netgloo.comands.Abrechnungsid;
+import netgloo.models.*;
 import netgloo.models.DisplayObjects.BackendBild;
 import netgloo.models.DisplayObjects.UploaderObject;
-import netgloo.models.Fotograf;
 import netgloo.models.daos.*;
+import netgloo.models.reportObjects.Abrechnung;
 import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.validation.Valid;
@@ -24,10 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by mazi on 21.01.17.
@@ -46,6 +42,9 @@ public class UploaderController {
     PreisDao preisDao;
     @Autowired
     FotografDao fotografDao;
+
+    @Autowired
+    FotografAbrechnungDao fotografAbrechnungDao;
 
     HashMap<Integer, BackendBild> bilder = new HashMap<Integer, BackendBild>();
 
@@ -76,7 +75,7 @@ public class UploaderController {
         model.addAttribute("fotografen",fotografDao.findAll());
         model.addAttribute("Bilder",bilder);
         model.addAttribute("ids", bildgruppenids);
-
+        model.addAttribute("fotografid", new Abrechnungsid());
 
         return "upload";
     }
@@ -168,4 +167,52 @@ public class UploaderController {
         return "redirect:/upload";
     }
 
+    @RequestMapping(value = "/upload/abrechnung/")
+    public String abrechnung(Model model, @ModelAttribute Abrechnungsid id, RedirectAttributes redirectAttributes) throws JRException {
+        Fotograf f = fotografDao.findOne(id.getId());
+        List<FotografAbrechnung>fotografAbrechnung = fotografAbrechnungDao.findByFotograf(f);
+        byte[] test = generateAbrechnungsReport(fotografAbrechnung);
+        redirectAttributes.addFlashAttribute("report",generateAbrechnungsReport(fotografAbrechnung));
+        return "redirect:/PDFAbrechnung";
+    }
+
+
+
+    public byte[] generateAbrechnungsReport(List<FotografAbrechnung> abrechnungen) throws JRException {
+        JasperReport jasperReport;
+        JasperPrint jasperPrint;
+        HashMap<String, Object> parameter = new HashMap<String, Object>();
+        jasperReport = JasperCompileManager
+                .compileReport("src/main/resources/static/jasper/Simple_Blue.jrxml");
+            double summe = 0.0;
+        LinkedList<Abrechnung> ls = new LinkedList<>();
+        for (FotografAbrechnung fa:abrechnungen){
+            Abrechnung a = new Abrechnung();
+            a.setAnteil(fa.getSumme());
+            summe += fa.getSumme();
+            a.setKaufdatum(fa.getGekauftwann());
+            a.setPreis(fa.getPreis().getPreis());
+            fa.setAbgerechnet(true);
+            fa.setAbrechnungsDatum(new Date());
+            ls.add(a);
+        }
+
+
+
+
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ls);
+        parameter.put("AbrechnungDataSet", itemsJRBean);
+        parameter.put("Fotograf",abrechnungen.get(0).getFotograf().getName());
+        parameter.put("Summe",summe);
+
+
+
+        jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
+
+
+        //JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+
+    }
 }

@@ -75,6 +75,22 @@
                 <input class="btn btn-warning" type="submit"/>
             </div>
         </form>
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+        <br/>
+            <form action="#" th:action="@{/upload/abrechnung/}" th:object="${fotografid}" method="post">
+                <select th:field="*{id}" th:remove="all-but-first">
+                    <option th:each="fotog : ${fotografen}"
+                            th:value="${fotog.id}" th:text="${fotog.name}"></option>
+
+                </select>
+                <input class="btn btn-warning" type="submit" value="Abrechnen"/>
+            </form>
+
+
+        </div>
     </div>
     <div id="hochgeladeneBilder" class="container">
 
