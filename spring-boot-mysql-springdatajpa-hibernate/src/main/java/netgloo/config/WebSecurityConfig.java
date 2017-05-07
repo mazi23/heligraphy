@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/picture-list.html","/picture-grid.html","/picture-grid","/picture-grid/**","/picture-details/**","/picture-details",
             "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**","/checkout","/VersandDetails",
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
-            "/memberArea"
+            "/memberArea","/PDFAbrechnung"
     };
 
     @Override

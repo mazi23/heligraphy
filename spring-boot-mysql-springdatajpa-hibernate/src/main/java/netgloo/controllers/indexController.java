@@ -1,26 +1,23 @@
 package netgloo.controllers;
 
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import netgloo.Application;
-import netgloo.models.Code;
+import net.sf.jasperreports.engine.JRException;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.BildDao;
-import netgloo.models.reportObjects.Abrechnung;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import netgloo.Application;
+import netgloo.models.Code;
+
+import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 /**
  * Created by mazi on 16.04.17.
@@ -90,10 +87,7 @@ public class indexController {
         JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
 
     }
-*/
 
-
-/*
     public void generateReport() throws JRException {
 
 

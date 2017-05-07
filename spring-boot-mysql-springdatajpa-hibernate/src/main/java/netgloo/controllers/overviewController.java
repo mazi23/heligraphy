@@ -65,86 +65,86 @@ public class overviewController {
 
 
 
-            OverviewPrice overviewPrice = new OverviewPrice();
-            String zahlungsart = adressenCommand.getZahlungsart();
-            if (zahlungsart == null) overviewPrice.setVersandkosten(5);
-            else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
-            else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
+        OverviewPrice overviewPrice = new OverviewPrice();
+        String zahlungsart = adressenCommand.getZahlungsart();
+        if (zahlungsart == null) overviewPrice.setVersandkosten(5);
+        else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
+        else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
 
 
-            bestellung = new Bestellung();
+        bestellung = new Bestellung();
 
-            kunde = userDao.findByEmail(adressenCommand.getEmailVA());
-            Adresse versandadresse = new Adresse();
-            versandadresse.setLand(adressenCommand.getLandVA());
-            versandadresse.setOrt(adressenCommand.getOrtVA());
-            versandadresse.setAnschrift(adressenCommand.getStrasseVA());
-            versandadresse.setPlz(Integer.parseInt(adressenCommand.getPlzVA()));
-            adresseDao.save(versandadresse);
+        kunde = userDao.findByEmail(adressenCommand.getEmailVA());
+        Adresse versandadresse = new Adresse();
+        versandadresse.setLand(adressenCommand.getLandVA());
+        versandadresse.setOrt(adressenCommand.getOrtVA());
+        versandadresse.setAnschrift(adressenCommand.getStrasseVA());
+        versandadresse.setPlz(Integer.parseInt(adressenCommand.getPlzVA()));
+        adresseDao.save(versandadresse);
 
-            bestellung.setLieferAdresse(versandadresse);
+        bestellung.setLieferAdresse(versandadresse);
 
-            if (adressenCommand.getEmailRA().equals("") && adressenCommand.getNameRA().equals("")) {
-                //Versandadresse ist gleich Rechnungsadresse
-                bestellung.setRechnungsAdresse(versandadresse);
-            } else {
-                Adresse rechnungsAdresse = new Adresse();
-                rechnungsAdresse.setLand(adressenCommand.getLandRA());
-                rechnungsAdresse.setOrt(adressenCommand.getOrtRA());
-                rechnungsAdresse.setAnschrift(adressenCommand.getStrasseRA());
-                rechnungsAdresse.setPlz(Integer.parseInt(adressenCommand.getPlzRA()));
-                adresseDao.save(rechnungsAdresse);
-                bestellung.setRechnungsAdresse(rechnungsAdresse);
-            }
-
-
-            for (ShoppingCartItem item : shoppingCart.getItems()) {
-                BestellElement element = new BestellElement();
-                element.setPreis(item.getPrice());
-                element.setBezeichnung("test");
-                element.setBildID(item.getId());
-                element.setStueck(item.getQuantity());
-                bestellElementDao.save(element);
-                bestellung.addBestellElement(element);
-                overviewPrice.setZwischenSumme(overviewPrice.getZwischenSumme() + (item.getPrice() * item.getQuantity()));
-                System.out.println(item.getQuantity());
-            }
+        if (adressenCommand.getEmailRA().equals("") && adressenCommand.getNameRA().equals("")) {
+            //Versandadresse ist gleich Rechnungsadresse
+            bestellung.setRechnungsAdresse(versandadresse);
+        } else {
+            Adresse rechnungsAdresse = new Adresse();
+            rechnungsAdresse.setLand(adressenCommand.getLandRA());
+            rechnungsAdresse.setOrt(adressenCommand.getOrtRA());
+            rechnungsAdresse.setAnschrift(adressenCommand.getStrasseRA());
+            rechnungsAdresse.setPlz(Integer.parseInt(adressenCommand.getPlzRA()));
+            adresseDao.save(rechnungsAdresse);
+            bestellung.setRechnungsAdresse(rechnungsAdresse);
+        }
 
 
-            overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme() + overviewPrice.getVersandkosten());
-            bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
-            bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
-            bestellung.setMwst(20);
-            bestellung.setSummebrutto(overviewPrice.getGesamtkosten());
-            bestellung.setVersankosten(overviewPrice.getVersandkosten());
-            bestellung.setVersandart(zahlungsart);
-            bestellung.setSummenetto(overviewPrice.getGesamtkosten() / 1.2);
-            bestellung.setSummemwst(overviewPrice.getGesamtkosten());
-
-            bestellungDao.save(bestellung);
-            if (kunde == null) {
-                kunde = new User();
-
-                kunde.setAdresse(versandadresse);
-                kunde.setTelefon(adressenCommand.getTelVA());
-                kunde.setName(adressenCommand.getNameVA());
-
-                kunde.setEmail(adressenCommand.getEmailVA());
-                kunde.setRole(Role.USER);
-                kunde.addBestellung(bestellung);
-                kunde.setIdBildgruppe(Integer.parseInt(shoppingCart.getBildgruppe()));
-                kunde.setEnabled(true);
-                userDao.save(kunde);
-            } else {
-                kunde.addBestellung(bestellung);
-            }
-            bestellung.setuser(kunde);
-            bestellungDao.save(bestellung);
+        for (ShoppingCartItem item : shoppingCart.getItems()) {
+            BestellElement element = new BestellElement();
+            element.setPreis(item.getPrice());
+            element.setBezeichnung("test");
+            element.setBildID(item.getId());
+            element.setStueck(item.getQuantity());
+            bestellElementDao.save(element);
+            bestellung.addBestellElement(element);
+            overviewPrice.setZwischenSumme(overviewPrice.getZwischenSumme() + (item.getPrice() * item.getQuantity()));
+            System.out.println(item.getQuantity());
+        }
 
 
-            model.addAttribute("overviewPrice", overviewPrice);
-            model.addAttribute("Items", shoppingCart.getItems());
-            return "overview";
+        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme() + overviewPrice.getVersandkosten());
+        bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
+        bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
+        bestellung.setMwst(20);
+        bestellung.setSummebrutto(overviewPrice.getGesamtkosten());
+        bestellung.setVersankosten(overviewPrice.getVersandkosten());
+        bestellung.setVersandart(zahlungsart);
+        bestellung.setSummenetto(overviewPrice.getGesamtkosten() / 1.2);
+        bestellung.setSummemwst(overviewPrice.getGesamtkosten());
+
+        bestellungDao.save(bestellung);
+        if (kunde == null) {
+            kunde = new User();
+
+            kunde.setAdresse(versandadresse);
+            kunde.setTelefon(adressenCommand.getTelVA());
+            kunde.setName(adressenCommand.getNameVA());
+
+            kunde.setEmail(adressenCommand.getEmailVA());
+            kunde.setRole(Role.USER);
+            kunde.addBestellung(bestellung);
+            kunde.setIdBildgruppe(Integer.parseInt(shoppingCart.getBildgruppe()));
+            kunde.setEnabled(true);
+            userDao.save(kunde);
+        } else {
+            kunde.addBestellung(bestellung);
+        }
+        bestellung.setuser(kunde);
+        bestellungDao.save(bestellung);
+
+
+        model.addAttribute("overviewPrice", overviewPrice);
+        model.addAttribute("Items", shoppingCart.getItems());
+        return "overview";
 
     }
 
@@ -164,98 +164,98 @@ public class overviewController {
 
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
-       try {
-           Mail mailToPrint = new Mail();
+        try {
+            Mail mailToPrint = new Mail();
             logger.info("-------------------------------------- \n Gesendet");
 
-           //mailToPrint.setAbsenderMail("info@heligraphy.at");
-           //ToDO: email auf Druckerei ändern
-           mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
-           HashMap<Integer, Bild> bilder = new HashMap();
+            //mailToPrint.setAbsenderMail("info@heligraphy.at");
+            //ToDO: email auf Druckerei ändern
+            mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
+            HashMap<Integer, Bild> bilder = new HashMap();
 
-           //
-           String textprintPaper = "";
-           String textprintLeinwand = "";
-           for (ShoppingCartItem item : shoppingCart.getItems()) {
-               FotografAbrechnung abrechnung = new FotografAbrechnung();
-               Bild aktBild = bildDao.findBildByid((long) item.getId());
-               if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
+            //
+            String textprintPaper = "";
+            String textprintLeinwand = "";
+            for (ShoppingCartItem item : shoppingCart.getItems()) {
+                FotografAbrechnung abrechnung = new FotografAbrechnung();
+                Bild aktBild = bildDao.findBildByid((long) item.getId());
+                if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
 
-                   abrechnung.setFotograf(aktBild.getFotograf());
-                   abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-                   abrechnungen.add(abrechnung);
-                   bilder.put(item.getId(), aktBild);
-                   if (item.getPrice() == PreisPlan.BASIC.getValue())
-                       textprintPaper += "image" + item.getId() + ".jpg,";
-                   if (item.getPrice() == PreisPlan.PREMIUM.getValue())
-                       textprintLeinwand += "image" + item.getId() + ".jpg,";
-                   //bilder.add(bildDao.findBildByid((long) item.getId()));
-               } else {
-                   abrechnung.setFotograf(aktBild.getFotograf());
-                   abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                    abrechnung.setFotograf(aktBild.getFotograf());
+                    abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                    abrechnungen.add(abrechnung);
+                    bilder.put(item.getId(), aktBild);
+                    if (item.getPrice() == PreisPlan.BASIC.getValue())
+                        textprintPaper += "image" + item.getId() + ".jpg,";
+                    if (item.getPrice() == PreisPlan.PREMIUM.getValue())
+                        textprintLeinwand += "image" + item.getId() + ".jpg,";
+                    //bilder.add(bildDao.findBildByid((long) item.getId()));
+                } else {
+                    abrechnung.setFotograf(aktBild.getFotograf());
+                    abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
 
-                   //TODO: Download für Bilder
+                    //TODO: Download für Bilder
 
-               }
-           }
-           if (!textprintPaper.equals("")) {
-               textprintPaper += " als Lambda-Abzug auf\n" +
-                       "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
-           }
-           if (!textprintLeinwand.equals("")) {
-               textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
-           }
+                }
+            }
+            if (!textprintPaper.equals("")) {
+                textprintPaper += " als Lambda-Abzug auf\n" +
+                        "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
+            }
+            if (!textprintLeinwand.equals("")) {
+                textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
+            }
 
-           String textPrint = "";
-           if (bestellung.getVersandart().equals("Nachname")) {
-               textPrint = "Sehr geehrte Damen und Herren," +
-                       "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                       "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachname." +
-                       "\r\n Rechnungsadresse: \r\n" +
-                       "Matthias Oberegger \r\n" +
-                       "Pfarrgraben 6 \r\n" +
-                       "4713 Gallspach \r\n" +
-                       "Österreich \r\n \r\n" +
-                       "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                       kunde.getAdresse().getAnschrift() + "\r\n" +
-                       kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                       kunde.getAdresse().getLand() + "\r\n" +
-                       "Mit freundlichen Grüßen \r\n" +
-                       "Matthis Oberegger";
-           } else {
-               textPrint = "Sehr geehrte Damen und Herren," +
-                       "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                       "Gewünscht wird: " + textprintLeinwand + textprintPaper +
-                       "\r\n\n Rechnungsadresse: \r\n" +
-                       "Matthias Oberegger \r\n" +
-                       "Pfarrgraben 6 \r\n" +
-                       "4713 Gallspach \r\n" +
-                       "Österreich \r\n \r\n" +
-                       "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                       kunde.getAdresse().getAnschrift() + "\r\n" +
-                       kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                       kunde.getAdresse().getLand() + "\r\n" +
-                       "Mit freundlichen Grüßen \r\n" +
-                       "Matthis Oberegger";
-           }
-
-
-           mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+            String textPrint = "";
+            if (bestellung.getVersandart().equals("Nachname")) {
+                textPrint = "Sehr geehrte Damen und Herren," +
+                        "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                        "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachname." +
+                        "\r\n Rechnungsadresse: \r\n" +
+                        "Matthias Oberegger \r\n" +
+                        "Pfarrgraben 6 \r\n" +
+                        "4713 Gallspach \r\n" +
+                        "Österreich \r\n \r\n" +
+                        "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                        kunde.getAdresse().getAnschrift() + "\r\n" +
+                        kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                        kunde.getAdresse().getLand() + "\r\n" +
+                        "Mit freundlichen Grüßen \r\n" +
+                        "Matthis Oberegger";
+            } else {
+                textPrint = "Sehr geehrte Damen und Herren," +
+                        "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                        "Gewünscht wird: " + textprintLeinwand + textprintPaper +
+                        "\r\n\n Rechnungsadresse: \r\n" +
+                        "Matthias Oberegger \r\n" +
+                        "Pfarrgraben 6 \r\n" +
+                        "4713 Gallspach \r\n" +
+                        "Österreich \r\n \r\n" +
+                        "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                        kunde.getAdresse().getAnschrift() + "\r\n" +
+                        kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                        kunde.getAdresse().getLand() + "\r\n" +
+                        "Mit freundlichen Grüßen \r\n" +
+                        "Matthis Oberegger";
+            }
 
 
-           String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                   "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                   "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
-                   "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
+            mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
 
 
-           Mail mailtoCustomer = new Mail();
-           byte[] pdf = generateReport(bestellung);
-           mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
-           AbrechnungGenerieren();
-       }catch (Exception e){
-           logger.error("----------------------------\n"+e.getMessage());
-       }
+            String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                    "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
+                    "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                    "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
+
+
+            Mail mailtoCustomer = new Mail();
+            byte[] pdf = generateReport(bestellung);
+            mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
+            AbrechnungGenerieren();
+        }catch (Exception e){
+            logger.error("----------------------------\n"+e.getMessage());
+        }
         return "bestellungAbgeschlossen";
     }
 
