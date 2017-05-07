@@ -1,9 +1,11 @@
 package netgloo.controllers;
 
-import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import netgloo.models.Code;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.BildDao;
+import netgloo.models.reportObjects.Abrechnung;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.InputStream;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by mazi on 16.04.17.
@@ -31,9 +35,8 @@ public class indexController {
 
         //model.addAttribute("products", null);
         model.addAttribute("suchcode", new Code());
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("com/bio/ofm/mnu/views/reports/jasperReports/repAuditReport.jrxml");
-
-
+        generateAbrechnungsReport();
+        //generateReport();
         return "index";
     }
 
@@ -45,9 +48,43 @@ public class indexController {
         return "redirect:picture-grid";
     }
 
-/*
 
-Nur für Testzwecke
+    public void generateAbrechnungsReport() throws JRException {
+        JasperReport jasperReport;
+        JasperPrint jasperPrint;
+        HashMap<String, Object> parameter = new HashMap<String, Object>();
+        jasperReport = JasperCompileManager
+                .compileReport("src/main/resources/static/jasper/Simple_Blue.jrxml");
+
+        LinkedList<Abrechnung> ls = new LinkedList<>();
+        for (int i = 1; i<4;i++){
+            Abrechnung a = new Abrechnung();
+            a.setAnteil(10.4*i);
+            a.setKaufdatum(new Date());
+            a.setPreis(20.53*i);
+            ls.add(a);
+        }
+
+
+
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ls);
+        parameter.put("AbrechnungDataSet", itemsJRBean);
+        parameter.put("Fotograf","Test");
+        parameter.put("Summe",30.32);
+
+
+
+        jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
+        //return JasperExportManager.exportReportToPdf(jasperPrint);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
+
+    }
+
+
+
+/*
     public void generateReport() throws JRException {
 
 
@@ -106,7 +143,7 @@ Nur für Testzwecke
         bs.setVersandart("Vorrauskassa");
         bs.setSummenetto(100/1.2);
         bs.setSummemwst(10);
-
+        bs.setIdBestellung(10);
         User kunde = null;
         if (kunde == null) {
             kunde = new User();
@@ -140,7 +177,7 @@ Nur für Testzwecke
         parameter.put("ItemDataSource", itemsJRBean);
 
         parameter.put("summenetto",bs.getSummenetto());
-        parameter.put("summebrutto",(bs.getSummebrutto()*100)/100);
+        parameter.put("summebrutto",(bs.getSummebrutto()*100)/100000);
         parameter.put("summemwst",bs.getSummemwst());
         parameter.put("auftragsDatum",bs.getAuftragsDatum());
         parameter.put("idBestellung",bs.getIdBestellung());
@@ -157,12 +194,13 @@ Nur für Testzwecke
 
         jasperPrint =
                 JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
-        JasperExportManager.exportReportToPdf(jasperPrint);
-        //JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example4.pdf");
+        //return JasperExportManager.exportReportToPdf(jasperPrint);
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
 
 
 
     }
 
- */
+*/
 }

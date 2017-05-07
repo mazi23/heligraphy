@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-01T14:25:58 -->
+<!-- 2017-05-07T11:06:54 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -64,7 +64,9 @@
 		<variable name="Gesamt" class="java.lang.Double">
 			<variableExpression><![CDATA[$F{stueck}*$F{preis}]]></variableExpression>
 		</variable>
-		<variable name="Pos" class="java.lang.Integer" calculation="Count"/>
+		<variable name="Pos" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
+		</variable>
 		<variable name="Variable_1" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" evaluationTime="Early">
@@ -83,6 +85,7 @@
 	<parameter name="VAStrasse" class="java.lang.String"/>
 	<parameter name="VAOrt" class="java.lang.String"/>
 	<parameter name="VALand" class="java.lang.String"/>
+	<parameter name="Versandkosten" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -100,69 +103,79 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="101">
+			<band height="102">
 				<property name="local_mesure_unitheight" value="pixel"/>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<line>
-					<reportElement x="274" y="27" width="281" height="1" uuid="a47aefe9-9849-41ae-a613-4c4aba1a2eb9"/>
+					<reportElement x="274" y="36" width="281" height="1" uuid="a47aefe9-9849-41ae-a613-4c4aba1a2eb9"/>
 				</line>
 				<line>
-					<reportElement x="273" y="49" width="281" height="1" uuid="830a2dac-d2b4-4390-bc10-7e2c3a83fe01"/>
+					<reportElement x="273" y="58" width="281" height="1" uuid="830a2dac-d2b4-4390-bc10-7e2c3a83fe01"/>
 				</line>
 				<staticText>
-					<reportElement x="274" y="28" width="80" height="21" uuid="a659ed5b-5fef-4be3-a33e-c92a8d2fa16d"/>
+					<reportElement x="274" y="37" width="80" height="21" uuid="a659ed5b-5fef-4be3-a33e-c92a8d2fa16d"/>
 					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[Summe Netto:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="27" width="80" height="22" uuid="5cab9768-fb57-4212-b2df-06ba50cf9460"/>
+					<reportElement x="380" y="36" width="80" height="22" uuid="5cab9768-fb57-4212-b2df-06ba50cf9460"/>
 					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[€]]></text>
 				</staticText>
 				<line>
-					<reportElement x="273" y="71" width="281" height="1" uuid="22a67dc1-4ac3-4389-b9ed-c025a2df723d"/>
+					<reportElement x="273" y="80" width="281" height="1" uuid="22a67dc1-4ac3-4389-b9ed-c025a2df723d"/>
 				</line>
 				<staticText>
-					<reportElement x="274" y="50" width="80" height="21" uuid="55b02d2e-dc73-4212-87cc-64957667827e"/>
+					<reportElement x="274" y="59" width="80" height="21" uuid="55b02d2e-dc73-4212-87cc-64957667827e"/>
 					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[20,00% Mwst.:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="49" width="80" height="22" uuid="7413ad1b-1c35-48b4-8b4d-438486967b12"/>
+					<reportElement x="380" y="58" width="80" height="22" uuid="7413ad1b-1c35-48b4-8b4d-438486967b12"/>
 					<textElement verticalAlignment="Middle"/>
 					<text><![CDATA[€]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="274" y="72" width="80" height="21" uuid="f8f64aec-116e-4cda-b8ec-4811fbf88ab6"/>
+					<reportElement x="274" y="81" width="80" height="21" uuid="f8f64aec-116e-4cda-b8ec-4811fbf88ab6"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[Endsumme:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="380" y="71" width="80" height="22" uuid="8c3da379-5864-489a-b877-ca23a402c483"/>
+					<reportElement x="380" y="80" width="80" height="22" uuid="8c3da379-5864-489a-b877-ca23a402c483"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<text><![CDATA[€]]></text>
 				</staticText>
 				<textField pattern="#,###.00#">
-					<reportElement x="457" y="27" width="93" height="22" uuid="c3a62f1f-6863-4e73-9951-e73a1bd9a68e"/>
+					<reportElement x="457" y="36" width="93" height="22" uuid="c3a62f1f-6863-4e73-9951-e73a1bd9a68e"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$P{summenetto}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00#">
-					<reportElement x="458" y="72" width="92" height="21" uuid="b5a0d77c-abad-4919-b9ec-ed7cefff93ef"/>
+					<reportElement x="458" y="81" width="92" height="21" uuid="b5a0d77c-abad-4919-b9ec-ed7cefff93ef"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{summebrutto}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00#">
-					<reportElement x="458" y="50" width="92" height="21" uuid="ce5d22a1-2842-42b0-a044-19e102128534"/>
+					<reportElement x="458" y="59" width="92" height="21" uuid="ce5d22a1-2842-42b0-a044-19e102128534"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$P{summemwst}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="380" y="9" width="80" height="22" uuid="ea7277f0-db3c-4e58-8091-597603c4cee1"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[€]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="274" y="10" width="80" height="21" uuid="4118c2d4-a1ad-49c8-ac76-cb8f76cc70b3"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Versandkosten:]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
@@ -195,13 +208,13 @@
 				<text><![CDATA[Versandadresse:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<reportElement x="395" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Datum:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<reportElement x="360" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Rechnungsnr:]]></text>
@@ -230,12 +243,12 @@
 Austira]]></text>
 			</staticText>
 			<textField pattern="MM.dd.yyyy HH:mm">
-				<reportElement x="465" y="10" width="84" height="20" uuid="5430eb0d-4208-4c04-82b0-f6ec147bf414"/>
+				<reportElement x="445" y="10" width="104" height="20" uuid="5430eb0d-4208-4c04-82b0-f6ec147bf414"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{auftragsDatum}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="465" y="30" width="84" height="20" uuid="c0e45eb8-dba4-479f-a343-0a4ca64fe66d"/>
+				<reportElement x="445" y="30" width="104" height="20" uuid="c0e45eb8-dba4-479f-a343-0a4ca64fe66d"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{idBestellung}]]></textFieldExpression>
 			</textField>
@@ -273,10 +286,6 @@ Austira]]></text>
 			</textField>
 			<frame>
 				<reportElement x="0" y="0" width="95" height="71" uuid="8b29a63e-477e-4e4a-95e3-4dee7a9197b6"/>
-				<!--<image>
-					<reportElement x="0" y="0" width="95" height="70" uuid="cc30f928-39a5-45ba-8eb8-e8a4698e99b5"/>
-					<imageExpression><![CDATA["images/logos/logoRechnung.png"]]></imageExpression>
-				</image>-->
 			</frame>
 		</band>
 	</title>
@@ -317,15 +326,17 @@ Austira]]></text>
 								<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 							</reportElement>
 						</line>
-						<textField evaluationTime="Master">
-							<reportElement x="0" y="0" width="30" height="30" uuid="e4488cc8-f912-4379-81bc-bc039be00742"/>
-							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{Pos}]]></textFieldExpression>
-						</textField>
 						<textField pattern="#,##0.###">
 							<reportElement x="461" y="1" width="78" height="30" uuid="76d6f77d-ec6c-4723-81cb-ad5826b7e892"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{Gesamt}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="8" width="30" height="22" uuid="56f129c8-ebd9-4ab4-8b5f-5cbb1c64882d">
+								<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+							</reportElement>
+							<textElement textAlignment="Center" verticalAlignment="Justified"/>
+							<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
@@ -381,24 +392,46 @@ Austira]]></text>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="150">
+		<band height="171">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="35" width="261" height="81" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
-				<box>
-					<topPen lineWidth="1.1" lineStyle="Dashed"/>
-					<leftPen lineWidth="1.1" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.1" lineStyle="Dashed"/>
-					<rightPen lineWidth="1.1" lineStyle="Dashed"/>
+				<reportElement positionType="Float" x="0" y="130" width="280" height="40" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<text><![CDATA[Notiz]]></text>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Heligraphy, Pfarrgraben 6, A-4713 Gallspach
+email: info@heligraphy.at, web: www.heligraphy.at
+Tel.: +43 6764677516]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="0" y="120" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="100" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Wir danken für Ihren Einkauf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="130" width="274" height="40" uuid="a53ebcea-fc5a-4da7-9269-1538f3450952"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Bank: Erste Bank und Sparkasse, BLZ,Kto-Nr.:
+IBAN ,BIC
+Handelsgericht]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>
