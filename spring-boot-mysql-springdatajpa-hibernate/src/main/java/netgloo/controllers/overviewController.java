@@ -250,7 +250,7 @@ public class overviewController {
         byte[]pdf = generateReport(bestellung);
         mailtoCustomer.sendMailWithBill(kunde.getEmail(),textCustomer,pdf);
         AbrechnungGenerieren();
-        shoppingCart = new ShoppingCart();
+
     return "bestellungAbgeschlossen";
     }
 
@@ -268,7 +268,6 @@ public class overviewController {
             mwst = p.getPreis()/1.2*0.2;
             ab.setGekauftwann();
             ab.setSumme((p.getPreis()-mwst-druckpreis)*ab.getFotograf().getAnteil()/100);
-            ab.setAbgerechnet(false);
             abrechnungDao.save(ab);
         }
     }

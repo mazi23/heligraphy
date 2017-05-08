@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-07T13:46:38 -->
+<!-- 2017-05-07T11:06:54 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
@@ -315,7 +315,7 @@ Austira]]></text>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$F{stueck}]]></textFieldExpression>
 						</textField>
-						<textField pattern="#,##0.00;-#,##0.00">
+						<textField pattern="#,##0.###;#,##0.###-">
 							<reportElement x="390" y="0" width="71" height="30" uuid="2a4355d7-e096-418d-afdd-7ed6f545a3cb"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$F{preis}]]></textFieldExpression>
@@ -326,7 +326,7 @@ Austira]]></text>
 								<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 							</reportElement>
 						</line>
-						<textField pattern="#,##0.00;-#,##0.00">
+						<textField pattern="#,##0.###">
 							<reportElement x="461" y="1" width="78" height="30" uuid="76d6f77d-ec6c-4723-81cb-ad5826b7e892"/>
 							<textElement textAlignment="Right" verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{Gesamt}]]></textFieldExpression>
