@@ -35,7 +35,7 @@ public class indexController {
 
         //model.addAttribute("products", null);
         model.addAttribute("suchcode", new Code());
-        generateAbrechnungsReport();
+        //generateAbrechnungsReport();
         //generateReport();
         return "index";
     }
@@ -49,7 +49,7 @@ public class indexController {
     }
 
 
-    public void generateAbrechnungsReport() throws JRException {
+/*    public void generateAbrechnungsReport() throws JRException {
         JasperReport jasperReport;
         JasperPrint jasperPrint;
         HashMap<String, Object> parameter = new HashMap<String, Object>();
@@ -81,7 +81,7 @@ public class indexController {
         JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
 
     }
-
+*/
 
 
 /*

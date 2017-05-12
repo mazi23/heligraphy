@@ -3392,7 +3392,7 @@ select[multiple].input-lg, textarea.input-lg {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
-    -webkit-user-select: none;
+
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
