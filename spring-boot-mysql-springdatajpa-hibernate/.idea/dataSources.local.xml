@@ -8,14 +8,8 @@
       </database-info>
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
       <secret-storage>master_key</secret-storage>
-      <user-name>root1</user-name>
+      <user-name>root</user-name>
       <resolve-scope>test:*</resolve-scope>
-    </data-source>
-    <data-source name="1177852db1@mysqlsvr71.world4you.com" uuid="db1bbd48-6384-4c7f-9967-7fb0b7c6b180">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
-      <secret-storage>master_key</secret-storage>
-      <first-sync>true</first-sync>
-      <user-name>sql8321125</user-name>
     </data-source>
     <data-source name="@46.252.24.59" uuid="c86f4699-cf0f-4ff4-a524-868c7a5643ac">
       <database-info product="MySQL" version="5.7.18-0ubuntu0.16.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )">

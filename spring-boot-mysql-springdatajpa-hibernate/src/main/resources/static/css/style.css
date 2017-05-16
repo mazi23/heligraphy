@@ -2254,7 +2254,7 @@ input[type=checkbox]:checked + label:before {
     outline: none;
     color: #6c6c6c;
     height: 40px;
-   
+
     border-radius: 3px;
 }
 

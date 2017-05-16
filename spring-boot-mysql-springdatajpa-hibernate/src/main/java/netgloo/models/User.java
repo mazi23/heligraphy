@@ -32,10 +32,9 @@ public class User {
 
     // The user's name
     @NotNull
-    private String nachname;
+    private String name;
 
     private String titel;
-    private String vorname;
 
     private boolean enabled;
     private String telefon;
@@ -52,21 +51,10 @@ public class User {
     private Role role;
 
 
-
-
-
-
-    public User() { }
-
-    public User(long id) {
-        this.id = id;
-    }
-
-    public User(String email, String nachname, String titel, String vorname, boolean enabled, String telefon, String art, Adresse adresse, Integer idBildgruppe, String username, String passwort, Set<Bestellung> bestellung, Role role) {
+    public User(String email, String name, String titel, boolean enabled, String telefon, String art, Adresse adresse, Integer idBildgruppe, String username, String passwort, Set<Bestellung> bestellung, Role role) {
         this.email = email;
-        this.nachname = nachname;
+        this.name = name;
         this.titel = titel;
-        this.vorname = vorname;
         this.enabled = enabled;
         this.telefon = telefon;
         this.art = art;
@@ -78,17 +66,10 @@ public class User {
         this.role = role;
     }
 
-    public Set<Bestellung> getBestellung() {
-        return bestellung;
-    }
+    public User() { }
 
-    public void setBestellung(Set<Bestellung> bestellung) {
-        this.bestellung = bestellung;
-    }
-
-    //Bestellung zu User hinzufügen
-    public void addBestellung(Bestellung bestellung){
-       this.bestellung.add(bestellung);
+    public User(long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -107,12 +88,12 @@ public class User {
         this.email = email;
     }
 
-    public String getNachname() {
-        return nachname;
+    public String getName() {
+        return name;
     }
 
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTitel() {
@@ -123,14 +104,13 @@ public class User {
         this.titel = titel;
     }
 
-    public String getVorname() {
-        return vorname;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
-
 
     public String getTelefon() {
         return telefon;
@@ -164,24 +144,8 @@ public class User {
         this.idBildgruppe = idBildgruppe;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public void setUsername(String username) {
@@ -197,4 +161,24 @@ public class User {
     }
 
 
-} // class User
+
+    public Set<Bestellung> getBestellung() {
+        return bestellung;
+    }
+
+    public void setBestellung(Set<Bestellung> bestellung) {
+        this.bestellung = bestellung;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    public void addBestellung(Bestellung bestellung) {
+        this.bestellung.add(bestellung);
+    }
+
+    } // class User

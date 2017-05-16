@@ -14,36 +14,32 @@ import javax.validation.constraints.Size;
 @Scope(value="session", proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class AdressenCommand {
 
-    @NotEmpty
-    @Size(min = 2, max = 50,message = "Vorname ist ungültig")
-    private String vornameVA;
-    @NotEmpty
-    @Size(min = 2, max = 50)
-    private String nachnameVA;
-    @NotEmpty
-    @Size(min = 2, max = 50)
+    @NotEmpty(message = "Name darf nicht leer sein")
+    @Size(min = 4, max = 50,message = "Name muss zwischen 4 und 50 Zeichen lang sein")
+    private String nameVA;
+
+
+    @NotEmpty(message = "Email darf nicht leer sein.")
+    @Size(min = 5, max = 50,message = "Email muss zwischen 5 und 50 Zeichen lang sein.")
     private String emailVA;
-    @NotEmpty
-    @Size(min = 2, max = 50)
+
     private String telVA;
-    @NotEmpty
-    @Size(min = 2, max = 50)
+    @NotEmpty(message = "Strasse darf nicht leer sein")
+    @Size(min = 3, max = 50, message = "Das Feld Straße muss mindestens 3 Zeichen lang sein.")
     private String strasseVA;
-    @NotEmpty
-    @Size(min = 2, max = 70)
+    @NotEmpty(message = "Das Feld Ort darf nicht leer sein")
+    @Size(min = 3, max = 50, message = "Das Feld Ort muss mindestens 3 Zeichen lang sein.")
     private String ortVA;
-    @NotEmpty
-    @Size(min = 2, max = 50)
+    @NotEmpty(message = "Das Feld Land darf nicht leer sein")
+    @Size(min = 3, max = 50, message = "Das Feld Land muss mindestens 3 Zeichen lang sein.")
     private String landVA;
-    @NotEmpty
-    @Size(min = 2, max = 8)
+    @NotEmpty(message = "Das feld PLZ darf nicht leer sein")
+    @Size(min = 2, max = 5, message = "Das Feld PLZ muss 4 Zeichen lang sein.")
     private String plzVA;
 
 
 
-    private String vornameRA;
-
-    private String nachnameRA;
+    private String nameRA;
 
 
     private String emailRA;
@@ -66,44 +62,33 @@ public class AdressenCommand {
     private String zahlungsart;
 
 
-    public AdressenCommand(String vornameVA, String nachnameVA, String emailVA, String telVA, String strasseVA, String ortVA, String landVA, String plzVA, String vornameRA, String nachnameRA, String emailRA, String telRA, String strasseRA, String ortRA, String landRA, String plzRA) {
-        this.vornameVA = vornameVA;
-        this.nachnameVA = nachnameVA;
+    public AdressenCommand(String nameVA, String emailVA, String telVA, String strasseVA, String ortVA, String landVA, String plzVA, String nameRA, String emailRA, String telRA, String strasseRA, String ortRA, String landRA, String plzRA, String zahlungsart) {
+        this.nameVA = nameVA;
         this.emailVA = emailVA;
         this.telVA = telVA;
         this.strasseVA = strasseVA;
         this.ortVA = ortVA;
         this.landVA = landVA;
         this.plzVA = plzVA;
-        this.vornameRA = vornameRA;
-        this.nachnameRA = nachnameRA;
+        this.nameRA = nameRA;
         this.emailRA = emailRA;
         this.telRA = telRA;
         this.strasseRA = strasseRA;
         this.ortRA = ortRA;
         this.landRA = landRA;
         this.plzRA = plzRA;
+        this.zahlungsart = zahlungsart;
     }
-
 
     public AdressenCommand() {
-
     }
 
-    public String getVornameVA() {
-        return vornameVA;
+    public String getNameVA() {
+        return nameVA;
     }
 
-    public void setVornameVA(String vornameVA) {
-        this.vornameVA = vornameVA;
-    }
-
-    public String getNachnameVA() {
-        return nachnameVA;
-    }
-
-    public void setNachnameVA(String nachnameVA) {
-        this.nachnameVA = nachnameVA;
+    public void setNameVA(String nameVA) {
+        this.nameVA = nameVA;
     }
 
     public String getEmailVA() {
@@ -154,20 +139,12 @@ public class AdressenCommand {
         this.plzVA = plzVA;
     }
 
-    public String getVornameRA() {
-        return vornameRA;
+    public String getNameRA() {
+        return nameRA;
     }
 
-    public void setVornameRA(String vornameRA) {
-        this.vornameRA = vornameRA;
-    }
-
-    public String getNachnameRA() {
-        return nachnameRA;
-    }
-
-    public void setNachnameRA(String nachnameRA) {
-        this.nachnameRA = nachnameRA;
+    public void setNameRA(String nameRA) {
+        this.nameRA = nameRA;
     }
 
     public String getEmailRA() {
