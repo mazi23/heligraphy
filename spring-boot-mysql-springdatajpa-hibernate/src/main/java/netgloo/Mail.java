@@ -44,6 +44,7 @@ public class Mail {
 
 
         absenderMail = "info@heligraphy.at";
+
     }
 
     public void sendMail(String subject, String text, HashMap<Integer,Bild> bilder) throws MessagingException, IOException {

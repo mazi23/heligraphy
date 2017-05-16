@@ -38,10 +38,15 @@ public class contactController {
         final String password = "macbook1";
 
         Properties props = new Properties();
-        props.put("Mail.smtp.auth", "true");
-        props.put("Mail.smtp.starttls.enable", "true");
-        props.put("Mail.smtp.host", "smtp.gmail.com");
-        props.put("Mail.smtp.port", "587");
+
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
@@ -51,14 +56,16 @@ public class contactController {
                 });
 
         try {
-            Object[] adressen = new Object[]{InternetAddress.parse("mac.matthias@gmail.com"),InternetAddress.parse(from)};
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setRecipients(Message.RecipientType.TO, (Address[]) adressen);
-            message.setSubject("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n"+ "Telefon: "+telefon);
-            message.setText(text);
+            message.setFrom(new InternetAddress("info@heligraphy.at"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(from));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
+            message.setSubject("Ihre Anfrage bei Heligraphy");
+            message.setText("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+ "Ihre angaben \r\n"+subject+"---------------------\r\n"+ "Telefon: "+telefon+"\n" +
+                    ""+text);
 
             Transport.send(message);
+
 
 
 
