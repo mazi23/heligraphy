@@ -58,25 +58,26 @@
                 <form id="contact_form_user" th:action="@{/VersandDetailsWithUser}" th:object="${LoginCommand}"
                       method="POST"
                       enctype="multipart/form-data">
-                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <!--<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
                     <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                </div>
+                </div>-->
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
+                        <div class="form-group userreg">
                             <input type="email" name="email" class="form-control input-md" id="loginemail"
-                                   placeholder="Email Address" th:field="*{username}"/>
+                                   placeholder="Email Address" th:field="*{username}" />
                         </div>
-                        <div class="form-group">
+                        <div class="form-group userreg">
                             <input type="password" name="Password" class="form-control input-md" id="Password"
-                                   placeholder="Password" th:field="*{password}"/>
+                                   placeholder="Password" th:field="*{password}" />
                         </div>
-                        <div class="container" th:replace="fragments/zahlungsart :: zahlungsart">
-                            <p>zahlungsart</p>
+                        <div  th:replace="fragments/zahlungsart :: zahlungsarten">
+                            <p>footer</p>
                         </div>
-                        <hr/>
+
                     </div>
 
-                    <div class="form-group send-btn">
+                    <div class="form-group send-btn col-md-12 col-sm-12 col-xs-12">
+                        <hr/>
                         <button type="submit" class="btn btn-submit right">Weiter zur Übersicht</button>
                     </div>
                 </form>
@@ -152,69 +153,71 @@
                             <span class="item-text">Gleiche Rechnungsadresse</span>
                         </div>
 
-                    </div>
 
-                    <!--
-                                        <div class="col-md-12 col-sm-12 col-xs-12" hidden="true" id="REadresse">
-                                            <h3 class="text-center">Rechnungs Adresse</h3>
+                        <!--
+                                            <div class="col-md-12 col-sm-12 col-xs-12" hidden="true" id="REadresse">
+                                                <h3 class="text-center">Rechnungs Adresse</h3>
 
-                                            <hr/>
+                                                <hr/>
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="Vorname" id="first_nameRA" class="form-control input-md"
-                                                           placeholder="Name"
-                                                           th:field="*{nameRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="Vorname" id="first_nameRA" class="form-control input-md"
+                                                               placeholder="Name"
+                                                               th:field="*{nameRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="Email" id="emailRA" class="form-control input-md" placeholder="Email"
-                                                           th:field="*{emailRA}" />
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="Email" id="emailRA" class="form-control input-md" placeholder="Email"
+                                                               th:field="*{emailRA}" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="tel" id="telRA" class="form-control input-md"
-                                                           placeholder="Telefonnummer"
-                                                           th:field="*{telRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="tel" id="telRA" class="form-control input-md"
+                                                               placeholder="Telefonnummer"
+                                                               th:field="*{telRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="strasse" id="strasseRA" class="form-control input-md"
-                                                           placeholder="Straße"
-                                                           th:field="*{strasseRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="strasse" id="strasseRA" class="form-control input-md"
+                                                               placeholder="Straße"
+                                                               th:field="*{strasseRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
 
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="ort" id="ortRA" class="form-control input-md" placeholder="Ort"
-                                                           th:field="*{ortRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="ort" id="ortRA" class="form-control input-md" placeholder="Ort"
+                                                               th:field="*{ortRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="land" id="landRA" class="form-control input-md" placeholder="Land"
-                                                           th:field="*{landRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="land" id="landRA" class="form-control input-md" placeholder="Land"
+                                                               th:field="*{landRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" name="plz" id="plzRA" class="form-control input-md" placeholder="PLZ"
-                                                           th:field="*{plzRA}"/>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="plz" id="plzRA" class="form-control input-md" placeholder="PLZ"
+                                                               th:field="*{plzRA}"/>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                        </div>
-                                        -->
+                                            </div>
+                                            -->
 
-                    <div class="container" th:replace="fragments/zahlungsart :: zahlungsart">
-                        <p>zahlungsart</p>
+
+                            <div  th:replace="fragments/zahlungsart :: zahlungsarten2">
+                                <p>footer</p>
+                            </div>
+
                     </div>
                     <hr/>
                     <div class="form-group send-btn">
@@ -224,7 +227,6 @@
             </div>
 
         </div>
-
 
 
     </div>

@@ -6,26 +6,38 @@
 <body>
 
 
-<div class="container " th:fragment="zahlungsart" >
-    <div class="col-md-12  col-sm-12  col-xs-8">
+<div  th:fragment="zahlungsarten" >
+<br/>
         <h4>Zahlungsart</h4>
 
         <div class="funkyradio ">
-            <div class="funkyradio-default col-md-6">
+            <div class="funkyradio-default col-md-6 radios">
                 <input type="radio" name="radio" id="radio1" th:field="*{zahlungsart}"
                        value="Vorrauskasse" checked="true" required="true"/>
                 <label for="radio1">Vorrauskasse</label>
             </div>
-            <div class="funkyradio-default col-md-6">
+            <div class="funkyradio-default col-md-6 radios">
                 <input type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
-                <label for="radio2">Nachname (+8€   Nur möglich bei Basic und Professional)</label>
+                <label for="radio2">Nachname (+3€   Nur möglich bei Basic und Professional)</label>
+            </div>
+    </div>
+</div>
+<div th:fragment="zahlungsarten2" >
+   <br/>
+        <h4>Zahlungsart</h4>
+
+        <div class="funkyradio ">
+            <div class="funkyradio-default col-md-6 radios">
+                <input type="radio" name="radio" id="radio12" th:field="*{zahlungsart}"
+                       value="Vorrauskasse" checked="true" required="true"/>
+                <label for="radio12">Vorrauskasse</label>
+            </div>
+            <div class="funkyradio-default col-md-6 radios">
+                <input type="radio" name="radio" id="radio22" th:field="*{zahlungsart}" value="Nachname"/>
+                <label for="radio22">Nachname (+3€   Nur möglich bei Basic und Professional)</label>
             </div>
 
         </div>
-    </div>
-
-
-
 </div>
 
 </body>

@@ -19,11 +19,9 @@ public class LoginCommand {
     public LoginCommand() {
     }
 
-    public String getZahlungsart() {
-        return zahlungsart;
-    }
-
-    public void setZahlungsart(String zahlungsart) {
+    public LoginCommand(String username, String password, String zahlungsart) {
+        this.username = username;
+        this.password = password;
         this.zahlungsart = zahlungsart;
     }
 
@@ -41,5 +39,13 @@ public class LoginCommand {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getZahlungsart() {
+        return zahlungsart;
+    }
+
+    public void setZahlungsart(String zahlungsart) {
+        this.zahlungsart = zahlungsart;
     }
 }
