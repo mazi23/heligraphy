@@ -47,17 +47,17 @@ public class CheckoutController {
 
         adcommand = adressenCommand;
         redirectAttributes.addFlashAttribute("adressenCommand",adressenCommand);
-        return "/overview";
+        return "redirect:/overview";
     }
     @RequestMapping("/VersandDetailsWithUser")
     public String VersandDetailsWithUser(@ModelAttribute(value = "LoginCommand") LoginCommand loginCommand,
-                                         BindingResult bindingResult){
+                                         BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             return "checkout";
         }
 
         User user = userDao.findByEmail(loginCommand.getUsername());
-        if (user.getPasswort().equals(loginCommand.getPassword())) {
+        if (user!=null&&user.getPasswort().equals(loginCommand.getPassword())) {
             Adresse adresse = adresseDao.findByid(user.getAdresse().getId());
             AdressenCommand adressenCommand = new AdressenCommand();
             adressenCommand.setEmailRA(user.getEmail());
@@ -73,8 +73,9 @@ public class CheckoutController {
             adressenCommand.setPlzVA(String.valueOf(adresse.getPlz()));
             adressenCommand.setStrasseVA(adresse.getAnschrift());
             adressenCommand.setZahlungsart(loginCommand.getZahlungsart());
+            redirectAttributes.addFlashAttribute("adressenCommand",adressenCommand);
             adcommand = adressenCommand;
-            return "/overview";
+            return "redirect:/overview";
         }else{
             return "checkout";
         }

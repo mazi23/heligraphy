@@ -162,7 +162,6 @@ img {
 
 
 .funkyradio div {
-    clear: both;
     overflow: hidden;
 }
 
@@ -302,8 +301,13 @@ img {
 .userreg{
     width: 40%;
     min-width: 160px;
+    margin:0 auto;
 }
 .radios{
     width: 50%;
     min-width: 170px;
+}
+.tabscenter{
+    width: 241px;
+    margin: 0 auto;
 }

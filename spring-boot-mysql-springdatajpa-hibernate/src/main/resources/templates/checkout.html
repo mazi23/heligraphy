@@ -45,7 +45,7 @@
         </div>
 
 
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs tabscenter">
             <li class="active"><a data-toggle="tab" href="#home">Bereits registriert</a></li>
             <li><a data-toggle="tab" href="#menu1">Neu hier</a></li>
 
@@ -53,7 +53,7 @@
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3 class="text-center">Bentuzer suchen</h3>
+                <h3 class="text-center">Bentuzer</h3>
                 <hr/>
                 <form id="contact_form_user" th:action="@{/VersandDetailsWithUser}" th:object="${LoginCommand}"
                       method="POST"
@@ -64,13 +64,14 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group userreg">
                             <input type="email" name="email" class="form-control input-md" id="loginemail"
-                                   placeholder="Email Address" th:field="*{username}" />
+                                   placeholder="Email Address" th:field="*{username}"/>
                         </div>
+
                         <div class="form-group userreg">
                             <input type="password" name="Password" class="form-control input-md" id="Password"
-                                   placeholder="Password" th:field="*{password}" />
+                                   placeholder="Password" th:field="*{password}"/>
                         </div>
-                        <div  th:replace="fragments/zahlungsart :: zahlungsarten">
+                        <div th:replace="fragments/zahlungsart :: zahlungsarten">
                             <p>footer</p>
                         </div>
 
@@ -82,11 +83,13 @@
                     </div>
                 </form>
             </div>
+
             <div id="menu1" class="tab-pane fade">
                 <form id="contact_form" th:action="@{/VersandDetails}" th:object="${AdressenCommand}" method="POST"
                       enctype="multipart/form-data">
+                    <h3 class="text-center">Versand Adresse</h3>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <h3 class="text-center">Versand Adresse</h3>
+
                         <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
                             <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
                         </div>
@@ -147,80 +150,83 @@
                             </div>
                         </div>
 
-                        <div style="margin-left: 20px;" hidden="true">
+                        <div style="margin-left: 20px;">
                             <input class="coupon_question" id="cbAdr" type="checkbox" name="coupon_question"
                                    value="1"/>
-                            <span class="item-text">Gleiche Rechnungsadresse</span>
+                            <span class="item-text">Andere Rechnungsadresse</span>
                         </div>
 
 
-                        <!--
-                                            <div class="col-md-12 col-sm-12 col-xs-12" hidden="true" id="REadresse">
-                                                <h3 class="text-center">Rechnungs Adresse</h3>
+                        <div class="col-md-12 col-sm-12 col-xs-12" hidden="true" id="REadresse">
+                            <h3 class="text-center">Rechnungs Adresse</h3>
 
-                                                <hr/>
+                            <hr/>
 
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="Vorname" id="first_nameRA" class="form-control input-md"
-                                                               placeholder="Name"
-                                                               th:field="*{nameRA}"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="Email" id="emailRA" class="form-control input-md" placeholder="Email"
-                                                               th:field="*{emailRA}" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="tel" id="telRA" class="form-control input-md"
-                                                               placeholder="Telefonnummer"
-                                                               th:field="*{telRA}"/>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="strasse" id="strasseRA" class="form-control input-md"
-                                                               placeholder="Straße"
-                                                               th:field="*{strasseRA}"/>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="ort" id="ortRA" class="form-control input-md" placeholder="Ort"
-                                                               th:field="*{ortRA}"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="land" id="landRA" class="form-control input-md" placeholder="Land"
-                                                               th:field="*{landRA}"/>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" name="plz" id="plzRA" class="form-control input-md" placeholder="PLZ"
-                                                               th:field="*{plzRA}"/>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            -->
-
-
-                            <div  th:replace="fragments/zahlungsart :: zahlungsarten2">
-                                <p>footer</p>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="Vorname" id="first_nameRA" class="form-control input-md"
+                                           placeholder="Name"
+                                           th:field="*{nameRA}"/>
+                                </div>
                             </div>
 
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="Email" id="emailRA" class="form-control input-md"
+                                           placeholder="Email"
+                                           th:field="*{emailRA}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="tel" id="telRA" class="form-control input-md"
+                                           placeholder="Telefonnummer"
+                                           th:field="*{telRA}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="strasse" id="strasseRA" class="form-control input-md"
+                                           placeholder="Straße"
+                                           th:field="*{strasseRA}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="ort" id="ortRA" class="form-control input-md"
+                                           placeholder="Ort"
+                                           th:field="*{ortRA}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="land" id="landRA" class="form-control input-md"
+                                           placeholder="Land"
+                                           th:field="*{landRA}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="plz" id="plzRA" class="form-control input-md"
+                                           placeholder="PLZ"
+                                           th:field="*{plzRA}"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div th:replace="fragments/zahlungsart :: zahlungsarten2">
+                            <p>footer</p>
+                        </div>
+
                     </div>
-                    <hr/>
+
                     <div class="form-group send-btn">
+
                         <button type="submit" class="btn btn-submit right">Weiter zur Übersicht</button>
                     </div>
                 </form>

@@ -57,7 +57,7 @@ public class overviewController {
     @RequestMapping("/overview")
     public String start(Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand) {
 
-        if (adressenCommand == null) {
+
 
             OverviewPrice overviewPrice = new OverviewPrice();
             String zahlungsart = adressenCommand.getZahlungsart();
@@ -139,9 +139,7 @@ public class overviewController {
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             return "overview";
-        } else {
-            return "/checkout";
-        }
+
     }
 
     @RequestMapping(value = "/overview/{id}", method = RequestMethod.GET)
@@ -282,7 +280,7 @@ public class overviewController {
         parameter.put("ItemDataSource", itemsJRBean);
 
         parameter.put("summenetto", bs.getSummenetto());
-        parameter.put("summebrutto", (bs.getSummebrutto() * 100) / 1000);
+        parameter.put("summebrutto", (bs.getSummebrutto() * 100) / 100);
         parameter.put("summemwst", bs.getSummemwst());
         parameter.put("auftragsDatum", bs.getAuftragsDatum());
         parameter.put("idBestellung", bs.getIdBestellung());
