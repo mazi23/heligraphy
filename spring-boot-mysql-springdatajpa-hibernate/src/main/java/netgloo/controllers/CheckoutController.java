@@ -56,7 +56,7 @@ public class CheckoutController {
             return "checkout";
         }
 
-        User user = userDao.findByEmail(loginCommand.getUsername());
+        User user = userDao.findByUsername(loginCommand.getUsername());
         if (user!=null&&user.getPasswort().equals(loginCommand.getPassword())) {
             Adresse adresse = adresseDao.findByid(user.getAdresse().getId());
             AdressenCommand adressenCommand = new AdressenCommand();

@@ -10,7 +10,6 @@ import netgloo.models.DisplayObjects.OverviewPrice;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.daos.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -282,9 +282,9 @@ public class overviewController {
         JasperReport jasperReport;
         JasperPrint jasperPrint;
         HashMap<String, Object> parameter = new HashMap<String, Object>();
-        jasperReport = JasperCompileManager
-                .compileReport("../resources/static/jasper/Invoice.jrxml");
-
+        //jasperReport = JasperCompileManager.compileReport("../resources/static/jasper/Invoice.jrxml");
+        InputStream in = getClass().getResourceAsStream("/static/jasper/Invoice.jrxml");
+        jasperReport = JasperCompileManager.compileReport(in);
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
