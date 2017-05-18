@@ -2,6 +2,7 @@ package netgloo.controllers;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import netgloo.Application;
 import netgloo.Mail;
 import netgloo.comands.AdressenCommand;
 import netgloo.models.*;
@@ -9,6 +10,9 @@ import netgloo.models.DisplayObjects.OverviewPrice;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.daos.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
+
 
 /**
  * Created by mazi on 29.04.17.
@@ -49,6 +54,7 @@ public class overviewController {
     @Autowired
     FotografAbrechnungDao abrechnungDao;
 
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     User kunde;
     Bestellung bestellung;
@@ -158,94 +164,98 @@ public class overviewController {
 
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
-        Mail mailToPrint = new Mail();
+       try {
+           Mail mailToPrint = new Mail();
+            logger.info("-------------------------------------- \n Gesendet");
+
+           //mailToPrint.setAbsenderMail("info@heligraphy.at");
+           //ToDO: email auf Druckerei ändern
+           mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
+           HashMap<Integer, Bild> bilder = new HashMap();
+
+           //
+           String textprintPaper = "";
+           String textprintLeinwand = "";
+           for (ShoppingCartItem item : shoppingCart.getItems()) {
+               FotografAbrechnung abrechnung = new FotografAbrechnung();
+               Bild aktBild = bildDao.findBildByid((long) item.getId());
+               if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
+
+                   abrechnung.setFotograf(aktBild.getFotograf());
+                   abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                   abrechnungen.add(abrechnung);
+                   bilder.put(item.getId(), aktBild);
+                   if (item.getPrice() == PreisPlan.BASIC.getValue())
+                       textprintPaper += "image" + item.getId() + ".jpg,";
+                   if (item.getPrice() == PreisPlan.PREMIUM.getValue())
+                       textprintLeinwand += "image" + item.getId() + ".jpg,";
+                   //bilder.add(bildDao.findBildByid((long) item.getId()));
+               } else {
+                   abrechnung.setFotograf(aktBild.getFotograf());
+                   abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+
+                   //TODO: Download für Bilder
+
+               }
+           }
+           if (!textprintPaper.equals("")) {
+               textprintPaper += " als Lambda-Abzug auf\n" +
+                       "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
+           }
+           if (!textprintLeinwand.equals("")) {
+               textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
+           }
+
+           String textPrint = "";
+           if (bestellung.getVersandart().equals("Nachname")) {
+               textPrint = "Sehr geehrte Damen und Herren," +
+                       "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                       "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachname." +
+                       "\r\n Rechnungsadresse: \r\n" +
+                       "Matthias Oberegger \r\n" +
+                       "Pfarrgraben 6 \r\n" +
+                       "4713 Gallspach \r\n" +
+                       "Österreich \r\n \r\n" +
+                       "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                       kunde.getAdresse().getAnschrift() + "\r\n" +
+                       kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                       kunde.getAdresse().getLand() + "\r\n" +
+                       "Mit freundlichen Grüßen \r\n" +
+                       "Matthis Oberegger";
+           } else {
+               textPrint = "Sehr geehrte Damen und Herren," +
+                       "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                       "Gewünscht wird: " + textprintLeinwand + textprintPaper +
+                       "\r\n\n Rechnungsadresse: \r\n" +
+                       "Matthias Oberegger \r\n" +
+                       "Pfarrgraben 6 \r\n" +
+                       "4713 Gallspach \r\n" +
+                       "Österreich \r\n \r\n" +
+                       "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                       kunde.getAdresse().getAnschrift() + "\r\n" +
+                       kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                       kunde.getAdresse().getLand() + "\r\n" +
+                       "Mit freundlichen Grüßen \r\n" +
+                       "Matthis Oberegger";
+           }
 
 
-        //mailToPrint.setAbsenderMail("info@heligraphy.at");
-        //ToDO: email auf Druckerei ändern
-        mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
-        HashMap<Integer, Bild> bilder = new HashMap();
-
-        //
-        String textprintPaper = "";
-        String textprintLeinwand = "";
-        for (ShoppingCartItem item : shoppingCart.getItems()) {
-            FotografAbrechnung abrechnung = new FotografAbrechnung();
-            Bild aktBild = bildDao.findBildByid((long) item.getId());
-            if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
-
-                abrechnung.setFotograf(aktBild.getFotograf());
-                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-                abrechnungen.add(abrechnung);
-                bilder.put(item.getId(), aktBild);
-                if (item.getPrice() == PreisPlan.BASIC.getValue()) textprintPaper += "image" + item.getId() + ".jpg,";
-                if (item.getPrice() == PreisPlan.PREMIUM.getValue())
-                    textprintLeinwand += "image" + item.getId() + ".jpg,";
-                //bilder.add(bildDao.findBildByid((long) item.getId()));
-            } else {
-                abrechnung.setFotograf(aktBild.getFotograf());
-                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-
-                //TODO: Download für Bilder
-
-            }
-        }
-        if (!textprintPaper.equals("")) {
-            textprintPaper += " als Lambda-Abzug auf\n" +
-                    "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
-        }
-        if (!textprintLeinwand.equals("")) {
-            textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
-        }
-
-        String textPrint = "";
-        if (bestellung.getVersandart().equals("Nachname")) {
-            textPrint = "Sehr geehrte Damen und Herren," +
-                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                    "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachname." +
-                    "\r\n Rechnungsadresse: \r\n" +
-                    "Matthias Oberegger \r\n" +
-                    "Pfarrgraben 6 \r\n" +
-                    "4713 Gallspach \r\n" +
-                    "Österreich \r\n \r\n" +
-                    "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                    kunde.getAdresse().getAnschrift() + "\r\n" +
-                    kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                    kunde.getAdresse().getLand() + "\r\n" +
-                    "Mit freundlichen Grüßen \r\n" +
-                    "Matthis Oberegger";
-        } else {
-            textPrint = "Sehr geehrte Damen und Herren," +
-                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                    "Gewünscht wird: " + textprintLeinwand + textprintPaper +
-                    "\r\n\n Rechnungsadresse: \r\n" +
-                    "Matthias Oberegger \r\n" +
-                    "Pfarrgraben 6 \r\n" +
-                    "4713 Gallspach \r\n" +
-                    "Österreich \r\n \r\n" +
-                    "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                    kunde.getAdresse().getAnschrift() + "\r\n" +
-                    kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                    kunde.getAdresse().getLand() + "\r\n" +
-                    "Mit freundlichen Grüßen \r\n" +
-                    "Matthis Oberegger";
-        }
+           mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
 
 
-        mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+           String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                   "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
+                   "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                   "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
 
 
-        String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
-                "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
-
-
-        Mail mailtoCustomer = new Mail();
-        byte[] pdf = generateReport(bestellung);
-        mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
-        AbrechnungGenerieren();
-
+           Mail mailtoCustomer = new Mail();
+           byte[] pdf = generateReport(bestellung);
+           mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
+           AbrechnungGenerieren();
+       }catch (Exception e){
+           logger.error("----------------------------\n"+e.getMessage());
+       }
         return "bestellungAbgeschlossen";
     }
 
@@ -273,7 +283,7 @@ public class overviewController {
         JasperPrint jasperPrint;
         HashMap<String, Object> parameter = new HashMap<String, Object>();
         jasperReport = JasperCompileManager
-                .compileReport("src/main/resources/static/jasper/Invoice.jrxml");
+                .compileReport("../resources/static/jasper/Invoice.jrxml");
 
 
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
