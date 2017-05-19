@@ -25,15 +25,15 @@
                     <!-- Details -->
                     <div class="Details">
                         <!-- form -->
-                        <form action="index.html">
+                        <form th:action="@{/authorize}" th:object="${User}">
                             <div class="form-group">
-                                <input type="email" name="email" class="input-text" id="email" placeholder="Email Address"/>
+                                <input type="email" name="email" class="input-text" id="email" placeholder="Email Address" th:field="*{username}"/>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="Password" class="input-text" id="Password" placeholder="Password"/>
+                                <input type="password" name="Password" class="input-text" id="Password" placeholder="Password" th:field="*{passwort}"/>
                             </div>
                             <div class="checkbox" hidden="true">
-                                <div class="ez-checkbox pull-left">
+                                <div class="ez-checkbox pull-left" hidden="true">
                                     <label>
                                         <input type="checkbox" class="ez-hide"/>
                                         Remember me

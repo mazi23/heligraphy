@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <form class="form-horizontal">
+            <form class="form-horizontal" th:action="@{/memberArea/aendern}" th:object="${currentUser}" method="post">
                 <fieldset>
 
                     <!-- Form Name -->
@@ -45,7 +45,7 @@
                         <label class="col-md-4 control-label" >Name </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="Name" name="Name (Full name)" type="text" placeholder="Name (ganzer Name)" class="form-control" />
+                                <input id="Name" name="Name (Full name)" type="text" placeholder="Name (ganzer Name)" class="form-control" th:field="*{name}" />
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                         <label class="col-md-4 control-label" >Email </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="email" name="email" type="text" placeholder="Email" class="form-control  input-md" />
+                                <input id="email" name="email" type="text" placeholder="Email" class="form-control  input-md" th:field="*{email}" />
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <label class="col-md-4 control-label" >Titel </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="titel" name="titel" type="text" placeholder="Titel" class="form-control input-md" />
+                                <input id="titel" name="titel" type="text" placeholder="Titel" class="form-control input-md" th:field="*{titel}"/>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <label class="col-md-4 control-label" >Telefon </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="telefon" name="telefon" type="text" placeholder="Telefonnummer" class="form-control input-md" />
+                                <input id="telefon" name="telefon" type="text" placeholder="Telefonnummer" class="form-control input-md" th:field="*{telefon}"/>
                             </div>
                         </div>
                     </div>
@@ -77,19 +77,33 @@
                         <label class="col-md-4 control-label" >Benutzername </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="benutzername" name="benutzername" type="text" placeholder="Benutzername" class="form-control input-md" />
+                                <input id="benutzername" name="benutzername" type="text" placeholder="Benutzername" class="form-control input-md" th:field="*{username}" />
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-xs-6 col-sm-6 col-md-6">
-                        <label class="col-md-4 control-label" >Benutzername </label>
+                        <label class="col-md-4 control-label" >Passwort </label>
                         <div class="col-md-4">
                             <div class="form-group form-group">
-                                <input id="passwort" name="passwort" type="password" placeholder="Passwort" class="form-control input-md" />
+                                <input id="passwort" name="passwort" type="password" placeholder="Passwort" class="form-control input-md" th:field="*{passwort}" />
                             </div>
                         </div>
                     </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6 right">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6 right">
 
+                        <div class="col-md-4">
+                            <div class="form-group form-group">
+                                <a><input class="btn" type="submit" value="Speichern" /></a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group">
+                                <a th:href="@{/memberArea/loeschen}"><button type="button" class="btn btn-danger" >Löschen</button></a>
+                            </div>
+                        </div>
+                    </div>
 
 
 
