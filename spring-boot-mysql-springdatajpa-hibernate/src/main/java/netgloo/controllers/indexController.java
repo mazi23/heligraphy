@@ -1,22 +1,29 @@
 package netgloo.controllers;
 
+import com.mpay24.payment.Mpay24;
+import com.mpay24.payment.PaymentException;
+import com.mpay24.payment.data.Payment;
+import com.mpay24.payment.data.PaymentRequest;
+import com.mpay24.payment.type.CreditCardPaymentType;
+import com.mpay24.payment.type.PaymentTypeData;
 import net.sf.jasperreports.engine.JRException;
+import netgloo.Application;
+import netgloo.models.Code;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.daos.BildDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import netgloo.Application;
-import netgloo.models.Code;
-
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.RequestMethod;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Date;
 
 
 /**
@@ -31,6 +38,8 @@ public class indexController {
     @Autowired
     ShoppingCart shoppingChart;
 
+    Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping({"/", "/index",""})
@@ -40,8 +49,6 @@ public class indexController {
         model.addAttribute("suchcode", new Code());
         //generateAbrechnungsReport();
         //generateReport();
-        logger.info("index-----------------------------------------");
-        logger.error("error");
 
         return "index";
     }
@@ -53,6 +60,35 @@ public class indexController {
         redirectAttributes.addFlashAttribute("code",code);
         return "redirect:picture-grid";
     }
+    @RequestMapping(value = "/pay")
+    public String pay() throws PaymentException {
+        Payment response = mpay24.paymentPage(getTestPaymentRequest());
+        return "redirect:"+response.getRedirectLocation();
+
+    }
+
+    protected PaymentRequest getTestPaymentRequest() {
+        PaymentRequest paymentRequest = new PaymentRequest();
+        paymentRequest.setAmount(new BigDecimal(0.01));
+        paymentRequest.setTransactionID("6");
+        paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
+        paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
+        return paymentRequest;
+    }
+    protected PaymentTypeData getVisaTestData() throws ParseException {
+        CreditCardPaymentType paymentType = new CreditCardPaymentType();
+        paymentType.setPan("4444333322221111");
+        paymentType.setCvc("123");
+        paymentType.setExpiry(getCreditCardMonthYearDate("12/2016"));
+        paymentType.setBrand(CreditCardPaymentType.Brand.VISA);
+
+        return paymentType;
+    }
+
+    private Date getCreditCardMonthYearDate(String s) {
+        return new Date();
+    }
+
 
 
 /*    public void generateAbrechnungsReport() throws JRException {

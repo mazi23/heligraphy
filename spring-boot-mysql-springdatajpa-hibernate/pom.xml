@@ -128,6 +128,13 @@
       <version>6.4.0</version>
     </dependency>
 
+
+      <dependency>
+          <groupId>com.mpay24.payment</groupId>
+          <artifactId>mpay24-payment-sdk</artifactId>
+          <version>1.2.0.0</version>
+      </dependency>
+
   </dependencies>
 
   <properties>
