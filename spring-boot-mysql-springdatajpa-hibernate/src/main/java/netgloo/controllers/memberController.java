@@ -1,10 +1,8 @@
 package netgloo.controllers;
 
 import netgloo.models.User;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import netgloo.models.daos.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class memberController {
 
+    @Autowired
+    UserDao userDao;
+
     User loggedinUser = new User();
 
     @RequestMapping(value = "/memberArea")
@@ -26,12 +27,18 @@ public class memberController {
             model.addAttribute("currentUser",user);
             return "memberArea";
         }
-        else return "index";
+        else return "redirect:/login";
     }
 
     @RequestMapping(value = "/memberArea/aendern",method = RequestMethod.POST)
     public String aendern(Model model, @ModelAttribute(value = "currentUser") User user){
-        System.out.printf("----");
+        userDao.save(user);
+        return "index";
+    }
+    @RequestMapping(value = "/memberArea/loeschen")
+    public String loeschen(Model model, @ModelAttribute(value = "currentUser") User user){
+
+        userDao.delete(user);
         return "index";
     }
 }

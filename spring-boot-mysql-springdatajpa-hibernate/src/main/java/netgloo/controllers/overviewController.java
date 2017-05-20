@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -70,6 +72,7 @@ public class overviewController {
         if (zahlungsart == null) overviewPrice.setVersandkosten(5);
         else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
         else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
+        else if (zahlungsart.equals("Onlineueberweisung")) overviewPrice.setVersandkosten(0);
 
 
         bestellung = new Bestellung();
@@ -124,7 +127,7 @@ public class overviewController {
         bestellungDao.save(bestellung);
         if (kunde == null) {
             kunde = new User();
-
+            SecureRandom random = new SecureRandom();
             kunde.setAdresse(versandadresse);
             kunde.setTelefon(adressenCommand.getTelVA());
             kunde.setName(adressenCommand.getNameVA());
@@ -134,7 +137,16 @@ public class overviewController {
             kunde.addBestellung(bestellung);
             kunde.setIdBildgruppe(Integer.parseInt(shoppingCart.getBildgruppe()));
             kunde.setEnabled(true);
+            kunde.setPasswort(new BigInteger(50, random).toString(32));
+            kunde.setUsername(kunde.getEmail());
             userDao.save(kunde);
+            Mail mail = new Mail();
+            String text = "Ihre Zugangsdaten lauten: \r\n Benutzer: "+kunde.getEmail() + "\r\n Passwort: "+kunde.getPasswort() + "\r\n Ihre Heligraphy Team";
+            try {
+                mail.sendCustomMail(kunde.getEmail(),"Ihre Zugangsdaten",text);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         } else {
             kunde.addBestellung(bestellung);
         }
@@ -144,6 +156,7 @@ public class overviewController {
 
         model.addAttribute("overviewPrice", overviewPrice);
         model.addAttribute("Items", shoppingCart.getItems());
+        model.addAttribute("ausgewaehlteZahlungsart",adressenCommand.getZahlungsart());
         return "overview";
 
     }
@@ -256,7 +269,12 @@ public class overviewController {
         }catch (Exception e){
             logger.error("----------------------------\n"+e.getMessage());
         }
-        return "bestellungAbgeschlossen";
+
+        if (bestellung.getVersandart().equals("Onlineueberweisung")){
+            return "";
+        }else {
+            return "bestellungAbgeschlossen";
+        }
     }
 
     public void AbrechnungGenerieren() {
@@ -289,7 +307,7 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
-        parameter.put("summenetto", bs.getSummenetto());
+        parameter.put("summenetto", bs.getSummenetto()*100/100);
         parameter.put("summebrutto", (bs.getSummebrutto() * 100) / 100);
         parameter.put("summemwst", bs.getSummemwst());
         parameter.put("auftragsDatum", bs.getAuftragsDatum());
@@ -298,7 +316,7 @@ public class overviewController {
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-
+        parameter.put("Versandkosten",bs.getVersankosten());
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
