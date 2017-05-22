@@ -3,10 +3,7 @@ package netgloo;
 import netgloo.models.Bild;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -114,6 +111,15 @@ public class Mail {
 
         message.setContent(content);
 
+        Transport.send(message);
+    }
+
+    public void sendCustomMail(String to, String subject,String text) throws MessagingException {
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("info@heligraphy.at"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(subject);
+        message.setText(text);
         Transport.send(message);
     }
 

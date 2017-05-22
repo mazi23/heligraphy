@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@46.252.24.59">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
     <root id="1"/>
     <schema id="2" parent="1" name="information_schema">
       <Current>1</Current>
@@ -3068,6 +3068,7 @@
       <NotNull>1</NotNull>
     </column>
     <key id="690" parent="68" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3097,6 +3098,7 @@
       <NotNull>1</NotNull>
     </column>
     <key id="696" parent="69" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3170,6 +3172,7 @@
       <ColNames>user</ColNames>
     </index>
     <key id="713" parent="70" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id_bestellung</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3206,6 +3209,7 @@
       <Unique>1</Unique>
     </index>
     <key id="720" parent="71" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>bestellung
 bilder</ColNames>
       <Primary>1</Primary>
@@ -3259,6 +3263,7 @@ bilder</ColNames>
       <ColNames>bildgruppe</ColNames>
     </index>
     <key id="732" parent="72" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3299,6 +3304,7 @@ bilder</ColNames>
       <ColNames>user</ColNames>
     </index>
     <key id="741" parent="73" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3330,6 +3336,7 @@ bilder</ColNames>
       <DataType>varchar(255)|0</DataType>
     </column>
     <key id="747" parent="74" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3346,11 +3353,11 @@ bilder</ColNames>
     </column>
     <column id="750" parent="75" name="abrechnungs_datum">
       <Position>3</Position>
-      <DataType>date|0</DataType>
+      <DataType>datetime|0</DataType>
     </column>
     <column id="751" parent="75" name="gekauftwann">
       <Position>4</Position>
-      <DataType>date|0</DataType>
+      <DataType>datetime|0</DataType>
     </column>
     <column id="752" parent="75" name="summe">
       <Position>5</Position>
@@ -3372,6 +3379,7 @@ bilder</ColNames>
       <ColNames>preis</ColNames>
     </index>
     <key id="757" parent="75" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3408,6 +3416,7 @@ bilder</ColNames>
       <DataType>int(11)|0</DataType>
     </column>
     <key id="764" parent="76" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
@@ -3435,7 +3444,7 @@ bilder</ColNames>
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="770" parent="77" name="nachname">
+    <column id="770" parent="77" name="name">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
@@ -3460,62 +3469,55 @@ bilder</ColNames>
       <Position>11</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="776" parent="77" name="vorname">
+    <column id="776" parent="77" name="adresse">
       <Position>12</Position>
-      <DataType>varchar(255)|0</DataType>
-    </column>
-    <column id="777" parent="77" name="adresse">
-      <Position>13</Position>
       <DataType>bigint(20)|0</DataType>
     </column>
-    <column id="778" parent="77" name="name">
-      <Position>14</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="779" parent="77" name="FK_3m9yvx2qc3dc2mwvttxydj2u">
+    <index id="777" parent="77" name="FK_3m9yvx2qc3dc2mwvttxydj2u">
       <ColNames>adresse</ColNames>
     </index>
-    <key id="780" parent="77" name="PRIMARY">
+    <key id="778" parent="77" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="781" parent="77" name="FK_3m9yvx2qc3dc2mwvttxydj2u">
+    <foreign-key id="779" parent="77" name="FK_3m9yvx2qc3dc2mwvttxydj2u">
       <ColNames>adresse</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>adresse</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="782" parent="78" name="users">
+    <column id="780" parent="78" name="users">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="783" parent="78" name="bestellung">
+    <column id="781" parent="78" name="bestellung">
       <Position>2</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="784" parent="78" name="UK_sptet7lee4inqoa5tvy9q6b54">
+    <index id="782" parent="78" name="UK_sptet7lee4inqoa5tvy9q6b54">
       <ColNames>bestellung</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="785" parent="78" name="PRIMARY">
+    <key id="783" parent="78" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
       <ColNames>users
 bestellung</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="786" parent="78" name="UK_sptet7lee4inqoa5tvy9q6b54">
+    <key id="784" parent="78" name="UK_sptet7lee4inqoa5tvy9q6b54">
       <ColNames>bestellung</ColNames>
       <UnderlyingIndexName>UK_sptet7lee4inqoa5tvy9q6b54</UnderlyingIndexName>
     </key>
-    <foreign-key id="787" parent="78" name="FK_qxt6ikrsbqu0op19pqn5ec6me">
+    <foreign-key id="785" parent="78" name="FK_qxt6ikrsbqu0op19pqn5ec6me">
       <ColNames>users</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="788" parent="78" name="FK_sptet7lee4inqoa5tvy9q6b54">
+    <foreign-key id="786" parent="78" name="FK_sptet7lee4inqoa5tvy9q6b54">
       <ColNames>bestellung</ColNames>
       <RefSchemaName>test</RefSchemaName>
       <RefTableName>bestellung</RefTableName>

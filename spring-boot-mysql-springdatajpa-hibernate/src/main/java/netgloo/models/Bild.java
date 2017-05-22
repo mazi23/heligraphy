@@ -2,6 +2,7 @@ package netgloo.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * Created by mazi on 14.01.17.
@@ -23,8 +24,12 @@ public class Bild implements Serializable{
     @OneToOne
     private Bildgruppe bildgruppe;
 
+    private String code;
 
     public Bild() {
+        Random random = new Random(System.currentTimeMillis());
+        int i = random.nextInt();
+        code = Integer.toString(Math.abs(i));
     }
 
 
@@ -75,5 +80,13 @@ public class Bild implements Serializable{
 
     public void setBildgruppe(Bildgruppe bildgruppe) {
         this.bildgruppe = bildgruppe;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

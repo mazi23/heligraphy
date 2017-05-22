@@ -16,6 +16,7 @@ public class Bestellung {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idBestellung;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long bestellnummer;
     @OneToOne
     private User user;
