@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="breadcrumb-area">
+                    <div class="breadcrumb-area" ><!--th:onload="'downloadImages(\'' + ${ids} + '\');'">-->
                         <h2>Bestellung abgeschlossen</h2>
                         <p>Vielen Dank für Ihre Bestellung</p>
 
@@ -28,6 +28,13 @@
 </div>
 
 <body>
+
+<div class="container">
+    <div class="row">
+        <h4><a th:href="@{|/load|}"><button>Bild(er) downloaden</button></a></h4>
+    </div>
+
+</div>
 <footer>
     <div class="container" th:replace="fragments/footer :: footer">
         <p>footer</p>
@@ -56,6 +63,8 @@
 
 <!-- Custom javascript -->
 <script type="text/javascript" src="js/app.js"></script>
+
+
 
 </body>
 </html>

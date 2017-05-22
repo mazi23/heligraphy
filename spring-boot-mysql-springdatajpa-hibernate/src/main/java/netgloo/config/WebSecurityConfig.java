@@ -30,6 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/css/**",
             "/js/**",
             "/images/**",
+            "/css/*/**",
+            "/js/*/**",
+            "/images/*/**",
             "/",
             "/upload","/loadBilder","/upload/*","/upload/*/*","/BackendBilderUpload",
             "/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
@@ -37,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**","/checkout","/VersandDetails",
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
-            "/rechnungerstellen","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen"
+            "/rechnungerstellen","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip"
     };
 
     @Override

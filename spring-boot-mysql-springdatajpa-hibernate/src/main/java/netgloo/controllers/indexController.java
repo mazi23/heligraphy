@@ -69,10 +69,12 @@ public class indexController {
 
     protected PaymentRequest getTestPaymentRequest() {
         PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setAmount(new BigDecimal(0.01));
+        paymentRequest.setAmount(new BigDecimal(10.00));
         paymentRequest.setTransactionID("6");
-        paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
-        paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
+        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/{123}");
+
+        //paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
+        //paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
         return paymentRequest;
     }
     protected PaymentTypeData getVisaTestData() throws ParseException {

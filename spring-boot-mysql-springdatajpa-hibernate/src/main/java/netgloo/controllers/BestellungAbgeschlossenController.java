@@ -19,6 +19,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -34,20 +35,22 @@ public class BestellungAbgeschlossenController {
     @Autowired
     BildDao bildDao;
 
+    List<String> ids = new LinkedList<>();
+
     @RequestMapping(value = "/abgeschlossen")
     public String start(Model model){
         //shoppingCart = new ShoppingCart();
         return "bestellungAbgeschlossen";
     }
 
-    @RequestMapping(value = "/abgeschlossen/{bildcodes}")
+    @RequestMapping(value = "/load",produces="application/zip")
     @ResponseBody
-    public byte[]  download(@PathVariable List<String> bildcodes, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public byte[]  download( HttpServletResponse response) throws IOException, ServletException {
 
 
         response.setContentType("application/zip");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"test.zip\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"Heligraphy-Bilder.zip\"");
 
         //creating byteArray stream, make it bufforable and passing this buffor to ZipOutputStream
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -56,8 +59,8 @@ public class BestellungAbgeschlossenController {
 
 
         //packing files
-        for (int i = 0;i<bildcodes.size();i++){
-            Bild a = bildDao.findBildByCode(bildcodes.get(i));
+        for (int i = 0;i<ids.size();i++){
+            Bild a = bildDao.findBildByCode(ids.get(i));
             if (a!=null) {
                 //new zip entry and copying inputstream with file to zipOutputStream, after all closing streams
                 zipOutputStream.putNextEntry(new ZipEntry("Bild" + i + ".jpg"));
@@ -82,11 +85,20 @@ public class BestellungAbgeschlossenController {
         //rd.forward(request, response);//method may be include or forward
         return byteArrayOutputStream.toByteArray();
     }
-    @RequestMapping(value = "/abgeschlossen/fertig",method = RequestMethod.GET)
-    public String  showAbgeschlossen() {
 
 
-        return "bestellungAbgeschlossen";
+
+    @RequestMapping(value = "/abgeschlossen/{id}")
+    public String  showAbgeschlossen(@PathVariable List<String> id,Model model) {
+        String s = "";
+        ids = id;
+        for (String x :id){
+            s= x+","+s;
+        }
+
+        model.addAttribute("ids",s.substring(0,s.length()-1));
+
+        return "redirect:/abgeschlossen";
     }
 
 }
