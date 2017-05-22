@@ -298,7 +298,7 @@ public class overviewController {
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-
+        parameter.put("Versandkosten",bs.getVersankosten());
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
