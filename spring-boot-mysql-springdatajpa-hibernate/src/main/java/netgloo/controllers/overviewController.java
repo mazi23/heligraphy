@@ -1,5 +1,9 @@
 package netgloo.controllers;
 
+import com.mpay24.payment.Mpay24;
+import com.mpay24.payment.PaymentException;
+import com.mpay24.payment.data.Payment;
+import com.mpay24.payment.data.PaymentRequest;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import netgloo.Application;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
@@ -58,6 +63,8 @@ public class overviewController {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+    Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+    PaymentRequest paymentRequest = new PaymentRequest();
     User kunde;
     Bestellung bestellung;
     LinkedList<FotografAbrechnung> abrechnungen = new LinkedList<>();
@@ -152,8 +159,14 @@ public class overviewController {
                      }
             bestellung.setuser(kunde);
             bestellungDao.save(bestellung);
+            String urlid = "";
+            for (ShoppingCartItem item : shoppingCart.getItems()) {
+
+                urlid = bildDao.findCodeByid((long) item.getId()) + ","+urlid;
+            }
 
 
+            setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()),Long.toString(bestellung.getIdBestellung()),urlid.substring(0,urlid.length()-1));
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
@@ -274,10 +287,29 @@ public class overviewController {
         }
 
         if (bestellung.getVersandart().equals("Onlineueberweisung")){
-            return "";
+            Payment response = null;
+            try {
+                response = mpay24.paymentPage(paymentRequest);
+            } catch (PaymentException e) {
+                e.printStackTrace();
+            }
+            return "redirect:"+response.getRedirectLocation();
         }else {
             return "bestellungAbgeschlossen";
         }
+    }
+
+
+
+    protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste) {
+
+        paymentRequest.setAmount(amount);
+        paymentRequest.setTransactionID(transactionsid);
+        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/"+bilderliste);
+
+        //paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
+        //paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
+
     }
 
     public void AbrechnungGenerieren() {

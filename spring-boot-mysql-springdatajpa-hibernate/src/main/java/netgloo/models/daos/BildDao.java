@@ -7,6 +7,7 @@ import netgloo.models.Fotograf;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.method.P;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -45,5 +46,7 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
 
     @Transactional
     Long deleteByBildgruppe(Bildgruppe bildgruppe);
+
+    String findCodeByid(@Param("id")Long id);
 
 }

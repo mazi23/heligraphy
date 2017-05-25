@@ -96,7 +96,7 @@ public class BestellungAbgeschlossenController {
             s= x+","+s;
         }
 
-        model.addAttribute("ids",s.substring(0,s.length()-1));
+        //model.addAttribute("ids",s.substring(0,s.length()-1));
 
         return "redirect:/abgeschlossen";
     }
