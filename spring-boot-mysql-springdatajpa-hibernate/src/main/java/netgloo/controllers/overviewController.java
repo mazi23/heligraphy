@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -166,7 +167,7 @@ public class overviewController {
             }
 
 
-            setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()),Long.toString(bestellung.getIdBestellung()),urlid.substring(0,urlid.length()-1));
+            setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()),Long.toString(bestellung.getIdBestellung()),urlid.substring(0,urlid.length()-1),kunde.getEmail());
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
@@ -268,7 +269,7 @@ public class overviewController {
                         "Matthis Oberegger";
             }
 
-            if (bilder.size()<1) {
+            if (bilder.size()>=1) {
                 mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
             }
 
@@ -282,7 +283,7 @@ public class overviewController {
             byte[] pdf = generateReport(bestellung);
             mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
             AbrechnungGenerieren();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("----------------------------\n"+e.getMessage());
         }
 
@@ -293,6 +294,8 @@ public class overviewController {
             } catch (PaymentException e) {
                 e.printStackTrace();
             }
+
+
             return "redirect:"+response.getRedirectLocation();
         }else {
             return "bestellungAbgeschlossen";
@@ -301,11 +304,11 @@ public class overviewController {
 
 
 
-    protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste) {
+    protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste, String email) {
 
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
-        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/"+bilderliste);
+        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/" +email+"/"+bilderliste);
 
         //paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
         //paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
@@ -342,16 +345,16 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
-        parameter.put("summenetto", bs.getSummenetto()*100/100);
-        parameter.put("summebrutto", (bs.getSummebrutto() * 100) / 100);
-        parameter.put("summemwst", bs.getSummemwst());
+        parameter.put("summenetto", round2(bs.getSummenetto()));
+        parameter.put("summebrutto", round2(bs.getSummebrutto()));
+        parameter.put("summemwst", round2(bs.getSummemwst()));
         parameter.put("auftragsDatum", bs.getAuftragsDatum());
         parameter.put("idBestellung", bs.getIdBestellung());
         parameter.put("RAName", kunde.getName());
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-        parameter.put("Versandkosten",bs.getVersankosten());
+        parameter.put("Versandkosten",round2(bs.getVersankosten()));
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
@@ -364,6 +367,10 @@ public class overviewController {
         //JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example4.pdf");
 
 
+    }
+
+    public Double round2(Double val) {
+        return new BigDecimal(val.toString()).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public void sendBestellung() {
