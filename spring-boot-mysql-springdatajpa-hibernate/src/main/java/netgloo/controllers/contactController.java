@@ -24,15 +24,15 @@ public class contactController {
         return "contact-2";
     }
 
-    @RequestMapping("/sendMail")
+    @RequestMapping("/sendMailcontact")
     public String send(@ModelAttribute(value = "contactCommand") ContactCommand contactCommand, Model model, BindingResult bindingResult){
 
         sendMail(contactCommand.getMail(),contactCommand.getBetreff(),contactCommand.getNachricht(),contactCommand.getTelefon());
 
-        return "services-2";
+        return "contact-2";
     }
 
-    public void sendMail(String from,String subject, String text,String telefon)
+    public void sendMail(String to,String subject, String text,String telefon)
     {
         final String username = "mac.matthias@gmail.com";
         final String password = "macbook1";
@@ -58,10 +58,10 @@ public class contactController {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("info@heligraphy.at"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(from));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            //message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
             message.setSubject("Ihre Anfrage bei Heligraphy");
-            message.setText("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+ "Ihre angaben \r\n"+subject+"---------------------\r\n"+ "Telefon: "+telefon+"\n" +
+            message.setText("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+ "Ihre angaben \r\n"+"\r\n---------------------\r\n"+subject+ "\r\n Telefon: "+telefon+"\n" +
                     ""+text);
 
             Transport.send(message);
