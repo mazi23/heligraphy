@@ -9,7 +9,9 @@
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
       <secret-storage>master_key</secret-storage>
       <user-name>root1</user-name>
-      <resolve-scope>test:*</resolve-scope>
+      <introspection-schemas>*:test</introspection-schemas>
+      <resolve-scope>*:test</resolve-scope>
+      <unqualified-resolve-schemas>*:test</unqualified-resolve-schemas>
     </data-source>
     <data-source name="@46.252.24.59" uuid="c86f4699-cf0f-4ff4-a524-868c7a5643ac">
       <database-info product="MySQL" version="5.7.18-0ubuntu0.16.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.42 ( Revision: 1f61b0b0270d9844b006572ba4e77f19c0f230d4 )">
@@ -17,8 +19,9 @@
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>mazi23</user-name>
-      <user-password>dfcbdfd0dfc5df92dfcbdf99dfccdf99dfcc</user-password>
+      <introspection-schemas>*:information_schema,test</introspection-schemas>
     </data-source>
   </component>
 </project>
