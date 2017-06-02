@@ -174,7 +174,7 @@ public class UploaderController {
     public String abrechnung(Model model, @ModelAttribute Abrechnungsid id, RedirectAttributes redirectAttributes) throws JRException {
         Fotograf f = fotografDao.findOne(id.getId());
         List<FotografAbrechnung>fotografAbrechnung = fotografAbrechnungDao.findByFotograf(f);
-        byte[] test = generateAbrechnungsReport(fotografAbrechnung);
+        //byte[] test = generateAbrechnungsReport(fotografAbrechnung);
         redirectAttributes.addFlashAttribute("report",generateAbrechnungsReport(fotografAbrechnung));
         return "redirect:/PDFAbrechnung";
     }

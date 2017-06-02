@@ -38,7 +38,7 @@ public class indexController {
     @Autowired
     ShoppingCart shoppingChart;
 
-    Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -60,34 +60,8 @@ public class indexController {
         redirectAttributes.addFlashAttribute("code",code);
         return "redirect:picture-grid";
     }
-    @RequestMapping(value = "/pay")
-    public String pay() throws PaymentException {
-        Payment response = mpay24.paymentPage(getTestPaymentRequest());
-        return "redirect:"+response.getRedirectLocation();
 
-    }
 
-    protected PaymentRequest getTestPaymentRequest() {
-        PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setAmount(new BigDecimal(0.01));
-        paymentRequest.setTransactionID("6");
-        paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
-        paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
-        return paymentRequest;
-    }
-    protected PaymentTypeData getVisaTestData() throws ParseException {
-        CreditCardPaymentType paymentType = new CreditCardPaymentType();
-        paymentType.setPan("4444333322221111");
-        paymentType.setCvc("123");
-        paymentType.setExpiry(getCreditCardMonthYearDate("12/2016"));
-        paymentType.setBrand(CreditCardPaymentType.Brand.VISA);
-
-        return paymentType;
-    }
-
-    private Date getCreditCardMonthYearDate(String s) {
-        return new Date();
-    }
 
 
 

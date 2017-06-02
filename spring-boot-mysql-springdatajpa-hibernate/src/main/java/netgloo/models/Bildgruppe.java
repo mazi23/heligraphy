@@ -1,6 +1,7 @@
 package netgloo.models;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -17,7 +18,35 @@ public class Bildgruppe {
     @OneToOne
     private Adresse adresse;
 
+    private boolean verkauft;
 
+    private boolean gedruckt;
+
+    private Date gedruckwann;
+
+    public boolean isVerkauft() {
+        return verkauft;
+    }
+
+    public void setVerkauft(boolean verkauft) {
+        this.verkauft = verkauft;
+    }
+
+    public boolean isGedruckt() {
+        return gedruckt;
+    }
+
+    public void setGedruckt(boolean gedruckt) {
+        this.gedruckt = gedruckt;
+    }
+
+    public Date getGedruckwann() {
+        return gedruckwann;
+    }
+
+    public void setGedruckwann(Date gedruckwann) {
+        this.gedruckwann = gedruckwann;
+    }
 
     public long getId() {
         return id;

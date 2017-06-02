@@ -1,5 +1,9 @@
 package netgloo.controllers;
 
+import com.mpay24.payment.Mpay24;
+import com.mpay24.payment.PaymentException;
+import com.mpay24.payment.data.Payment;
+import com.mpay24.payment.data.PaymentRequest;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import netgloo.Application;
@@ -21,7 +25,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -58,6 +64,8 @@ public class overviewController {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+    Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+    PaymentRequest paymentRequest = new PaymentRequest();
     User kunde;
     Bestellung bestellung;
     LinkedList<FotografAbrechnung> abrechnungen = new LinkedList<>();
@@ -66,97 +74,106 @@ public class overviewController {
     public String start(Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand) {
 
 
-
-        OverviewPrice overviewPrice = new OverviewPrice();
-        String zahlungsart = adressenCommand.getZahlungsart();
-        if (zahlungsart == null) overviewPrice.setVersandkosten(5);
-        else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
-        else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
-        else if (zahlungsart.equals("Onlineueberweisung")) overviewPrice.setVersandkosten(0);
-
-
-        bestellung = new Bestellung();
-
-        kunde = userDao.findByEmail(adressenCommand.getEmailVA());
-        Adresse versandadresse = new Adresse();
-        versandadresse.setLand(adressenCommand.getLandVA());
-        versandadresse.setOrt(adressenCommand.getOrtVA());
-        versandadresse.setAnschrift(adressenCommand.getStrasseVA());
-        versandadresse.setPlz(Integer.parseInt(adressenCommand.getPlzVA()));
-        adresseDao.save(versandadresse);
-
-        bestellung.setLieferAdresse(versandadresse);
-
-        if (adressenCommand.getEmailRA().equals("") && adressenCommand.getNameRA().equals("")) {
-            //Versandadresse ist gleich Rechnungsadresse
-            bestellung.setRechnungsAdresse(versandadresse);
-        } else {
-            Adresse rechnungsAdresse = new Adresse();
-            rechnungsAdresse.setLand(adressenCommand.getLandRA());
-            rechnungsAdresse.setOrt(adressenCommand.getOrtRA());
-            rechnungsAdresse.setAnschrift(adressenCommand.getStrasseRA());
-            rechnungsAdresse.setPlz(Integer.parseInt(adressenCommand.getPlzRA()));
-            adresseDao.save(rechnungsAdresse);
-            bestellung.setRechnungsAdresse(rechnungsAdresse);
-        }
+        try {
+            OverviewPrice overviewPrice = new OverviewPrice();
+            String zahlungsart = adressenCommand.getZahlungsart();
+            if (zahlungsart == null) overviewPrice.setVersandkosten(5);
+            else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
+            else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
+            else if (zahlungsart.equals("Onlineueberweisung")) overviewPrice.setVersandkosten(0);
 
 
-        for (ShoppingCartItem item : shoppingCart.getItems()) {
-            BestellElement element = new BestellElement();
-            element.setPreis(item.getPrice());
-            element.setBezeichnung("test");
-            element.setBildID(item.getId());
-            element.setStueck(item.getQuantity());
-            bestellElementDao.save(element);
-            bestellung.addBestellElement(element);
-            overviewPrice.setZwischenSumme(overviewPrice.getZwischenSumme() + (item.getPrice() * item.getQuantity()));
-            System.out.println(item.getQuantity());
-        }
+            bestellung = new Bestellung();
 
+            kunde = userDao.findByEmail(adressenCommand.getEmailVA());
+            Adresse versandadresse = new Adresse();
+            versandadresse.setLand(adressenCommand.getLandVA());
+            versandadresse.setOrt(adressenCommand.getOrtVA());
+            versandadresse.setAnschrift(adressenCommand.getStrasseVA());
+            versandadresse.setPlz(Integer.parseInt(adressenCommand.getPlzVA()));
+            adresseDao.save(versandadresse);
 
-        overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme() + overviewPrice.getVersandkosten());
-        bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
-        bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
-        bestellung.setMwst(20);
-        bestellung.setSummebrutto(overviewPrice.getGesamtkosten());
-        bestellung.setVersankosten(overviewPrice.getVersandkosten());
-        bestellung.setVersandart(zahlungsart);
-        bestellung.setSummenetto(overviewPrice.getGesamtkosten() / 1.2);
-        bestellung.setSummemwst(overviewPrice.getGesamtkosten());
+            bestellung.setLieferAdresse(versandadresse);
 
-        bestellungDao.save(bestellung);
-        if (kunde == null) {
-            kunde = new User();
-            SecureRandom random = new SecureRandom();
-            kunde.setAdresse(versandadresse);
-            kunde.setTelefon(adressenCommand.getTelVA());
-            kunde.setName(adressenCommand.getNameVA());
-
-            kunde.setEmail(adressenCommand.getEmailVA());
-            kunde.setRole(Role.USER);
-            kunde.addBestellung(bestellung);
-            kunde.setIdBildgruppe(Integer.parseInt(shoppingCart.getBildgruppe()));
-            kunde.setEnabled(true);
-            kunde.setPasswort(new BigInteger(50, random).toString(32));
-            kunde.setUsername(kunde.getEmail());
-            userDao.save(kunde);
-            Mail mail = new Mail();
-            String text = "Ihre Zugangsdaten lauten: \r\n Benutzer: "+kunde.getEmail() + "\r\n Passwort: "+kunde.getPasswort() + "\r\n Ihre Heligraphy Team";
-            try {
-                mail.sendCustomMail(kunde.getEmail(),"Ihre Zugangsdaten",text);
-            } catch (MessagingException e) {
-                e.printStackTrace();
+            if (adressenCommand.getEmailRA().equals("") && adressenCommand.getNameRA().equals("")) {
+                //Versandadresse ist gleich Rechnungsadresse
+                bestellung.setRechnungsAdresse(versandadresse);
+            } else {
+                Adresse rechnungsAdresse = new Adresse();
+                rechnungsAdresse.setLand(adressenCommand.getLandRA());
+                rechnungsAdresse.setOrt(adressenCommand.getOrtRA());
+                rechnungsAdresse.setAnschrift(adressenCommand.getStrasseRA());
+                rechnungsAdresse.setPlz(Integer.parseInt(adressenCommand.getPlzRA()));
+                adresseDao.save(rechnungsAdresse);
+                bestellung.setRechnungsAdresse(rechnungsAdresse);
             }
-        } else {
-            kunde.addBestellung(bestellung);
+
+
+            for (ShoppingCartItem item : shoppingCart.getItems()) {
+                BestellElement element = new BestellElement();
+                element.setPreis(item.getPrice());
+                element.setBezeichnung("test");
+                element.setBildID(item.getId());
+                element.setStueck(item.getQuantity());
+                bestellElementDao.save(element);
+                bestellung.addBestellElement(element);
+                overviewPrice.setZwischenSumme(overviewPrice.getZwischenSumme() + (item.getPrice() * item.getQuantity()));
+                System.out.println(item.getQuantity());
+            }
+
+
+            overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme() + overviewPrice.getVersandkosten());
+            bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
+            bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
+            bestellung.setMwst(20);
+            bestellung.setSummebrutto(overviewPrice.getGesamtkosten());
+            bestellung.setVersankosten(overviewPrice.getVersandkosten());
+            bestellung.setVersandart(zahlungsart);
+            bestellung.setSummenetto(overviewPrice.getGesamtkosten() / 1.2);
+            bestellung.setSummemwst(overviewPrice.getGesamtkosten() / 1.2 * 0.2);
+
+            bestellungDao.save(bestellung);
+            if (kunde == null) {
+                kunde = new User();
+                SecureRandom random = new SecureRandom();
+                kunde.setAdresse(versandadresse);
+                kunde.setTelefon(adressenCommand.getTelVA());
+                kunde.setName(adressenCommand.getNameVA());
+
+                kunde.setEmail(adressenCommand.getEmailVA());
+                kunde.setRole(Role.USER);
+                kunde.addBestellung(bestellung);
+                kunde.setIdBildgruppe(Integer.parseInt(shoppingCart.getBildgruppe()));
+                kunde.setEnabled(true);
+                kunde.setPasswort(new BigInteger(50, random).toString(32));
+                kunde.setUsername(kunde.getEmail());
+                userDao.save(kunde);
+                Mail mail = new Mail();
+                String text = "Ihre Zugangsdaten lauten: \r\n Benutzer: " + kunde.getEmail() + "\r\n Passwort: " + kunde.getPasswort() + "\r\n Ihre Heligraphy Team";
+                try {
+                    mail.sendCustomMail(kunde.getEmail(), "Ihre Zugangsdaten", text);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                kunde.addBestellung(bestellung);
+                     }
+            bestellung.setuser(kunde);
+            bestellungDao.save(bestellung);
+            String urlid = "";
+            for (ShoppingCartItem item : shoppingCart.getItems()) {
+
+                urlid = bildDao.findCodeByid((long) item.getId()) + ","+urlid;
+            }
+
+
+            setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()),Long.toString(bestellung.getIdBestellung()),urlid.substring(0,urlid.length()-1),kunde.getEmail());
+            model.addAttribute("overviewPrice", overviewPrice);
+            model.addAttribute("Items", shoppingCart.getItems());
+            model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
+        }catch (Exception e){
+            logger.error("overview start -------\n" +e.getMessage());
         }
-        bestellung.setuser(kunde);
-        bestellungDao.save(bestellung);
-
-
-        model.addAttribute("overviewPrice", overviewPrice);
-        model.addAttribute("Items", shoppingCart.getItems());
-        model.addAttribute("ausgewaehlteZahlungsart",adressenCommand.getZahlungsart());
         return "overview";
 
     }
@@ -178,6 +195,7 @@ public class overviewController {
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
         try {
+            boolean druckerreiverstaendigen = false;
             Mail mailToPrint = new Mail();
             logger.info("-------------------------------------- \n Gesendet");
 
@@ -193,7 +211,7 @@ public class overviewController {
                 FotografAbrechnung abrechnung = new FotografAbrechnung();
                 Bild aktBild = bildDao.findBildByid((long) item.getId());
                 if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
-
+                    druckerreiverstaendigen=true;
                     abrechnung.setFotograf(aktBild.getFotograf());
                     abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
                     abrechnungen.add(abrechnung);
@@ -252,29 +270,64 @@ public class overviewController {
                         "Matthis Oberegger";
             }
 
+            if (bilder.size()>=1) {
+                mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+            }
+            String textCustomer ="";
+            if (druckerreiverstaendigen){
+                paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
+                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                        "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
+                        "Ihr Heligraphy Team \n \n" +
+                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
-            mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+            }else {
+                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                        "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
+                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
 
+            }
 
-            String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                    "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                    "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
-                    "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
 
 
             Mail mailtoCustomer = new Mail();
             byte[] pdf = generateReport(bestellung);
             mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
             AbrechnungGenerieren();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("----------------------------\n"+e.getMessage());
         }
 
         if (bestellung.getVersandart().equals("Onlineueberweisung")){
-            return "";
+            Payment response = null;
+            try {
+                response = mpay24.paymentPage(paymentRequest);
+            } catch (PaymentException e) {
+                e.printStackTrace();
+            }
+
+
+            return "redirect:"+response.getRedirectLocation();
         }else {
-            return "bestellungAbgeschlossen";
+            return "redirect:/abgeschlossenOhneDownload";
         }
+    }
+
+
+
+    protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste, String email) {
+
+        paymentRequest.setAmount(amount);
+        paymentRequest.setTransactionID(transactionsid);
+        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/" +email+"/"+bilderliste);
+
+        //paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
+        //paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
+
     }
 
     public void AbrechnungGenerieren() {
@@ -307,16 +360,16 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
-        parameter.put("summenetto", bs.getSummenetto()*100/100);
-        parameter.put("summebrutto", (bs.getSummebrutto() * 100) / 100);
-        parameter.put("summemwst", bs.getSummemwst());
+        parameter.put("summenetto", round2(bs.getSummenetto()));
+        parameter.put("summebrutto", round2(bs.getSummebrutto()));
+        parameter.put("summemwst", round2(bs.getSummemwst()));
         parameter.put("auftragsDatum", bs.getAuftragsDatum());
         parameter.put("idBestellung", bs.getIdBestellung());
         parameter.put("RAName", kunde.getName());
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-        parameter.put("Versandkosten",bs.getVersankosten());
+        parameter.put("Versandkosten",round2(bs.getVersankosten()));
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
@@ -329,6 +382,10 @@ public class overviewController {
         //JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example4.pdf");
 
 
+    }
+
+    public Double round2(Double val) {
+        return new BigDecimal(val.toString()).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     public void sendBestellung() {

@@ -34,7 +34,7 @@ public class serviceController {
         return "services-2";
     }
 
-    public void sendMail(String from,String subject, String text,String telefon)
+    public void sendMail(String to,String subject, String text,String telefon)
     {
         final String username = "mac.matthias@gmail.com";
         final String password = "macbook1";
@@ -53,10 +53,10 @@ public class serviceController {
                 });
 
         try {
-            Object[] adressen = new Object[]{InternetAddress.parse("mac.matthias@gmail.com"),InternetAddress.parse(from)};
+            //Object[] adressen = new Object[]{InternetAddress.parse("mac.matthias@gmail.com"),InternetAddress.parse(from)};
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setRecipients(Message.RecipientType.TO, (Address[]) adressen);
+            message.setFrom(new InternetAddress("info@heligraphy.at"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n"+ "Telefon: "+telefon);
             message.setText(text);
 

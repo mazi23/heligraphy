@@ -10,6 +10,8 @@ public class ShoppingCartItem {
 
      private int id;
      private double price;
+     private String beschreibung;
+
      private int quantity;
 
 
@@ -23,6 +25,13 @@ public class ShoppingCartItem {
     public ShoppingCartItem() {
     }
 
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
+    public void setBeschreibung(String beschreibung) {
+        this.beschreibung = beschreibung;
+    }
 
     public int getId() {
 
