@@ -76,6 +76,8 @@ public class BestellungAbgeschlossenController {
             IOUtils.closeQuietly(zipOutputStream);
         }
 
+       // FileCopyUtils.copy(, response.getOutputStream());
+        response.flushBuffer();
         IOUtils.closeQuietly(bufferedOutputStream);
         IOUtils.closeQuietly(byteArrayOutputStream);
         //RequestDispatcher rd=request.getRequestDispatcher("/abgeschlossen/fertig");
