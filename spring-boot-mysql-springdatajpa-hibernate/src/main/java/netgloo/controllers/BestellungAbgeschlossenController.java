@@ -45,6 +45,11 @@ public class BestellungAbgeschlossenController {
         //shoppingCart = new ShoppingCart();
         return "bestellungAbgeschlossen";
     }
+    @RequestMapping(value = "/abgeschlossenOhneDownload")
+    public String startohneDownload(Model model){
+        //shoppingCart = new ShoppingCart();
+        return "bestellungAbgeschlossenOhneDownload";
+    }
 
     @RequestMapping(value = "/load",produces="application/zip")
     @ResponseBody

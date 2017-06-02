@@ -100,7 +100,7 @@
                                     <div class="section-heading">
                                         <div class="media">
                                             <div class="media-left">
-                                                <i class="flaticon-sedan-car-front"></i>
+                                                <i hidden="true" class="flaticon-sedan-car-front"></i>
                                             </div>
                                             <div class="media-body">
                                                 <h4>Details zum Bild</h4>
@@ -310,6 +310,9 @@
                         <form action="#" th:action="@{/addToChart}" th:object="${Item}"  method="post">
                         <ul>
 
+                            <li>
+                                <span text="">Heligraphy Bild ID</span><p th:text="${bild.id}"></p>
+                            </li>
                             <li th:each="values: ${bild.metadata}">
                                 <span th:text="${values.key}"></span><p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}" th:field="*{id}" />
                             </li>
@@ -422,7 +425,8 @@
 <!-- Copy right start-->
 <div class="copy-right">
     <div class="container">
-        <p>Copyright 2016. All rights reserved by: Auto Car Dealer</p>
+        <p>Copyright 2017. All rights reserved by: Heligraphy
+            </p>
     </div>
 </div>
 <!-- Copy right end-->

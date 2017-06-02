@@ -195,6 +195,7 @@ public class overviewController {
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
         try {
+            boolean druckerreiverstaendigen = false;
             Mail mailToPrint = new Mail();
             logger.info("-------------------------------------- \n Gesendet");
 
@@ -210,7 +211,7 @@ public class overviewController {
                 FotografAbrechnung abrechnung = new FotografAbrechnung();
                 Bild aktBild = bildDao.findBildByid((long) item.getId());
                 if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
-
+                    druckerreiverstaendigen=true;
                     abrechnung.setFotograf(aktBild.getFotograf());
                     abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
                     abrechnungen.add(abrechnung);
@@ -272,11 +273,25 @@ public class overviewController {
             if (bilder.size()>=1) {
                 mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
             }
+            String textCustomer ="";
+            if (druckerreiverstaendigen){
+                paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
+                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                        "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
+                        "Ihr Heligraphy Team \n \n" +
+                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
-            String textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                    "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                    "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
-                    "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. ";
+            }else {
+                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                        "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
+                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
+
+            }
+
 
 
             Mail mailtoCustomer = new Mail();
@@ -298,7 +313,7 @@ public class overviewController {
 
             return "redirect:"+response.getRedirectLocation();
         }else {
-            return "bestellungAbgeschlossen";
+            return "redirect:/abgeschlossenOhneDownload";
         }
     }
 

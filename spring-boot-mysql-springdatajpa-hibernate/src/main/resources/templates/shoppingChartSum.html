@@ -54,7 +54,7 @@
                 </div>
             </td>
             <td data-th="Preis" th:text="${item.price}+'€'" style="vertical-align: middle" th:id="'pr'+${it.index}">$1.99</td>
-            <td data-th="Stück" style="vertical-align: middle">
+            <td data-th="Stück" disabled="true" style="vertical-align: middle">
                 <input type="number" class="form-control text-center" value="1" th:value="${item.quantity}"/>
             </td>
             <td data-th="Subtotal" class="text-center" th:text="${item.price}*${item.quantity} + ' €'" style="vertical-align: middle"></td>
@@ -73,7 +73,7 @@
             <td><a th:href="@{/weiterEinkaufen}" class="btn btn-view"><i class="fa fa-angle-left"></i> Weiter einkaufen</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center" id="total"><strong>Total $1.99</strong></td>
-            <td><a href="/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td><a href="/checkout" class="btn btn-success btn-block">Weiter zur Kassa <i class="fa fa-angle-right"></i></a></td>
         </tr>
         </tfoot>
     </table>
