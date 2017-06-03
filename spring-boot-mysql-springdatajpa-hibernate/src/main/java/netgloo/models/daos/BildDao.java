@@ -2,12 +2,9 @@ package netgloo.models.daos;
 
 import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
-import netgloo.models.DisplayObjects.PictureGridObject;
-import netgloo.models.Fotograf;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.access.method.P;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,7 +20,8 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query(" from Bildgruppe g where uniqCode=:id")
     Bildgruppe findByid(@Param("id") String id);
 
-
+    @Query("SELECT b.id,b.thumbnail,b.bildgruppe,b.bildgruppe.uniqCode,b.fotograf FROM Bild b")
+    List<Objects[]> BilderOhneDatei();
 
     @Query("FROM Bild b")
     List<Bild> findBild();

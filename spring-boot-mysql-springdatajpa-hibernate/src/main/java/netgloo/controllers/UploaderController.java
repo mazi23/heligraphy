@@ -56,24 +56,25 @@ public class UploaderController {
     public String start(Model model) {
         bilder=null;
         model.addAttribute("uploadObject", new UploaderObject());
-
-        List<Bild> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
+        List<Objects[]> list = bildDao.BilderOhneDatei();
         Set<Long> bildgruppenids = new HashSet<>();
         bilder =  new HashMap<Integer, BackendBild>();
 
-            for (Bild o:list) {
-            if(o.getDatei()!=null){
-                BackendBild bild = new BackendBild();
-                bild.setBild(o.getThumbnail());
-                bild.setBildid( Math.toIntExact(o.getId()));
-                bildgruppenids.add(o.getBildgruppe().getId());
-                bild.setId(Math.toIntExact(o.getBildgruppe().getId()));
-                bild.setErzeuger(o.getFotograf().getName().toString());
+        for (Object[] o:list) {
+            if(o[0]!=null){
+               BackendBild bild = new BackendBild();
+                bild.setBild((byte[]) o[1]);
+                bild.setBildid( Math.toIntExact((Long) o[0]));
+                bildgruppenids.add(((Bildgruppe)o[2]).getId());
+                bild.setId(Math.toIntExact(((Bildgruppe)o[2]).getId()));
+                bild.setBildgruppe((String) o[3]);
+                bild.setErzeuger(((Fotograf)o[4]).getName());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
-                model.addAttribute("image_id",Math.toIntExact(o.getId()));
-                bilder.put(Math.toIntExact(o.getId()),bild);
-            }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
+                model.addAttribute("image_id",o[0]);
+                bilder.put(Math.toIntExact((Long) o[0]),bild);
+            }
         }
+
 
         model.addAttribute("fotografen",fotografDao.findAll());
         model.addAttribute("Bilder",bilder);
@@ -137,21 +138,23 @@ public class UploaderController {
     public String deletBild(Model model,@PathVariable final String id){
         bildDao.delete(Long.parseLong(id));
         model.addAttribute("uploadObject", new UploaderObject());
-        List<Bild> list = bildDao.findBild(); //hibernateUtil.dataRequest("SELECT   b.idBild, b.bildgruppeId, b.thumbnail FROM Bild b");
-
+        List<Objects[]> list = bildDao.BilderOhneDatei();
+        Set<Long> bildgruppenids = new HashSet<>();
         bilder =  new HashMap<Integer, BackendBild>();
 
-        for (Bild o:list) {
-            if(o.getDatei()!=null){
+        for (Object[] o:list) {
+            if(o[0]!=null){
                 BackendBild bild = new BackendBild();
-                bild.setBild(o.getThumbnail());
-                bild.setBildid( Math.toIntExact(o.getId()));
-                bild.setId(Math.toIntExact(o.getBildgruppe().getId()));
-                bild.setErzeuger(o.getFotograf().getName().toString());
+                bild.setBild((byte[]) o[1]);
+                bild.setBildid( Math.toIntExact((Long) o[0]));
+                bildgruppenids.add(((Bildgruppe)o[2]).getId());
+                bild.setId(Math.toIntExact(((Bildgruppe)o[2]).getId()));
+                bild.setBildgruppe((String) o[3]);
+                bild.setErzeuger(((Fotograf)o[4]).getName());
                 //if(o.getPreis()!=null) bild.setPreis(o.getPreis().getPreis());
-                model.addAttribute("image_id",Math.toIntExact(o.getId()));
-                bilder.put(Math.toIntExact(o.getId()),bild);
-            }//b.id, b.bildgruppe.id, b.thumbnail, b.erzeuger, b.preis
+                model.addAttribute("image_id",o[0]);
+                bilder.put(Math.toIntExact((Long) o[0]),bild);
+            }
         }
 
         model.addAttribute("Bilder",bilder);

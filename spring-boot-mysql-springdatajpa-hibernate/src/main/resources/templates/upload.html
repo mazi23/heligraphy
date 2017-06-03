@@ -114,14 +114,14 @@
                                         <th>Gruppen ID</th>
                                         <th>Bild</th>
                                         <td>Fotograf</td>
-
+                                        <td>Gruppenid</td>
                                         <th>Aktion</th>
                                     </tr>
                                     <tr th:each="bild : ${Bilder}" th:if="${bild.value.bild != null and bild.value.id==id}">
                                         <td th:text="${bild.value.id}">ID</td>
                                         <td><img th:src="@{/upload/}+${bild.value.bildid}"/></td>
                                         <td th:text="${bild.value.erzeuger}">Fotograf</td>
-
+                                        <td th:text="${bild.value.bildgruppe}">Bildgruppe</td>
                                         <td>
                                             <form th:action="@{upload/delet/}+${bild.value.bildid}"><input type="submit" class="btn btn-warning"
                                                                                                            th:value="Löschen"/></form>

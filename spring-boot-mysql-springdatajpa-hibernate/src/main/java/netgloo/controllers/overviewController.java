@@ -112,7 +112,20 @@ public class overviewController {
             for (ShoppingCartItem item : shoppingCart.getItems()) {
                 BestellElement element = new BestellElement();
                 element.setPreis(item.getPrice());
-                element.setBezeichnung("test");
+                //Todo: beschreibung festlegen
+                if (item.getPrice()== PreisPlan.BASIC.getValue()){
+                    element.setBezeichnung("Bild A3 auf Fotopapier");
+                }
+                if (item.getPrice()== PreisPlan.STANDARD.getValue()){
+                    element.setBezeichnung("Bild Download");
+                }
+                if (item.getPrice()== PreisPlan.PREMIUM.getValue()){
+                    element.setBezeichnung("Bild auf Fotoleinwand 90x60");
+                }
+                if (item.getPrice()== PreisPlan.PROFESSIONAL.getValue()){
+                    element.setBezeichnung("Bild Download und Bild A3 auf Fotopapier");
+                }
+
                 element.setBildID(item.getId());
                 element.setStueck(item.getQuantity());
                 bestellElementDao.save(element);
@@ -262,6 +275,7 @@ public class overviewController {
                         "Pfarrgraben 6 \r\n" +
                         "4713 Gallspach \r\n" +
                         "Österreich \r\n \r\n" +
+                        "\n" +
                         "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
                         kunde.getAdresse().getAnschrift() + "\r\n" +
                         kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
@@ -320,14 +334,9 @@ public class overviewController {
 
 
     protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste, String email) {
-
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
         paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/" +email+"/"+bilderliste);
-
-        //paymentRequest.setSuccessUrl("http://www.heligraphy.at/bestellungAbgeschlossen");
-        //paymentRequest.setErrorUrl(("http://www.heligraphy.at/login"));
-
     }
 
     public void AbrechnungGenerieren() {
@@ -360,7 +369,7 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
-        parameter.put("kundennummer", bs.getuser().getId());
+        parameter.put("kundennummer", String .valueOf(bs.getuser().getId()));
         parameter.put("summenetto", round2(bs.getSummenetto()));
         parameter.put("summebrutto", round2(bs.getSummebrutto()));
         parameter.put("summemwst", round2(bs.getSummemwst()));

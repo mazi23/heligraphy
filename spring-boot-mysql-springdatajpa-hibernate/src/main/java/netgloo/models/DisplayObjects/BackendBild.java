@@ -9,6 +9,7 @@ public class BackendBild {
     byte[] bild;
     int bildid;
     String erzeuger;
+    String  bildgruppe;
    // Integer preis;
 
     public int getBildid() {
@@ -59,5 +60,11 @@ public class BackendBild {
         this.erzeuger = erzeuger;
     }
 
+    public String getBildgruppe() {
+        return bildgruppe;
+    }
 
+    public void setBildgruppe(String bildgruppe) {
+        this.bildgruppe = bildgruppe;
+    }
 }
