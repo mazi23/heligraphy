@@ -84,6 +84,8 @@ public class UploaderController {
         return "upload";
     }
 
+
+
     @RequestMapping(value="/upload/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getQRImage(@PathVariable final String id) {

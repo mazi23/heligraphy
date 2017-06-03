@@ -4,6 +4,8 @@ import netgloo.comands.AdressenCommand;
 import netgloo.comands.LoginCommand;
 import netgloo.models.Adresse;
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.DisplayObjects.ShoppingCartItem;
+import netgloo.models.PreisPlan;
 import netgloo.models.User;
 import netgloo.models.daos.AdresseDao;
 import netgloo.models.daos.UserDao;
@@ -36,6 +38,14 @@ public class CheckoutController {
     public String start(Model model){
         model.addAttribute("AdressenCommand",new AdressenCommand());
         model.addAttribute("LoginCommand", new LoginCommand());
+        boolean versandartNachnahme = true;
+        for (ShoppingCartItem item :shoppingChart.getItems()){
+            if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()){
+                versandartNachnahme =false;
+            }
+
+        }
+        model.addAttribute("nachnahme",versandartNachnahme);
         return "checkout";
     }
 

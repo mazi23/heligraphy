@@ -78,7 +78,7 @@ public class overviewController {
             OverviewPrice overviewPrice = new OverviewPrice();
             String zahlungsart = adressenCommand.getZahlungsart();
             if (zahlungsart == null) overviewPrice.setVersandkosten(5);
-            else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(12);
+            else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(8);
             else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
             else if (zahlungsart.equals("Onlineueberweisung")) overviewPrice.setVersandkosten(0);
 
@@ -254,7 +254,7 @@ public class overviewController {
             if (bestellung.getVersandart().equals("Nachname")) {
                 textPrint = "Sehr geehrte Damen und Herren," +
                         "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                        "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachname." +
+                        "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachnahme." +
                         "\r\n Rechnungsadresse: \r\n" +
                         "Matthias Oberegger \r\n" +
                         "Pfarrgraben 6 \r\n" +

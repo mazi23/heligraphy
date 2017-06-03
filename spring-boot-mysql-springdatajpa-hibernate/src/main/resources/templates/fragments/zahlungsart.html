@@ -6,48 +6,49 @@
 <body>
 
 
-<div  th:fragment="zahlungsarten" >
-<br/>
-        <h4 align="center">Zahlungsart</h4>
+<div th:fragment="zahlungsarten">
+    <br/>
+    <h4 align="center">Zahlungsart</h4>
 
-        <div class="funkyradio col-md-12 col-sm-12 col-xs-12">
-            <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
-                <input type="radio" name="radio" id="radio1" th:field="*{zahlungsart}"
-                       value="Vorrauskasse" checked="true" required="true"/>
-                <label for="radio1">Vorrauskasse</label>
-            </div>
-            <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
-                <input type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
-                <label for="radio2">Nachname (+3€   Nur möglich bei Basic und Professional)</label>
-            </div>
-            <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
-                <input type="radio" name="radio" id="radio13" th:field="*{zahlungsart}"
-                       value="Onlineueberweisung" checked="true" required="true"/>
-                <label for="radio13">Onlineüberweisung</label>
-            </div>
+    <div class="funkyradio col-md-12 col-sm-12 col-xs-12">
+        <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
+            <input type="radio" name="radio" id="radio1" th:field="*{zahlungsart}"
+                   value="Vorrauskasse" checked="true" required="true"/>
+            <label for="radio1">Vorrauskasse</label>
+        </div>
+        <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
+            <input th:disabled="${nachnahme}" type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
+            <label for="radio2">Nachnahme (+3€ Nur möglich bei Basic und Professional)</label>
+        </div>
+        <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
+            <input type="radio" name="radio" id="radio13" th:field="*{zahlungsart}"
+                   value="Onlineueberweisung" checked="true" required="true"/>
+            <label for="radio13">Onlineüberweisung</label>
+        </div>
     </div>
 </div>
-<div th:fragment="zahlungsarten2" >
-   <br/>
-        <h4 align="center">Zahlungsart</h4>
+<div th:fragment="zahlungsarten2">
+    <br/>
+    <h4 align="center">Zahlungsart</h4>
 
-        <div class="funkyradio ">
-            <div class="funkyradio-default col-md-6 radios">
-                <input type="radio" name="radio" id="radio12" th:field="*{zahlungsart}"
-                       value="Vorrauskasse" checked="true" required="true"/>
-                <label for="radio12">Vorrauskasse</label>
-            </div>
-            <div class="funkyradio-default col-md-6 radios">
-                <input type="radio" name="radio" id="radio22" th:field="*{zahlungsart}" value="Nachname"/>
-                <label for="radio22">Nachname (+3€   Nur möglich bei Basic und Professional)</label>
-            </div>
-            <div class="funkyradio-default col-md-6 radios">
-                <input type="radio" name="radio" id="radio23" th:field="*{zahlungsart}"
-                       value="Onlineueberweisung" checked="true" required="true"/>
-                <label for="radio23">Onlineüberweisung</label>
-            </div>
-
+    <div class="funkyradio ">
+        <div class="funkyradio-default col-md-6 radios">
+            <input type="radio" name="radio" id="radio12" th:field="*{zahlungsart}"
+                   value="Vorrauskasse" checked="true" required="true"/>
+            <label for="radio12">Vorrauskasse</label>
         </div>
+        <div class="funkyradio-default col-md-6 radios">
+            <input th:disabled="${nachnahme}" type="radio" name="radio" id="radio22" th:field="*{zahlungsart}"
+                   value="Nachname"/>
+            <label for="radio22">Nachnahme (+3€ Nur möglich bei Basic und Premium)</label>
+        </div>
+        <div class="funkyradio-default col-md-6 radios">
+            <input type="radio" name="radio" id="radio23" th:field="*{zahlungsart}"
+                   value="Onlineueberweisung" checked="true" required="true"/>
+            <label for="radio23">Onlineüberweisung</label>
+        </div>
+
+    </div>
 </div>
 
 </body>
