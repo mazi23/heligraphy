@@ -278,7 +278,7 @@ public class overviewController {
                 paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                         "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer." +
                         "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
                         "Ihr Heligraphy Team \n \n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
@@ -286,7 +286,7 @@ public class overviewController {
             }else {
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                         "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload." +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen." +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer." +
                         "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
 
@@ -360,6 +360,7 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
+        parameter.put("kundennummer", bs.getuser().getId());
         parameter.put("summenetto", round2(bs.getSummenetto()));
         parameter.put("summebrutto", round2(bs.getSummebrutto()));
         parameter.put("summemwst", round2(bs.getSummemwst()));
