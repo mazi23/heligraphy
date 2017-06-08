@@ -18,8 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-     @Autowired
-    private UserDetailsService userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -40,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**","/checkout","/VersandDetails",
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
-            "/rechnungerstellen","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung"
+            "/rechnungerstellen","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail"
     };
 
     @Override
@@ -79,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 
     }
 }

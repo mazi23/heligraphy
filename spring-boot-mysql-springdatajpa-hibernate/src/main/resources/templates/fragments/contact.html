@@ -8,7 +8,7 @@
 
 <div class="container " th:fragment="contact" >
     <div class="contact-form">
-        <form id="contact_form" th:action="@{/sendMail}" th:object="${contactCommand}" method="POST" enctype="multipart/form-data">
+        <form id="contact_form" th:action="@{/sendMailcontact}" th:object="${contactCommand}" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group fullname">

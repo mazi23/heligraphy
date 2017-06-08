@@ -70,6 +70,8 @@ public class overviewController {
     Bestellung bestellung;
     LinkedList<FotografAbrechnung> abrechnungen = new LinkedList<>();
 
+    boolean enthaeltDownload = false; //wird auf true gesetz wenn in der Bestellung mehrere Items enthält und davon mindestens einer als Download gekauft wurde
+
     @RequestMapping("/overview")
     public String start(Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand) {
 
@@ -175,8 +177,10 @@ public class overviewController {
             bestellungDao.save(bestellung);
             String urlid = "";
             for (ShoppingCartItem item : shoppingCart.getItems()) {
+                if (item.getPrice() == PreisPlan.STANDARD.getValue() || item.getPrice() == PreisPlan.PROFESSIONAL.getValue()) {
+                    urlid = bildDao.findCodeByid((long) item.getId()) + ","+urlid;
+                }
 
-                urlid = bildDao.findCodeByid((long) item.getId()) + ","+urlid;
             }
 
 
@@ -235,9 +239,10 @@ public class overviewController {
                         textprintLeinwand += "image" + item.getId() + ".jpg,";
                     //bilder.add(bildDao.findBildByid((long) item.getId()));
                 } else {
+                    enthaeltDownload = true;
                     abrechnung.setFotograf(aktBild.getFotograf());
                     abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-
+                    abrechnungen.add(abrechnung);
                     //TODO: Download für Bilder
 
                 }
@@ -289,7 +294,7 @@ public class overviewController {
             }
             String textCustomer ="";
             if (druckerreiverstaendigen){
-                paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
+                if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                         "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
                         "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer." +
@@ -379,7 +384,11 @@ public class overviewController {
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-        parameter.put("Versandkosten",round2(bs.getVersankosten()));
+        if (bs.getVersankosten()==0.0){
+            parameter.put("Versandkosten", 00.00);
+        }else {
+            parameter.put("Versandkosten", round2(bs.getVersankosten()));
+        }
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());

@@ -1,6 +1,7 @@
 package netgloo.models.daos;
 
 import netgloo.models.Bestellung;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -9,4 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface BestellungDao extends CrudRepository<Bestellung,Long> {
 
     //public int findByBildgruppeid(long id);
+    @Query("SELECT COUNT(b) FROM Bestellung b ")
+    long count();
 }

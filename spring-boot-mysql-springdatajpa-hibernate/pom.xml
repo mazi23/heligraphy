@@ -6,7 +6,7 @@
   <groupId>com.Heligraphy</groupId>
   <artifactId>ROOT</artifactId>
   <packaging>war</packaging>
-  <version>1</version>
+    <version>1</version>
 
   <name>Heligraphy website</name>
   <description></description>
@@ -92,6 +92,8 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
+        <scope>compile</scope>
+        <optional>true</optional> <!-- value will be true or false only -->
     </dependency>
 
     <dependency>
@@ -134,11 +136,7 @@
     </dependency>
 
 
-      <dependency>
-          <groupId>com.mpay24.payment</groupId>
-          <artifactId>mpay24-payment-sdk</artifactId>
-          <version>1.2.0.0</version>
-      </dependency>
+
 
   </dependencies>
 

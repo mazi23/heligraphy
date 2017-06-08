@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -24,7 +25,7 @@ public class contactController {
         return "contact-2";
     }
 
-    @RequestMapping("/sendMailcontact")
+    @RequestMapping(value = "/sendMailcontact",method = RequestMethod.POST)
     public String send(@ModelAttribute(value = "contactCommand") ContactCommand contactCommand, Model model, BindingResult bindingResult){
 
         sendMail(contactCommand.getMail(),contactCommand.getBetreff(),contactCommand.getNachricht(),contactCommand.getTelefon());
@@ -34,17 +35,18 @@ public class contactController {
 
     public void sendMail(String to,String subject, String text,String telefon)
     {
-        final String username = "mac.matthias@gmail.com";
-        final String password = "macbook1";
+        final String username = "info@heligraphy.at";
+        final String password = "it#Ychuri6";
 
         Properties props = new Properties();
-
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.host", "smtp.world4you.com");
+        //props.put("mail.smtp.socketFactory.port", "25");
+        //props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.ssl.enable","true");
+        props.put("mail.smtp.socketFactory.fallback", "true");
+        props.put("mail.smtp.starttls.enable", "true");
 
 
 
@@ -58,11 +60,13 @@ public class contactController {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("info@heligraphy.at"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            //message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(username));
-            message.setSubject("Ihre Anfrage bei Heligraphy");
-            message.setText("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+ "Ihre angaben \r\n"+"\r\n---------------------\r\n"+subject+ "\r\n Telefon: "+telefon+"\n" +
-                    ""+text);
+
+            message.addRecipients(Message.RecipientType.BCC,
+                    InternetAddress.parse(to+",info@heligraphy.at"));
+
+            message.setSubject("Wir werden uns in kürze bei Ihnen melden");
+            message.setText("Ihre Anfrage \n"+"---------------------\r\n"+subject+ "\nTelefon: "+telefon+"\n" +text);
+
 
             Transport.send(message);
 

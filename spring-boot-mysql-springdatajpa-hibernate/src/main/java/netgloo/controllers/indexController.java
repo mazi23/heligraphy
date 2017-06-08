@@ -10,6 +10,7 @@ import net.sf.jasperreports.engine.JRException;
 import netgloo.Application;
 import netgloo.models.Code;
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.daos.BestellungDao;
 import netgloo.models.daos.BildDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Properties;
 
 
 /**
@@ -40,6 +46,13 @@ public class indexController {
 
 
 
+    final String username = "info@heligraphy.at";
+    final String password = "it#Ychuri6";
+    Properties props;
+
+    Session session ;
+
+
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping({"/", "/index",""})
@@ -49,6 +62,7 @@ public class indexController {
         model.addAttribute("suchcode", new Code());
         //generateAbrechnungsReport();
         //generateReport();
+
 
         return "index";
     }

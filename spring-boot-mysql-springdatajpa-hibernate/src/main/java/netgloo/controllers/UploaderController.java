@@ -95,7 +95,7 @@ public class UploaderController {
 
 
     @RequestMapping(value = "loadBilder", method = RequestMethod.POST)
-    public String test(@Valid UploaderObject object,Model model) throws IOException {
+    public String upload(@Valid UploaderObject object,Model model) throws IOException {
 
 
         Adresse adresse = new Adresse();
@@ -115,7 +115,9 @@ public class UploaderController {
         preisDao.save(p);
 */
         for (MultipartFile f:object.getBilder()) {
+
             Bild bild = new Bild();
+            bild.setBildname(f.getOriginalFilename());
             BufferedImage thumbnail = ImageIO.read(new ByteArrayInputStream(f.getBytes()));
             bild.setBildgruppe(bildgruppe);
             bild.setDatei(f.getBytes());

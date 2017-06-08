@@ -155,7 +155,7 @@ public class BestellungAbgeschlossenController {
 
 
         Mail mail = new Mail();
-        String downloadLink = "http://localhost:8080/load/"+s.substring(0,s.length()-1);
+        String downloadLink = "http://www.heligraphy.at/load/"+s.substring(0,s.length()-1);
         String text = "Wir bedanken uns für Ihre Bestellung. Sie können Ihre Bidlder unter folgendem Link downloaden:" +
                 "\n "+downloadLink;
         mail.sendCustomMail(email,"Ihr Download Link",text);

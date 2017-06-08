@@ -1,6 +1,8 @@
 package netgloo;
 
 import netgloo.models.Bild;
+import netgloo.models.daos.BestellungDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -16,22 +18,35 @@ import java.util.Properties;
  */
 public class Mail {
 
+   @Autowired
+    BestellungDao bestellungDao;
+
     private String absenderMail;
 
     private String druckereiMail;
     Properties props;
-    final String username = "mac.matthias@gmail.com";
-    final String password = "macbook1";
+    final String username = "info@heligraphy.at";
+    final String password = "it#Ychuri6";
 
     Session session ;
     public Mail() {
-        props = new Properties();
+        /*props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
+        *
+        */
+        props.put("mail.smtp.host", "smtp.world4you.com");
+        //props.put("mail.smtp.socketFactory.port", "25");
+        //props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.ssl.enable","true");
+        props.put("mail.smtp.socketFactory.fallback", "true");
+        props.put("mail.smtp.starttls.enable", "true");
         session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -40,14 +55,14 @@ public class Mail {
                 });
 
 
-        absenderMail = "info@heligraphy.at";
+        //absenderMail = "info@heligraphy.at";
 
     }
 
     public void sendMail(String subject, String text, HashMap<Integer,Bild> bilder) throws MessagingException, IOException {
         //Adres[] adressen = new Object[]{InternetAddress.parse(to)};
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("info@heligraphy.at"));
+        message.setFrom(new InternetAddress("bestellung@heligraphy.at"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(druckereiMail));//(Address[]) adressen);
         message.setSubject(subject);//"Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n");
         //message.setText(text);
@@ -88,8 +103,8 @@ public class Mail {
     public void sendMailWithBill(String to,  String text,byte[] pdf) throws MessagingException, IOException {
         //Adres[] adressen = new Object[]{InternetAddress.parse(to)};
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("info@heligraphy.at"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));//(Address[]) adressen);
+        message.setFrom(new InternetAddress("bestellung@heligraphy.at"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to+",rechnung@heligraphy.at"));//(Address[]) adressen);
         message.setSubject("Bestellbestätigung");//"Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n");
         //message.setText(text);
 
@@ -101,7 +116,7 @@ public class Mail {
         mainPart.setText(text);
         content.addBodyPart(mainPart);
 
-            File outputFile = new File("Rechnung.pdf");
+            File outputFile = new File("Rechnung"+bestellungDao.count()+".pdf");
             MimeBodyPart imagePart = new MimeBodyPart();
             FileOutputStream outputStream = new FileOutputStream(outputFile);
             outputStream.write(pdf);

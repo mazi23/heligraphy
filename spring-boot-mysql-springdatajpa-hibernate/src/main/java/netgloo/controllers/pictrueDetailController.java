@@ -2,7 +2,9 @@ package netgloo.controllers;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
 import netgloo.models.Bild;
@@ -47,11 +49,11 @@ public class pictrueDetailController {
         Metadata metadata = ImageMetadataReader.readMetadata(stream);
         b=bild;
 
-        /*for (Directory directory : metadata.getDirectories()) {
+        for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 System.out.println(tag);
             }
-        }*/
+        }
 
         ExifSubIFDDirectory directory
                 = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);

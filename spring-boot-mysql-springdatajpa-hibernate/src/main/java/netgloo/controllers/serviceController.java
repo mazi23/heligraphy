@@ -26,7 +26,7 @@ public class serviceController {
 
 
 
-    @RequestMapping("/send")
+    @RequestMapping("/sendMail")
     public String send(@ModelAttribute(value = "contactCommand") ContactCommand contactCommand, Model model, BindingResult bindingResult){
 
         sendMail(contactCommand.getMail(),contactCommand.getBetreff(),contactCommand.getNachricht(),contactCommand.getTelefon());
@@ -36,14 +36,18 @@ public class serviceController {
 
     public void sendMail(String to,String subject, String text,String telefon)
     {
-        final String username = "mac.matthias@gmail.com";
-        final String password = "macbook1";
+        final String username = "info@heligraphy.at";
+        final String password = "it#Ychuri6";
 
         Properties props = new Properties();
-        props.put("Mail.smtp.auth", "true");
-        props.put("Mail.smtp.starttls.enable", "true");
-        props.put("Mail.smtp.host", "smtp.gmail.com");
-        props.put("Mail.smtp.port", "587");
+        props.put("mail.smtp.host", "smtp.world4you.com");
+        //props.put("mail.smtp.socketFactory.port", "25");
+        //props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.ssl.enable","true");
+        props.put("mail.smtp.socketFactory.fallback", "true");
+        props.put("mail.smtp.starttls.enable", "true");
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
@@ -56,9 +60,11 @@ public class serviceController {
             //Object[] adressen = new Object[]{InternetAddress.parse("mac.matthias@gmail.com"),InternetAddress.parse(from)};
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("info@heligraphy.at"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject("Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n"+ "Telefon: "+telefon);
-            message.setText(text);
+            message.addRecipients(Message.RecipientType.BCC,
+                    InternetAddress.parse(to+",info@heligraphy.at"));
+
+            message.setSubject("Wir werden uns in kürze bei Ihnen melden");
+            message.setText("Ihre Anfrage \n"+"---------------------\r\n"+subject+ "\nTelefon: "+telefon+"\n" +text);
 
             Transport.send(message);
 

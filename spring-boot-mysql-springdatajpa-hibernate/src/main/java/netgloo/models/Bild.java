@@ -26,6 +26,16 @@ public class Bild implements Serializable{
 
     private String code;
 
+    private String bildname;
+
+    public String getBildname() {
+        return bildname;
+    }
+
+    public void setBildname(String bildname) {
+        this.bildname = bildname;
+    }
+
     public Bild() {
         Random random = new Random(System.currentTimeMillis());
         int i = random.nextInt();
