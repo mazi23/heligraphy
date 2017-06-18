@@ -47,7 +47,7 @@ public class indexController {
 
 
     final String username = "info@heligraphy.at";
-    final String password = "it#Ychuri6";
+    final String password = "info@heligraphy";
     Properties props;
 
     Session session ;

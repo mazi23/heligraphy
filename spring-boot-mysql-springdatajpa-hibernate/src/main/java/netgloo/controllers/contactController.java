@@ -36,7 +36,7 @@ public class contactController {
     public void sendMail(String to,String subject, String text,String telefon)
     {
         final String username = "info@heligraphy.at";
-        final String password = "it#Ychuri6";
+        final String password = "info@heligraphy";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.world4you.com");

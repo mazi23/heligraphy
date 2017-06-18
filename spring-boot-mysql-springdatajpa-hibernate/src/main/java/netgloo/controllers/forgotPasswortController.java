@@ -35,7 +35,7 @@ public class forgotPasswortController {
     public String zuruecksetzen(@ModelAttribute ForgotPasswordCommand email, BindingResult bindingResult) throws MessagingException {
         User u = userDao.findByEmail(email.getEmail());
 
-        System.out.print(email.getEmail());
+       // System.out.print(email.getEmail());
         Mail mail = new Mail();
         String text = "Ihr Passwort lautet: "+u.getPasswort()+ "\n\r Ihr Heligraphy Team";
         mail.sendCustomMail(email.getEmail(),"Passwort vergessen",text );

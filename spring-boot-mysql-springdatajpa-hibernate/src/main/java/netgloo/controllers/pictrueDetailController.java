@@ -48,12 +48,12 @@ public class pictrueDetailController {
         ByteArrayInputStream stream = new ByteArrayInputStream(bild.getDatei());
         Metadata metadata = ImageMetadataReader.readMetadata(stream);
         b=bild;
-
+/*
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 System.out.println(tag);
             }
-        }
+        }*/
 
         ExifSubIFDDirectory directory
                 = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);

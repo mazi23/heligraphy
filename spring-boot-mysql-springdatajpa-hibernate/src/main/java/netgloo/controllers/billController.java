@@ -39,7 +39,7 @@ public class billController {
     String vaname;
     String rename;
 
-    @RequestMapping("/rechnungerstellen")
+    @RequestMapping("/createRechnung")
     public String start(Model model){
 
         model.addAttribute("command",new Rechnungscommand());
@@ -61,11 +61,17 @@ public class billController {
 
         adresseDao.save(versandadresse);
 
+
         Adresse rechnungsadresse = new Adresse();
-        rechnungsadresse.setAnschrift(rechnungscommand.getRechnungsadresse().getStrasseRA());
-        rechnungsadresse.setLand(rechnungscommand.getRechnungsadresse().getLandRA());
-        rechnungsadresse.setOrt(rechnungscommand.getRechnungsadresse().getOrtRA());
-        rechnungsadresse.setPlz(Integer.parseInt(rechnungscommand.getRechnungsadresse().getPlzRA()));
+        if(rechnungscommand.getRechnungsadresse().getStrasseRA()!=null&&rechnungscommand.getRechnungsadresse().getLandRA()!=null){
+            rechnungsadresse.setAnschrift(rechnungscommand.getRechnungsadresse().getStrasseRA());
+            rechnungsadresse.setLand(rechnungscommand.getRechnungsadresse().getLandRA());
+            rechnungsadresse.setOrt(rechnungscommand.getRechnungsadresse().getOrtRA());
+            rechnungsadresse.setPlz(Integer.parseInt(rechnungscommand.getRechnungsadresse().getPlzRA()));
+        }else{
+            rechnungsadresse=versandadresse;
+        }
+
 
         adresseDao.save(rechnungsadresse);
 

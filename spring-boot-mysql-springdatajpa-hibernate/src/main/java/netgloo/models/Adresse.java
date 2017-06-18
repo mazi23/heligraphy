@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Table(name = "adresse")
 public class Adresse {
     private long id;
+
+    private String name;
     private String anschrift;
     private int plz;
     private String ort;
@@ -24,7 +26,13 @@ public class Adresse {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getAnschrift() {
         return anschrift;

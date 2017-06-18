@@ -37,7 +37,7 @@ public class serviceController {
     public void sendMail(String to,String subject, String text,String telefon)
     {
         final String username = "info@heligraphy.at";
-        final String password = "it#Ychuri6";
+        final String password = "info@heligraphy.at";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.world4you.com");

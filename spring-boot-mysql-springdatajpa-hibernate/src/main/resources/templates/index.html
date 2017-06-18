@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="fragments/head :: head">
+    <meta name="google-site-verification" content="ZRJd35p8e0qhNgLjLqLJJtEXM-mR1qH1tt832Al0nAs" />
 
 </head>
     <!-- Header start -->
@@ -8,6 +9,7 @@
     <div class="container" th:replace="fragments/header :: header">
         <p>header</p>
     </div>
+
 </header>
 <!-- Header end -->
 <body>
@@ -21,9 +23,9 @@
         <!-- Wrapper for slides -->
         <form th:action="@{/suchen}" th:object="${suchcode}" method="post">
         <div class="test">
-             <h1><span>Finden Sie ihr</span> Haus</h1>
+             <h1><span>Finden Sie ihr</span> Objekt</h1>
                         <!-- Paragraph -->
-                        <p>Geben Sie den Code von ihrem Flyer ein.</p>
+                        <p>Verwenden Sie den erhalten Code auf Ihrere Postkarte.</p>
                         <!-- Input -->
                         <input  type="text" class="codeInput btn" th:field="*{code}" />
             <input type="submit" value="Haus Suchen" class="btn btn-view"/>
@@ -86,6 +88,47 @@
     </div>
 </div>
 <!-- Banner end-->
+
+<div class="we-best content-area">
+    <div class="container">
+        <div class="main-title">
+            <h1>Und so funktionierts</h1>
+            <p></p>
+        </div>
+        <div class="row mgn-btm-30">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-security"></i>
+                    <h4>Wir fliegen und Fotografieren</h4>
+                    <p>Wir fliegen und fotografieren Ihr Objekt oder Haus.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-satellite-transmission"></i>
+                    <h4>Wir verarbeiten die Bilder</h4>
+                    <p>Wir prüfen unsere Bilder um Ihre Privatsphäre zu garantieren. Dann laden wir die Bilder auf unsere Server und genarieren einen zufälligen Code. </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-interface"></i>
+                    <h4>Sie sehen sich die Bilder an</h4>
+                    <p>Sie erhalten eine Postkarte mit dem zufälligen Code. Mit diesem können Sie Ihre Bilder einsehen.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-dollar-symbol"></i>
+                    <h4>Bilder kaufen</h4>
+                    <p>Wählen Sie die Bilder aus die Ihnen gefallen und kaufen Sie bequem über unseren Onlineshop</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 <!-- Featured car start-->
 <div class="featured-car content-area clearfix">

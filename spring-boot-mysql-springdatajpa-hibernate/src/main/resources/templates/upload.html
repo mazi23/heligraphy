@@ -65,6 +65,7 @@
                     <option>Another payment method</option>
                 </select>
                 </p>
+                <p class="danger">Max. 100 Bilder</p>
                 <input type="file" name="bild" accept="image/*" multiple="true" th:field="*{bilder}"
                        class="form-control"/>
                 <br/>
@@ -84,8 +85,9 @@
                 </select>
                 <input class="btn btn-warning" type="submit" value="Abrechnen"/>
             </form>
-            <a href="/rechnungerstellen"><button class="btn btn-warning">Rechnung erstellen</button></a>
 
+            <a href="/createRechnung"><button class="btn btn-warning">Rechnung erstellen</button></a>
+            <p th:text="${errors}">Fehler</p>
         </div>
     </div>
     <div id="hochgeladeneBilder" class="container">

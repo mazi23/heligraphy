@@ -2,12 +2,14 @@ package netgloo.models.DisplayObjects;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
  * Created by mazi on 21.01.17.
  */
 public class UploaderObject {
+
 
     String adresse,plz,ort,land;
     List<MultipartFile> bilder;

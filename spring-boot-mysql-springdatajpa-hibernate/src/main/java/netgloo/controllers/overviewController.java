@@ -183,8 +183,12 @@ public class overviewController {
 
             }
 
+            if (urlid.length()>0) {
+                setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()), urlid.substring(0, urlid.length() - 1), kunde.getEmail());
 
-            setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()),Long.toString(bestellung.getIdBestellung()),urlid.substring(0,urlid.length()-1),kunde.getEmail());
+            }else{
+                setPaymentRequestNormal(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()));
+            }
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
@@ -211,14 +215,14 @@ public class overviewController {
 
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
-        try {
+        //try {
             boolean druckerreiverstaendigen = false;
             Mail mailToPrint = new Mail();
-            logger.info("-------------------------------------- \n Gesendet");
+            //logger.info("-------------------------------------- \n Gesendet");
 
             //mailToPrint.setAbsenderMail("info@heligraphy.at");
             //ToDO: email auf Druckerei ändern
-            mailToPrint.setDruckereiMail("mac.matthias@gmail.com");
+
             HashMap<Integer, Bild> bilder = new HashMap();
 
             //
@@ -294,18 +298,18 @@ public class overviewController {
             }
             String textCustomer ="";
             if (druckerreiverstaendigen){
-                if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossenOhneDownload");
+                if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                        "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter." +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer." +
+                        "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter. " +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
                         "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
                         "Ihr Heligraphy Team \n \n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
             }else {
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                        "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload." +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer." +
+                        "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload. " +
+                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
                         "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
 
@@ -317,10 +321,10 @@ public class overviewController {
             byte[] pdf = generateReport(bestellung);
             mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
             AbrechnungGenerieren();
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             logger.error("----------------------------\n"+e.getMessage());
         }
-
+*/
         if (bestellung.getVersandart().equals("Onlineueberweisung")){
             Payment response = null;
             try {
@@ -330,18 +334,24 @@ public class overviewController {
             }
 
 
+
             return "redirect:"+response.getRedirectLocation();
         }else {
             return "redirect:/abgeschlossenOhneDownload";
         }
     }
 
+    protected void setPaymentRequestNormal(BigDecimal amount,String transactionsid) {
+        paymentRequest.setAmount(amount);
+        paymentRequest.setTransactionID(transactionsid);
+        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/");
+    }
 
 
     protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste, String email) {
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
-        paymentRequest.setSuccessUrl("http://localhost:8080/abgeschlossen/" +email+"/"+bilderliste);
+        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/" +email+"/"+bilderliste);
     }
 
     public void AbrechnungGenerieren() {
