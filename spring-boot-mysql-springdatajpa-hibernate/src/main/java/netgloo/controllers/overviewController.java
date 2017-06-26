@@ -344,7 +344,7 @@ public class overviewController {
     protected void setPaymentRequestNormal(BigDecimal amount,String transactionsid) {
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
-        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/");
+        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
     }
 
 

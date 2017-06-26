@@ -32,14 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/js/*/**",
             "/images/*/**",
             "/",
-            "/upload","/loadBilder","/upload/*","/upload/*/*","/BackendBilderUpload",
+            "/loadBilder",
             "/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
             "/picture-list.html","/picture-grid.html","/picture-grid","/picture-grid/**","/picture-details/**","/picture-details",
             "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**","/checkout","/VersandDetails",
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
             "/createRechnung","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail","/404.html"
-    };
+    };//"/upload","/upload/*","/upload/*/*","/BackendBilderUpload",
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -60,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().
 		/*	antMatchers("/**").*/
                 antMatchers(PUBLIC_MATCHERS).
-                permitAll().anyRequest().authenticated();
+                permitAll().anyRequest().authenticated().and()
+        .formLogin().permitAll().and().logout().permitAll();
 /*
         http
                 .csrf().disable()
@@ -76,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("mazi23").password("mazi23").roles("ADMIN");
         //auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 
     }
