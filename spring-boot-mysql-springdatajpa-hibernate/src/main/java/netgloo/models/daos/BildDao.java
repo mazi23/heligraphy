@@ -20,8 +20,8 @@ public interface BildDao extends CrudRepository<Bild,Long>  {
     @Query(" from Bildgruppe g where uniqCode=:id")
     Bildgruppe findByid(@Param("id") String id);
 
-    @Query("SELECT b.id,b.thumbnail,b.bildgruppe,b.bildgruppe.uniqCode,b.fotograf FROM Bild b")
-    List<Objects[]> BilderOhneDatei();
+    @Query("SELECT b.id,b.thumbnail,b.bildgruppe,b.bildgruppe.uniqCode,b.fotograf FROM Bild b where b.bildgruppe.id between :x and :y")
+    List<Objects[]> BilderOhneDatei(@Param("x") long x,@Param("y") long y);
 
     @Query("FROM Bild b")
     List<Bild> findBild();

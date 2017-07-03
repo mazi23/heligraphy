@@ -15,8 +15,10 @@ import netgloo.models.daos.BildDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +28,10 @@ import javax.mail.*;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Properties;
@@ -71,10 +76,17 @@ public class indexController {
 
     @RequestMapping(value = "/suchen", method = RequestMethod.POST)
     public String sendCodeToGridView(@RequestParam(value = "code")String code, RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("code",code);
+        //String x = Integer.parseInt(code, 16)+"";
+        redirectAttributes.addFlashAttribute("code",Integer.parseInt(code, 16)+"");
         return "redirect:picture-grid";
     }
 
+    @RequestMapping(value = "/{code}", method = RequestMethod.GET)
+    public String sendCodeToGridViewViaUrl(@PathVariable(value = "code")String code, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+        //String x = Integer.parseInt(code, 16)+"";
+        redirectAttributes.addFlashAttribute("code",Integer.parseInt(code, 16)+"");
+        return "redirect:picture-grid";
+    }
 
 
 

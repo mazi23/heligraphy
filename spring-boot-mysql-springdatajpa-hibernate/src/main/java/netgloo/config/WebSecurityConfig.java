@@ -33,12 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/images/*/**",
             "/",
             "/loadBilder",
-            "/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
+            "/*","/index.html","/about.html","/services-2.html","/contact-2.html","/pricing-tables.html",
             "/picture-list.html","/picture-grid.html","/picture-grid","/picture-grid/**","/picture-details/**","/picture-details",
             "/suchen","/shoppingChartSum","/addToChart/**","/shoppingchartSum/*","/login","/login.html","/signup.html","/signup","/register**","/checkout","/VersandDetails",
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
-            "/createRechnung","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail","/404.html"
+            "/createRechnung","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail","/404.html","/nextSite"
     };//"/upload","/upload/*","/upload/*/*","/BackendBilderUpload",
 
     @Override
@@ -56,12 +56,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();*/
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/404.html");
 
+        http.authorizeRequests().antMatchers("/upload").authenticated();
         http
                 .authorizeRequests().
 		/*	antMatchers("/**").*/
                 antMatchers(PUBLIC_MATCHERS).
                 permitAll().anyRequest().authenticated().and()
         .formLogin().permitAll().and().logout().permitAll();
+
 /*
         http
                 .csrf().disable()

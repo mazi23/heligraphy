@@ -81,7 +81,7 @@ public class overviewController {
             String zahlungsart = adressenCommand.getZahlungsart();
             if (zahlungsart == null) overviewPrice.setVersandkosten(5);
             else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(8);
-            else if (zahlungsart.equals("Vorrauskasse")) overviewPrice.setVersandkosten(5);
+            else if (zahlungsart.equals("Vorauskasse")) overviewPrice.setVersandkosten(5);
             else if (zahlungsart.equals("Onlineueberweisung")) overviewPrice.setVersandkosten(0);
 
 
@@ -224,7 +224,7 @@ public class overviewController {
             //ToDO: email auf Druckerei ändern
 
             HashMap<Integer, Bild> bilder = new HashMap();
-
+            String bilderRaw = "";
             //
             String textprintPaper = "";
             String textprintLeinwand = "";
@@ -243,6 +243,7 @@ public class overviewController {
                         textprintLeinwand += "image" + item.getId() + ".jpg,";
                     //bilder.add(bildDao.findBildByid((long) item.getId()));
                 } else {
+                    bilderRaw += aktBild.getBildname()+", ";
                     enthaeltDownload = true;
                     abrechnung.setFotograf(aktBild.getFotograf());
                     abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
@@ -301,15 +302,15 @@ public class overviewController {
                 if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                         "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter. " +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
-                        "\r\n Bitte beachten Sie auch, dass sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
+                        "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                        "\r\n Bitte beachten Sie auch, dass, sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
                         "Ihr Heligraphy Team \n \n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
             }else {
                 textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                         "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload. " +
-                        "Sollten Sie die Zahlungsweiße Vorrauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                        "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
                         "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
                         "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
 
@@ -321,6 +322,13 @@ public class overviewController {
             byte[] pdf = generateReport(bestellung);
             mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
             AbrechnungGenerieren();
+
+            //sendet info wenn raw Bilder zum versenden sind
+            Mail myRawInfo= new Mail();
+            if(!bilderRaw.equals("")){
+                myRawInfo.sendCustomMail("info@heligraphy.at","Neue Raw Bilder zum Versenden",bilderRaw + " sind zum versenden an "+ kunde.getEmail());
+            }
+
         /*} catch (Exception e) {
             logger.error("----------------------------\n"+e.getMessage());
         }

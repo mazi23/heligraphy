@@ -19,7 +19,7 @@ public class errorController {
     @RequestMapping("/backhome")
     public String backtoIndex(Model model) {
         // Add model attributes
-        return "redirect:/";
+        return "redirect:/index";
     }
 
 

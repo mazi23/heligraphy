@@ -90,6 +90,15 @@
             <p th:text="${errors}">Fehler</p>
         </div>
     </div>
+
+    <div>
+        <form th:action="@{/nextSite}" method="get" >
+            <label>Von: </label><input id="von" name="von" />
+            <label>Bis: </label><input id="bis" name="bis"/>
+            <input type="submit"/>
+        </form>
+
+    </div>
     <div id="hochgeladeneBilder" class="container">
 
 

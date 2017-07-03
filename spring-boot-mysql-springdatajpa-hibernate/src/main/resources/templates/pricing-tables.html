@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="fragments/head :: head">
 
+
+
 </head>
 
 
@@ -63,23 +65,23 @@
                         <ul>
                             <li>
                                 Druck auf DIN A3 Bild
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 Glänzendes Fotopapier
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li >
                                 weitere Bildrechte
-                                <i class="fa fa-close closet"></i>
+                                <div class="checks">&#10060;</div>
                             </li>
                             <li>
                                 Vervielfältigung
-                                <i class="fa fa-close closet"></i>
+                                <div class="checks">&#10060;</div>
                             </li>
                             <li>
                                 Download Datei
-                                <i class="fa fa-close closet"></i>
+                                <div class="checks">&#10060;</div>
                             </li>
                             <li hidden="true">
                                 jedes weitere Bild (zgl. Druckkosten)
@@ -110,23 +112,25 @@
                         <ul>
                             <li>
                                 Download
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 Drucken so oft Sie wollen
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li >
                                 Vervielfältigen so oft Sie wollen
-                                <i class="fa fa-check "></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 online verwenden
-                                <i class="fa fa-close closet"></i>
+                                <div class="checks">&#10060;</div>
+
                             </li>
                                 <li>
                                 Datei im Raw Format
-                                <i class="fa fa-close closet"></i>
+                                    <div class="checks">&#10060;</div>
+
                             </li>
                             
                             <li hidden="true">
@@ -157,19 +161,19 @@
                         <ul>
                             <li>
                                 Fotoleinwand
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 hochwertiges Material
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li >
                                 90x60 (auf Wunsch auch in anderen Formaten)
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 Perfekt fürs Wohnzimmer
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
 
                             
@@ -197,19 +201,19 @@
                         <ul>
                             <li>
                                 Download
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
                                 Lizenz zur Bearbeitung
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li >
                                 Lizenz zur kommerziellen Verwendung
-                                <i class="fa fa-check"></i>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li>
-                                Datei im Raw Format
-                                <i class="fa fa-check"></i>
+                                Datei im Raw Format <sup>*1</sup>
+                                <div class="checks">&#9989;</div>
                             </li>
                             <li hidden="true">
                                 inkl. Basic Paket
@@ -226,7 +230,10 @@
                 </div>
                 <!-- Pricing tables box end-->
             </div>
+
         </div>
+        <br/>
+        <sup>*1</sup><p>Aufgrund der Größe von Raw Bildern können wir diese NICHT permanent als Download zur Verfügung stellen. Sie erhalten von uns einen gesonderten Link zum Download wenn wir die Dateien online gestellt haben.</p>
     </div>
 </div>
 <!-- Pricing tables end -->
@@ -299,6 +306,9 @@
     </div>
 </div>
 <!-- Copy right end-->
+<script>
+    $("#fa").load(location.href + " #fa");
+</script>
 
 <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

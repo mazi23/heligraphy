@@ -11,6 +11,7 @@ import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import netgloo.Application;
 import netgloo.comands.Abrechnungsid;
 import netgloo.models.*;
 import netgloo.models.DisplayObjects.BackendBild;
@@ -18,6 +19,8 @@ import netgloo.models.DisplayObjects.UploaderObject;
 import netgloo.models.daos.*;
 import netgloo.models.reportObjects.Abrechnung;
 import org.imgscalr.Scalr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,12 +62,16 @@ public class UploaderController {
     String errors = "Folgende Bilder enthalten eine falsch formatierte Adresse: ";
 
     HashMap<Integer, BackendBild> bilder = new HashMap<Integer, BackendBild>();
+    long von = 1;
+    long bis = 50;
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping(value = "upload")
     public String start(Model model) {
+        //model.addAttribute("obs",new Object());
         bilder=null;
         model.addAttribute("uploadObject", new UploaderObject());
-        List<Objects[]> list = bildDao.BilderOhneDatei();
+        List<Objects[]> list = bildDao.BilderOhneDatei(von,bis);
         Set<Long> bildgruppenids = new HashSet<>();
         bilder =  new HashMap<Integer, BackendBild>();
 
@@ -96,7 +103,7 @@ public class UploaderController {
 
     @RequestMapping(value="/upload/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getQRImage(@PathVariable final String id) {
+    public byte[] getImage(@PathVariable final String id) {
         BackendBild b = bilder.get(Integer.parseInt(id));
         return b.getBild();
     }
@@ -131,7 +138,9 @@ public class UploaderController {
         for (MultipartFile f:object.getBilder()) {
 
             Bild bild = new Bild();
-            bild.setBildname(f.getOriginalFilename());
+           try{
+               bild.setBildname(f.getOriginalFilename());
+
             BufferedImage thumbnail = ImageIO.read(new ByteArrayInputStream(f.getBytes()));
             bild.setDatei(f.getBytes());
 
@@ -201,6 +210,10 @@ public class UploaderController {
             bild.setThumbnail(baos.toByteArray());
             adresse = new Adresse();
             bildDao.save(bild);
+           }catch (Exception e){
+               logger.error(bild.getBildname()+"---------------\n");
+               logger.error(e.getMessage());
+           }
         }
         model.addAttribute("errors",errors);
         model.addAttribute("uploadObject", new UploaderObject());
@@ -208,12 +221,18 @@ public class UploaderController {
     }
 
 
+    @RequestMapping(value ="/nextSite",method = RequestMethod.GET)
+    public String nextSite(Model model,@RequestParam(value = "von") long von,@RequestParam(value = "bis") long bis){
+        this.von = von;
+        this.bis = bis;
+        return "redirect:upload";
+    }
 
     @RequestMapping(value = "/upload/delet/{id}", method = RequestMethod.GET)
     public String deletBild(Model model,@PathVariable final String id){
         bildDao.delete(Long.parseLong(id));
         model.addAttribute("uploadObject", new UploaderObject());
-        List<Objects[]> list = bildDao.BilderOhneDatei();
+        List<Objects[]> list = bildDao.BilderOhneDatei(von,bis);
         Set<Long> bildgruppenids = new HashSet<>();
         bilder =  new HashMap<Integer, BackendBild>();
 
@@ -234,7 +253,7 @@ public class UploaderController {
 
         model.addAttribute("Bilder",bilder);
 
-          return "redirect:upload";
+          return "redirect:/upload";
     }
 
 
