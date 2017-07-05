@@ -19,7 +19,7 @@ $.scrollUp({
     animationSpeed: 200,
     scrollTrigger: false,
     scrollTarget: false,
-    scrollText: '<i class="fa fa-chevron-up"></i>',
+    scrollText: '<i class="material-icons" style="font-size: 14px;">keyboard_arrow_up</i>',
     scrollTitle: false,
     scrollImg: false,
     activeOverlay: false,

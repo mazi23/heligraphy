@@ -5,9 +5,11 @@ import netgloo.models.daos.BestellungDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.util.Properties;
 /**
  * Created by mazi on 30.04.17.
  */
+@Component
 public class Mail {
 
     @Autowired
@@ -102,7 +105,7 @@ public class Mail {
     }
 
 
-    public void sendMailWithBill(String to,  String text,byte[] pdf) throws MessagingException, IOException {
+    public void sendMailWithBill(String to,  String text,byte[] pdf,long daosize) throws MessagingException, IOException {
         //Adres[] adressen = new Object[]{InternetAddress.parse(to)};
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress("bestellung@heligraphy.at"));
@@ -119,10 +122,10 @@ public class Mail {
         mainPart.setText(text);
         content.addBodyPart(mainPart);
         File outputFile;
-        if (bestellungDao==null){
+        if (daosize==0L){
             outputFile = new File("Rechnung.pdf");
         }else{
-            outputFile = new File("Rechnung"+bestellungDao.count()+".pdf");
+            outputFile = new File("Rechnung"+daosize+".pdf");
         }
 
             MimeBodyPart imagePart = new MimeBodyPart();

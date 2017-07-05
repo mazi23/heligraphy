@@ -5,9 +5,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import netgloo.comands.Rechnungscommand;
 import netgloo.models.*;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
-import netgloo.models.daos.AdresseDao;
-import netgloo.models.daos.BestellElementDao;
-import netgloo.models.daos.BestellungDao;
+import netgloo.models.daos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,6 +36,10 @@ public class billController {
     AdresseDao adresseDao;
     @Autowired
     BestellElementDao bestellElementDao;
+    @Autowired
+    RechnungDao rechnungDao;
+    @Autowired
+    UserDao userDao;
 
     String vaname;
     String rename;
@@ -99,22 +104,31 @@ public class billController {
             }
 
         }
-
+        summe+=bs.getVersankosten();
         bs.setSummenetto(summe/1.2);
         bs.setSummebrutto(summe);
         bs.setSummemwst(summe/6);
         bs.setVersankosten(rechnungscommand.getVersandkosten());
-        summe+=bs.getVersankosten();
+
         bestellungDao.save(bs);
 
         //ToDO: Bestellung mit daten und Bestellelementen füllen aus rechnungscommand
-
-        redirectAttributes.addFlashAttribute("report",generateReport(bs));
+        byte[]report =generateReport(bs);
+        Rechnung rechnung = new Rechnung();
+        try {
+            Blob b = new SerialBlob(report);
+            rechnung.setRechnung(b);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        rechnungDao.save(rechnung);
+        redirectAttributes.addFlashAttribute("report",report);
         return "redirect:/PDFAbrechnung";
     }
 
 
 
+    //Rechnungerstellen
     public byte[] generateReport(Bestellung bs) throws JRException {
         JasperReport jasperReport;
         JasperPrint jasperPrint;
@@ -135,12 +149,12 @@ public class billController {
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-        parameter.put("Versandkosten",round2(bs.getVersankosten()));
+        parameter.put("Versandkosten",String.format("%10.2f", round2(bs.getVersankosten())));
         parameter.put("VAName", vaname);
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
         parameter.put("VALand", bs.getLieferAdresse().getLand());
-
+        //parameter.put("kundennummer", String .valueOf(bs.getuser().getId()));
 
         jasperPrint =
                 JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());

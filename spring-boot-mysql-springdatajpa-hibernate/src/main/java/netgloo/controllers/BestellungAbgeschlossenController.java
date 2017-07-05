@@ -100,7 +100,7 @@ public class BestellungAbgeschlossenController {
 
         response.setContentType("application/zip");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Content-Disposition", "attachment; filename=\"Heligraphy-Bilder.zip\"");
+        response.addHeader("Content-Disposition", "attachment; filename=\"HeligraphyBilder.zip\"");
 
         //creating byteArray stream, make it bufforable and passing this buffor to ZipOutputStream
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -110,7 +110,7 @@ public class BestellungAbgeschlossenController {
 
         //packing files
         for (int i = 0;i<idlist.size();i++){
-            Bild a = bildDao.findBildByCode(ids.get(i));
+            Bild a = bildDao.findBildByCode(idlist.get(i));
             if (a!=null) {
                 //new zip entry and copying inputstream with file to zipOutputStream, after all closing streams
                 zipOutputStream.putNextEntry(new ZipEntry("Bild" + i + ".jpg"));

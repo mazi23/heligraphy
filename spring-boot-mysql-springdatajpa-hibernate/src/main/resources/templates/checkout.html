@@ -46,13 +46,14 @@
 
 
         <ul class="nav nav-tabs tabscenter">
-            <li class="active"><a data-toggle="tab" href="#home">Bereits registriert</a></li>
-            <li><a data-toggle="tab" href="#menu1">Neu hier</a></li>
+
+            <li class="active"><a data-toggle="tab" href="#menu1">Neu hier</a></li>
+            <li ><a data-toggle="tab" href="#home">Bereits registriert</a></li>
 
         </ul>
 
         <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
+            <div id="home" class="tab-pane fade ">
                 <h3 class="text-center">Bentuzer</h3>
                 <hr/>
                 <form id="contact_form_user" th:action="@{/VersandDetailsWithUser}" th:object="${LoginCommand}"
@@ -84,7 +85,7 @@
                 </form>
             </div>
 
-            <div id="menu1" class="tab-pane fade">
+            <div id="menu1" class="tab-pane fade in active">
                 <form id="contact_form" th:action="@{/VersandDetails}" th:object="${AdressenCommand}" method="POST"
                       enctype="multipart/form-data">
                     <h3 class="text-center">Versand Adresse</h3>

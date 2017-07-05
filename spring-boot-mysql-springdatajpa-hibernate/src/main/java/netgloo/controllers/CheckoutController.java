@@ -50,8 +50,10 @@ public class CheckoutController {
     }
 
     @RequestMapping("/VersandDetails")
-    public String VersandDetails(@Valid @ModelAttribute(value = "AdressenCommand") AdressenCommand adressenCommand,BindingResult bindingResult1, RedirectAttributes redirectAttributes){
+    public String VersandDetails(@Valid @ModelAttribute(value = "AdressenCommand") AdressenCommand adressenCommand,BindingResult bindingResult1,Model model, RedirectAttributes redirectAttributes){
         if(bindingResult1.hasErrors()){
+            model.addAttribute("LoginCommand", new LoginCommand());
+
             return "checkout";
         }
 
@@ -61,8 +63,9 @@ public class CheckoutController {
     }
     @RequestMapping("/VersandDetailsWithUser")
     public String VersandDetailsWithUser(@ModelAttribute(value = "LoginCommand") LoginCommand loginCommand,
-                                         BindingResult bindingResult, RedirectAttributes redirectAttributes){
+                                         BindingResult bindingResult,Model model, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
+            model.addAttribute("AdressenCommand",new AdressenCommand());
             return "checkout";
         }
 
@@ -87,6 +90,7 @@ public class CheckoutController {
             adcommand = adressenCommand;
             return "redirect:/overview";
         }else{
+            model.addAttribute("AdressenCommand",new AdressenCommand());
             return "checkout";
         }
 

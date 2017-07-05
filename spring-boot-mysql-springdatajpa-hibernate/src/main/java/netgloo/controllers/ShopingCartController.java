@@ -44,7 +44,7 @@ public class ShopingCartController {
 
     @RequestMapping(value = "/weiterEinkaufen")
     public String weiterEinkaufen(Model model,RedirectAttributes redirectAttributes){
-        System.out.println(shoppingCart.getBildgruppe());
+        //System.out.println(shoppingCart.getBildgruppe());
         redirectAttributes.addFlashAttribute("code",shoppingCart.getBildgruppe());
         return "redirect:picture-grid";
     }

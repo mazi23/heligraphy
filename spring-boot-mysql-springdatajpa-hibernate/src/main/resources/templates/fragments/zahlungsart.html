@@ -16,8 +16,8 @@
                    value="Vorauskasse" checked="true" required="true"/>
             <label for="radio1">Vorauskasse</label>
         </div>
-        <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios" th:hidden="${nachnahme}">
-            <input th:hidden="${nachnahme}" th:disabled="${nachnahme}" type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
+        <div hidden="true" class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios" >
+            <input  th:disabled="${nachnahme}" type="radio" name="radio" id="radio2" th:field="*{zahlungsart}" value="Nachname"/>
             <label for="radio2">Nachnahme (+3€ Nur möglich bei Basic und Professional)</label>
         </div>
         <div class="funkyradio-default col-xs-6 col-sm-6 col-md-6 radios">
@@ -37,8 +37,8 @@
                    value="Vorauskasse" checked="true" required="true"/>
             <label for="radio12">Vorauskasse</label>
         </div>
-        <div class="funkyradio-default col-md-6 radios" th:hidden="${nachnahme}">
-            <input th:hidden="${nachnahme}" th:disabled="${nachnahme}" type="radio" name="radio" id="radio22" th:field="*{zahlungsart}"
+        <div   hidden="true" class="funkyradio-default col-md-6 radios" >
+            <input  th:disabled="${nachnahme}" type="radio" name="radio" id="radio22" th:field="*{zahlungsart}"
                    value="Nachname"/>
             <label for="radio22">Nachnahme (+3€ Nur möglich bei Basic und Premium)</label>
         </div>

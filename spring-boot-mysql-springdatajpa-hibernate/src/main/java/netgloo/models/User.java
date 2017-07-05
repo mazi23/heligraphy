@@ -1,8 +1,11 @@
 package netgloo.models;
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +30,8 @@ public class User {
     private long id;
 
     // The user's email
+    @NotEmpty(message = "Email darf nicht leer sein.")
+    @Size(min = 5, max = 50,message = "Email muss zwischen 4 und 60 Zeichen lang sein.")
     @NotNull
     private String email;
 
@@ -43,6 +48,8 @@ public class User {
     private Adresse adresse;
     private Integer idBildgruppe;
     private String username;
+    @NotEmpty(message = "Das Passwort darf nicht leer sein.")
+    @Size(min = 5, max = 50,message = "Passwort muss zwischen 3 und 50 Zeichen lang sein.")
     private String passwort;
 
     @OneToMany

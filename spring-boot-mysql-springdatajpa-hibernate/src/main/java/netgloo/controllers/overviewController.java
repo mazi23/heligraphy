@@ -23,12 +23,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.security.SecureRandom;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -58,6 +61,8 @@ public class overviewController {
     PreisDao preisDao;
     @Autowired
     FotografDao fotografDao;
+    @Autowired
+    RechnungDao rechnungDao;
 
     @Autowired
     FotografAbrechnungDao abrechnungDao;
@@ -115,16 +120,16 @@ public class overviewController {
                 BestellElement element = new BestellElement();
                 element.setPreis(item.getPrice());
                 //Todo: beschreibung festlegen
-                if (item.getPrice()== PreisPlan.BASIC.getValue()){
+                if (item.getPrice() == PreisPlan.BASIC.getValue()) {
                     element.setBezeichnung("Bild A3 auf Fotopapier");
                 }
-                if (item.getPrice()== PreisPlan.STANDARD.getValue()){
+                if (item.getPrice() == PreisPlan.STANDARD.getValue()) {
                     element.setBezeichnung("Bild Download");
                 }
-                if (item.getPrice()== PreisPlan.PREMIUM.getValue()){
+                if (item.getPrice() == PreisPlan.PREMIUM.getValue()) {
                     element.setBezeichnung("Bild auf Fotoleinwand 90x60");
                 }
-                if (item.getPrice()== PreisPlan.PROFESSIONAL.getValue()){
+                if (item.getPrice() == PreisPlan.PROFESSIONAL.getValue()) {
                     element.setBezeichnung("Bild Download und Bild A3 auf Fotopapier");
                 }
 
@@ -133,7 +138,7 @@ public class overviewController {
                 bestellElementDao.save(element);
                 bestellung.addBestellElement(element);
                 overviewPrice.setZwischenSumme(overviewPrice.getZwischenSumme() + (item.getPrice() * item.getQuantity()));
-                System.out.println(item.getQuantity());
+               // System.out.println(item.getQuantity());
             }
 
 
@@ -172,28 +177,28 @@ public class overviewController {
                 }
             } else {
                 kunde.addBestellung(bestellung);
-                     }
+            }
             bestellung.setuser(kunde);
             bestellungDao.save(bestellung);
             String urlid = "";
             for (ShoppingCartItem item : shoppingCart.getItems()) {
                 if (item.getPrice() == PreisPlan.STANDARD.getValue() || item.getPrice() == PreisPlan.PROFESSIONAL.getValue()) {
-                    urlid = bildDao.findCodeByid((long) item.getId()) + ","+urlid;
+                    urlid = bildDao.findCodeByid((long) item.getId()) + "," + urlid;
                 }
 
             }
 
-            if (urlid.length()>0) {
+            if (urlid.length() > 0) {
                 setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()), urlid.substring(0, urlid.length() - 1), kunde.getEmail());
 
-            }else{
+            } else {
                 setPaymentRequestNormal(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()));
             }
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
-        }catch (Exception e){
-            logger.error("overview start -------\n" +e.getMessage());
+        } catch (Exception e) {
+            logger.error("overview start -------\n" + e.getMessage());
         }
         return "overview";
 
@@ -208,7 +213,7 @@ public class overviewController {
 
     @RequestMapping(value = "/weitereinkaufen")
     public String weiterEinkaufen(Model model, RedirectAttributes redirectAttributes) {
-        System.out.println(shoppingCart.getBildgruppe());
+       // System.out.println(shoppingCart.getBildgruppe());
         redirectAttributes.addFlashAttribute("code", shoppingCart.getBildgruppe());
         return "redirect:picture-grid";
     }
@@ -216,124 +221,137 @@ public class overviewController {
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
         //try {
-            boolean druckerreiverstaendigen = false;
-            Mail mailToPrint = new Mail();
-            //logger.info("-------------------------------------- \n Gesendet");
+        boolean druckerreiverstaendigen = false;
+        Mail mailToPrint = new Mail();
+        //logger.info("-------------------------------------- \n Gesendet");
 
-            //mailToPrint.setAbsenderMail("info@heligraphy.at");
-            //ToDO: email auf Druckerei ändern
+        //mailToPrint.setAbsenderMail("info@heligraphy.at");
+        //ToDO: email auf Druckerei ändern
 
-            HashMap<Integer, Bild> bilder = new HashMap();
-            String bilderRaw = "";
-            //
-            String textprintPaper = "";
-            String textprintLeinwand = "";
-            for (ShoppingCartItem item : shoppingCart.getItems()) {
-                FotografAbrechnung abrechnung = new FotografAbrechnung();
-                Bild aktBild = bildDao.findBildByid((long) item.getId());
-                if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
-                    druckerreiverstaendigen=true;
-                    abrechnung.setFotograf(aktBild.getFotograf());
-                    abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-                    abrechnungen.add(abrechnung);
-                    bilder.put(item.getId(), aktBild);
-                    if (item.getPrice() == PreisPlan.BASIC.getValue())
-                        textprintPaper += "image" + item.getId() + ".jpg,";
-                    if (item.getPrice() == PreisPlan.PREMIUM.getValue())
-                        textprintLeinwand += "image" + item.getId() + ".jpg,";
-                    //bilder.add(bildDao.findBildByid((long) item.getId()));
-                } else {
-                    bilderRaw += aktBild.getBildname()+", ";
-                    enthaeltDownload = true;
-                    abrechnung.setFotograf(aktBild.getFotograf());
-                    abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
-                    abrechnungen.add(abrechnung);
-                    //TODO: Download für Bilder
+        HashMap<Integer, Bild> bilder = new HashMap();
+        String bilderRaw = "";
+        //
 
-                }
-            }
-            if (!textprintPaper.equals("")) {
-                textprintPaper += " als Lambda-Abzug auf\n" +
-                        "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
-            }
-            if (!textprintLeinwand.equals("")) {
-                textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
-            }
-
-            String textPrint = "";
-            if (bestellung.getVersandart().equals("Nachname")) {
-                textPrint = "Sehr geehrte Damen und Herren," +
-                        "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                        "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachnahme." +
-                        "\r\n Rechnungsadresse: \r\n" +
-                        "Matthias Oberegger \r\n" +
-                        "Pfarrgraben 6 \r\n" +
-                        "4713 Gallspach \r\n" +
-                        "Österreich \r\n \r\n" +
-                        "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                        kunde.getAdresse().getAnschrift() + "\r\n" +
-                        kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                        kunde.getAdresse().getLand() + "\r\n" +
-                        "Mit freundlichen Grüßen \r\n" +
-                        "Matthis Oberegger";
+        String textprintPaper = "";
+        String textprintLeinwand = "";
+        for (ShoppingCartItem item : shoppingCart.getItems()) {
+            FotografAbrechnung abrechnung = new FotografAbrechnung();
+            Bild aktBild = bildDao.findBildByid((long) item.getId());
+            if (item.getPrice() == PreisPlan.BASIC.getValue() || item.getPrice() == PreisPlan.PREMIUM.getValue()) {
+                druckerreiverstaendigen = true;
+                abrechnung.setFotograf(aktBild.getFotograf());
+                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                abrechnungen.add(abrechnung);
+                bilder.put(item.getId(), aktBild);
+                if (item.getPrice() == PreisPlan.BASIC.getValue())
+                    textprintPaper += "image" + item.getId() + ".jpg,";
+                if (item.getPrice() == PreisPlan.PREMIUM.getValue())
+                    textprintLeinwand += "image" + item.getId() + ".jpg,";
+                //bilder.add(bildDao.findBildByid((long) item.getId()));
             } else {
-                textPrint = "Sehr geehrte Damen und Herren," +
-                        "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
-                        "Gewünscht wird: " + textprintLeinwand + textprintPaper +
-                        "\r\n\n Rechnungsadresse: \r\n" +
-                        "Matthias Oberegger \r\n" +
-                        "Pfarrgraben 6 \r\n" +
-                        "4713 Gallspach \r\n" +
-                        "Österreich \r\n \r\n" +
-                        "\n" +
-                        "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
-                        kunde.getAdresse().getAnschrift() + "\r\n" +
-                        kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
-                        kunde.getAdresse().getLand() + "\r\n" +
-                        "Mit freundlichen Grüßen \r\n" +
-                        "Matthis Oberegger";
-            }
-
-            if (bilder.size()>=1) {
-                mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
-            }
-            String textCustomer ="";
-            if (druckerreiverstaendigen){
-                if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
-                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                        "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter. " +
-                        "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
-                        "\r\n Bitte beachten Sie auch, dass, sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
-                        "Ihr Heligraphy Team \n \n" +
-                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
-
-            }else {
-                textCustomer=  "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
-                        "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload. " +
-                        "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
-                        "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
-                        "Unsere AGBs finden sie unter http://www.heligraphy.at/agb" ;
+                if (item.getPrice() == PreisPlan.PROFESSIONAL.getValue()) {
+                    bilderRaw += aktBild.getBildname() + ", ";
+                }
+                enthaeltDownload = true;
+                abrechnung.setFotograf(aktBild.getFotograf());
+                abrechnung.setPreis(preisDao.findByPreis(item.getPrice()));
+                abrechnungen.add(abrechnung);
+                //TODO: Download für Bilder
 
             }
+        }
+        if (!textprintPaper.equals("")) {
+            textprintPaper += " als Lambda-Abzug auf\n" +
+                    "Fuji Crystal DP II auf A3 Fuji Crystal Archive glänzend, randlos ohne Rahmen  ";
+        }
+        if (!textprintLeinwand.equals("")) {
+            textprintLeinwand += " als Leinwand auf Trägerrahmen, 90x60, Leinwandprint matt, 20mm Trägerrahmen, Motiv an Rand gespiegelt ";
+        }
+
+        String textPrint = "";
+        if (bestellung.getVersandart().equals("Nachname")) {
+            textPrint = "Sehr geehrte Damen und Herren," +
+                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                    "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachnahme." +
+                    "\r\n Rechnungsadresse: \r\n" +
+                    "Heligraphy Matthias Oberegger \r\n" +
+                    "Pfarrgraben 6 \r\n" +
+                    "4713 Gallspach \r\n" +
+                    "Österreich \r\n \r\n" +
+                    "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                    kunde.getAdresse().getAnschrift() + "\r\n" +
+                    kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                    kunde.getAdresse().getLand() + "\r\n" +
+                    "Mit freundlichen Grüßen \r\n" +
+                    "Matthis Oberegger";
+        } else {
+            textPrint = "Sehr geehrte Damen und Herren," +
+                    "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
+                    "Gewünscht wird: " + textprintLeinwand + textprintPaper +
+                    "\r\n\n Rechnungsadresse: \r\n" +
+                    "Heligraphy Matthias Oberegger \r\n" +
+                    "Pfarrgraben 6 \r\n" +
+                    "4713 Gallspach \r\n" +
+                    "Österreich \r\n \r\n" +
+                    "\n" +
+                    "Versandadresse: \r\n " + kunde.getName() + " \r\n" +
+                    kunde.getAdresse().getAnschrift() + "\r\n" +
+                    kunde.getAdresse().getPlz() + " " + kunde.getAdresse().getOrt() + "\r\n" +
+                    kunde.getAdresse().getLand() + "\r\n" +
+                    "Mit freundlichen Grüßen \r\n" +
+                    "Matthis Oberegger";
+        }
+
+        if (bilder.size() >= 1) {
+            mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+        }
+        String textCustomer = "";
+        if (druckerreiverstaendigen) {
+            if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
+            textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                    "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter. " +
+                    "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                    "\r\n Bitte beachten Sie auch, dass, sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
+                    "Ihr Heligraphy Team \n \n" +
+                    "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
+
+        } else {
+            textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
+                    "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload. " +
+                    "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                    "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
+                    "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
+
+        }
 
 
+        Mail mailtoCustomer = new Mail();
+        byte[] pdf = generateReport(bestellung);
+        Rechnung rechnung = new Rechnung();
 
-            Mail mailtoCustomer = new Mail();
-            byte[] pdf = generateReport(bestellung);
-            mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf);
-            AbrechnungGenerieren();
+        try {
+            Blob b = new SerialBlob(pdf);
+            rechnung.setRechnung(b);
+            rechnungDao.save(rechnung);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error("Fehler beim RechnungPDF speichern");
+        }
 
-            //sendet info wenn raw Bilder zum versenden sind
-            Mail myRawInfo= new Mail();
-            if(!bilderRaw.equals("")){
-                myRawInfo.sendCustomMail("info@heligraphy.at","Neue Raw Bilder zum Versenden",bilderRaw + " sind zum versenden an "+ kunde.getEmail());
-            }
+        mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf, bestellungDao.count());
+        AbrechnungGenerieren();
+
+        //sendet info wenn raw Bilder zum versenden sind
+        Mail myRawInfo = new Mail();
+        if (!bilderRaw.equals("")) {
+            myRawInfo.sendCustomMail("info@heligraphy.at", "Neue Raw Bilder zum Versenden", bilderRaw + " sind zum versenden an " + kunde.getEmail());
+        }
 
         /*} catch (Exception e) {
             logger.error("----------------------------\n"+e.getMessage());
         }
 */
-        if (bestellung.getVersandart().equals("Onlineueberweisung")){
+        if (bestellung.getVersandart().equals("Onlineueberweisung")) {
             Payment response = null;
             try {
                 response = mpay24.paymentPage(paymentRequest);
@@ -342,24 +360,23 @@ public class overviewController {
             }
 
 
-
-            return "redirect:"+response.getRedirectLocation();
-        }else {
+            return "redirect:" + response.getRedirectLocation();
+        } else {
             return "redirect:/abgeschlossenOhneDownload";
         }
     }
 
-    protected void setPaymentRequestNormal(BigDecimal amount,String transactionsid) {
+    protected void setPaymentRequestNormal(BigDecimal amount, String transactionsid) {
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
         paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
     }
 
 
-    protected void setPaymentRequest(BigDecimal amount,String transactionsid,String bilderliste, String email) {
+    protected void setPaymentRequest(BigDecimal amount, String transactionsid, String bilderliste, String email) {
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
-        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/" +email+"/"+bilderliste);
+        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/" + email + "/" + bilderliste);
     }
 
     public void AbrechnungGenerieren() {
@@ -392,7 +409,7 @@ public class overviewController {
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(bs.getBilder());
         parameter.put("ItemDataSource", itemsJRBean);
 
-        parameter.put("kundennummer", String .valueOf(bs.getuser().getId()));
+        parameter.put("kundennummer", String.valueOf(bs.getuser().getId()));
         parameter.put("summenetto", round2(bs.getSummenetto()));
         parameter.put("summebrutto", round2(bs.getSummebrutto()));
         parameter.put("summemwst", round2(bs.getSummemwst()));
@@ -402,16 +419,16 @@ public class overviewController {
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt", bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand", bs.getRechnungsAdresse().getLand());
-        if (bs.getVersankosten()==0.0){
-            parameter.put("Versandkosten", 00.00);
-        }else {
-            parameter.put("Versandkosten", round2(bs.getVersankosten()));
+        if (bs.getVersankosten() == 0.0) {
+            parameter.put("Versandkosten", (0.0) + "");
+        } else {
+            parameter.put("Versandkosten", round2(bs.getVersankosten()) + "");
         }
         parameter.put("VAName", kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
         parameter.put("VALand", bs.getLieferAdresse().getLand());
-
+        parameter.put("Versandart", bs.getVersandart());
 
         jasperPrint =
                 JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
