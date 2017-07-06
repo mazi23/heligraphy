@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="ItemDataset" uuid="a9596d15-59fb-4fa8-898f-a2a1d31381d6">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="bezeichnung" class="java.lang.String"/>
+		<field name="bildID" class="java.lang.Integer"/>
+		<field name="stueck" class="java.lang.Integer"/>
+		<field name="preis" class="java.lang.Double"/>
+		<variable name="Gesamt" class="java.lang.Double">
+			<variableExpression><![CDATA[$F{stueck}*$F{preis}]]></variableExpression>
+		</variable>
+		<variable name="Pos" class="java.lang.Integer" calculation="Count">
+			<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
+		</variable>
+		<variable name="Variable_1" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" evaluationTime="Early">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="summenetto" class="java.lang.Double"/>
+	<parameter name="summebrutto" class="java.lang.Double"/>
+	<parameter name="summemwst" class="java.lang.Double"/>
+	<parameter name="auftragsDatum" class="java.sql.Timestamp"/>
+	<parameter name="idBestellung" class="java.lang.Long"/>
+	<parameter name="RAName" class="java.lang.String"/>
+	<parameter name="RAStrasse" class="java.lang.String"/>
+	<parameter name="RAOrt" class="java.lang.String"/>
+	<parameter name="RALand" class="java.lang.String"/>
+	<parameter name="VAName" class="java.lang.String"/>
+	<parameter name="VAStrasse" class="java.lang.String"/>
+	<parameter name="VAOrt" class="java.lang.String"/>
+	<parameter name="VALand" class="java.lang.String"/>
+	<parameter name="Versandkosten" class="java.lang.String"/>
+	<parameter name="kundennummer" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="Versandart" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="bezeichnung" class="java.lang.String"/>
+	<group name="Gruppo1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<line>
+					<reportElement x="0" y="26" width="557" height="1" uuid="185f2ddb-651c-48f0-8fcb-1ccb45448ae4"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="140">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<line>
+					<reportElement x="274" y="36" width="281" height="1" uuid="a47aefe9-9849-41ae-a613-4c4aba1a2eb9"/>
+				</line>
+				<line>
+					<reportElement x="273" y="58" width="281" height="1" uuid="830a2dac-d2b4-4390-bc10-7e2c3a83fe01"/>
+				</line>
+				<staticText>
+					<reportElement x="274" y="37" width="80" height="21" uuid="a659ed5b-5fef-4be3-a33e-c92a8d2fa16d"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Summe Netto:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="380" y="36" width="80" height="22" uuid="5cab9768-fb57-4212-b2df-06ba50cf9460"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[€]]></text>
+				</staticText>
+				<line>
+					<reportElement x="273" y="80" width="281" height="1" uuid="22a67dc1-4ac3-4389-b9ed-c025a2df723d"/>
+				</line>
+				<staticText>
+					<reportElement x="274" y="59" width="80" height="21" uuid="55b02d2e-dc73-4212-87cc-64957667827e"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[20,00% Mwst.:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="380" y="58" width="80" height="22" uuid="7413ad1b-1c35-48b4-8b4d-438486967b12"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[€]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="274" y="81" width="80" height="21" uuid="f8f64aec-116e-4cda-b8ec-4811fbf88ab6"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Endsumme:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="380" y="80" width="80" height="22" uuid="8c3da379-5864-489a-b877-ca23a402c483"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[€]]></text>
+				</staticText>
+				<textField pattern="#,###.00#">
+					<reportElement x="457" y="36" width="93" height="22" uuid="c3a62f1f-6863-4e73-9951-e73a1bd9a68e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{summenetto}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00#">
+					<reportElement x="458" y="81" width="92" height="21" uuid="b5a0d77c-abad-4919-b9ec-ed7cefff93ef"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{summebrutto}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00#">
+					<reportElement x="458" y="59" width="92" height="21" uuid="ce5d22a1-2842-42b0-a044-19e102128534"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{summemwst}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="380" y="14" width="64" height="22" uuid="ea7277f0-db3c-4e58-8091-597603c4cee1"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[€]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="274" y="15" width="80" height="21" uuid="4118c2d4-a1ad-49c8-ac76-cb8f76cc70b3"/>
+					<textElement verticalAlignment="Middle"/>
+					<text><![CDATA[Versandkosten:]]></text>
+				</staticText>
+				<textField pattern="#,###.00#">
+					<reportElement x="455" y="15" width="94" height="21" uuid="80675525-10ce-4042-a4c2-66b24f263b65"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{Versandkosten}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="274" y="0" width="106" height="14" uuid="54838674-8a5b-4f57-a59a-eaf9731c0ee0"/>
+					<text><![CDATA[Versandart:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="440" y="0" width="110" height="14" uuid="ccc18dcc-e803-4dbf-bb69-0449ca447190"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$P{Versandart}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="189" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="90" width="190" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rechnungsadresse:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="410" y="90" width="146" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Versandadresse:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="395" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Datum:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="30" width="85" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Rechnungsnr:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Heligraphy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<text><![CDATA[+43 (0) 676 4677 516]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<text><![CDATA[Pfarrgraben 6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
+				<text><![CDATA[4713, Gallspach 
+Austira]]></text>
+			</staticText>
+			<textField pattern="MM.dd.yyyy HH:mm">
+				<reportElement x="445" y="10" width="104" height="20" uuid="5430eb0d-4208-4c04-82b0-f6ec147bf414"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{auftragsDatum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="30" width="104" height="20" uuid="c0e45eb8-dba4-479f-a343-0a4ca64fe66d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{idBestellung}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="115" width="100" height="15" uuid="724fa207-7b9d-4329-b6c7-7a5bdace17c1"/>
+				<textFieldExpression><![CDATA[$P{RAName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="130" width="100" height="15" uuid="9b8048e8-45fc-4b96-a081-5afc29d67a54"/>
+				<textFieldExpression><![CDATA[$P{RAStrasse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="145" width="100" height="15" uuid="89f4b305-6ec7-4df0-94c7-64f5c82ed655"/>
+				<textFieldExpression><![CDATA[$P{RAOrt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="160" width="100" height="15" uuid="04d52c1d-733a-4c06-bb8d-834971c99b2e"/>
+				<textFieldExpression><![CDATA[$P{RALand}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="115" width="146" height="15" uuid="d1af6824-f4d5-42e7-b449-ef7b895a28fb"/>
+				<textFieldExpression><![CDATA[$P{VAName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="130" width="146" height="15" uuid="20d57819-37d4-4449-b7ab-ecb360f15df4"/>
+				<textFieldExpression><![CDATA[$P{VAStrasse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="145" width="146" height="15" uuid="fb9d16da-6fed-48dd-a0f5-1f3a21c2ba4b"/>
+				<textFieldExpression><![CDATA[$P{VAOrt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="160" width="146" height="15" uuid="5e9b7de5-218c-4ac6-8115-a1291b839fa9"/>
+				<textFieldExpression><![CDATA[$P{VALand}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="0" y="0" width="95" height="71" uuid="8b29a63e-477e-4e4a-95e3-4dee7a9197b6"/>
+				<image>
+					<reportElement x="0" y="0" width="95" height="71" uuid="21321b4d-6298-4ee6-881a-b0e9f2c26196"/>
+					<imageExpression><![CDATA["static/images/logos/RElogo.png"]]></imageExpression>
+				</image>
+			</frame>
+			<staticText>
+				<reportElement x="360" y="50" width="85" height="20" uuid="fba1fba7-bf24-4881-97c1-88e4809b834d"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Kundennr:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="444" y="50" width="104" height="20" uuid="8ea99111-823c-4379-85b1-81d94419f7f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{kundennummer}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="68">
+			<componentElement>
+				<reportElement x="10" y="30" width="539" height="31" uuid="da47e0db-f147-4a9d-bb00-9b975fc95cde"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="ItemDataset" uuid="1f480174-91fc-4d03-9e65-f332cd2a83fb">
+						<dataSourceExpression><![CDATA[$P{ItemDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="31" width="539">
+						<textField>
+							<reportElement x="115" y="0" width="205" height="30" uuid="e8df646d-6013-46c5-910d-d624a2574289">
+								<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+							</reportElement>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{bezeichnung}]]></textFieldExpression>
+						</textField>
+						<textField pattern="">
+							<reportElement x="30" y="0" width="80" height="30" uuid="a733f584-6cf3-4f82-9c1a-8daf30efa2e4"/>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA["Bdnr-"+$F{bildID}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="320" y="0" width="70" height="30" uuid="78a98f44-745d-44cb-b431-c86947cb7dd5"/>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{stueck}]]></textFieldExpression>
+						</textField>
+						<textField pattern="#,##0.00;-#,##0.00">
+							<reportElement x="390" y="0" width="71" height="30" uuid="2a4355d7-e096-418d-afdd-7ed6f545a3cb"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{preis}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement positionType="Float" x="0" y="30" width="539" height="1" uuid="5ac2f572-e331-4e2c-95d0-d7f065c19b0a">
+								<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+								<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+							</reportElement>
+						</line>
+						<textField pattern="#,##0.00;-#,##0.00">
+							<reportElement x="461" y="1" width="78" height="30" uuid="76d6f77d-ec6c-4723-81cb-ad5826b7e892"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{Gesamt}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="8" width="30" height="22" uuid="56f129c8-ebd9-4ab4-8b5f-5cbb1c64882d">
+								<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+							</reportElement>
+							<textElement textAlignment="Center" verticalAlignment="Justified"/>
+							<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement x="40" y="0" width="80" height="30" uuid="06f2aebb-d9b3-40c3-9058-2d0c568a5765"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bildnr.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="210" height="30" uuid="24fb8fcb-9cd5-481a-b926-1c9497fc1595"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bezeichnung]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="70" height="30" uuid="a08cba97-9047-41a7-bb32-20b14585c3ee"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stück]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="70" height="30" uuid="86a340db-7e7e-4ca9-90f5-23c691dec368"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-Preis €]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="69" height="30" uuid="77c9e7a9-cb74-41cd-8498-ace70a36c5c5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gesamt €]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="0" width="30" height="30" uuid="626f2449-1d17-42e1-b915-dffffb9ab034"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pos]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="26" width="557" height="1" uuid="a2228d86-2e40-43bf-8d3d-d81ced3062d6"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="170">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="130" width="280" height="40" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Heligraphy, Pfarrgraben 6, A-4713 Gallspach
+email: info@heligraphy.at, web: www.heligraphy.at
+Tel.: +43 6764677516]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="100" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Wir danken für Ihren Einkauf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="280" y="130" width="274" height="40" uuid="a53ebcea-fc5a-4da7-9269-1538f3450952"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Bank: Erste Bank und Sparkasse
+IBAN: AT71 2032 0321 0041 4451, BIC: ASPKAT2LXXX]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

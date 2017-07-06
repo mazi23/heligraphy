@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <form th:action="@{/neueRechnung}" th:object="${command}"  class="form-horizontal">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Versandadresse</legend>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- Text input-->
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandadresse Name</label>
+                        <div class="col-md-4">
+                            <input id="NameVA" name="Name" type="text" placeholder="Name" class="form-control input-md" th:field="*{vaName}"/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandadresse Anschrift</label>
+                        <div class="col-md-4">
+                            <input id="VAanschrift" name="Bildnr" type="text" placeholder="Anschrift"
+                                   class="form-control input-md" th:field="*{versandadresse.strasseVA}"/>
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label">Versandadresse PLZ</label>
+                        <div class="col-md-4">
+                            <input id="VAPLZ" name="textinput" type="text" placeholder="PLZ"
+                                   class="form-control input-md" th:field="*{versandadresse.plzVA}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandadresse Land</label>
+                        <div class="col-md-4">
+                            <input id="VALand" name="Bildnr" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{versandadresse.landVA}"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandadresse Ort</label>
+                        <div class="col-md-4">
+                            <input id="VaOrt" name="Bildnr" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{versandadresse.ortVA}"/>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </fieldset>
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Rechnungsadresse</legend>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- Text input-->
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Rechnungs Name</label>
+                        <div class="col-md-4">
+                            <input id="Name" name="Name" type="text" placeholder="Name" class="form-control input-md" th:field="*{reName}"/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Rechnungs Anschrift</label>
+                        <div class="col-md-4">
+                            <input id="REanschrift" name="Bildnr" type="text" placeholder="Anschrift"
+                                   class="form-control input-md" th:field="*{rechnungsadresse.strasseRA}"/>
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label">Rechnungs PLZ</label>
+                        <div class="col-md-4">
+                            <input id="REPLZ" name="textinput" type="text" placeholder="PLZ"
+                                   class="form-control input-md" th:field="*{rechnungsadresse.plzRA}"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Rechnungs Land</label>
+                        <div class="col-md-4">
+                            <input id="reLand" name="Bildnr" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{rechnungsadresse.landRA}"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Rechnungs Ort</label>
+                        <div class="col-md-4">
+                            <input id="reOrt" name="Bildnr" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{rechnungsadresse.ortRA}"/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandkosten</label>
+                        <div class="col-md-4">
+                            <input id="versandkosten" name="Bildnr" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{versandkosten}"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-6">
+                        <label class="col-md-4 control-label" for="Name">Versandkosten</label>
+                        <div class="col-md-4">
+                            <input id="versandart" name="versandart" type="text" placeholder="Land"
+                                   class="form-control input-md" th:field="*{versandart}"/>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Positionen</legend>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <!--<form action="#" method="get">
+                                <div class="input-group">
+                                     USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH
+                                    <input class="form-control" id="system-search" name="q" placeholder="Search for"
+                                           />
+                                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i
+                                class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                                </div>
+                            </form>-->
+                        </div>
+                        <div class="col-md-9">
+                            <table class="table table-list-search">
+                                <thead>
+                                <tr>
+                                    <th>Reihe</th>
+                                    <th>Bildnr</th>
+                                    <th>Beschreibung</th>
+                                    <th>Stück</th>
+                                    <th>E-Preis</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="position,iter:${command.positionen}">
+                                    <td th:text="${iter.index}"></td>
+                                    <td><input class="form-control" type="text" th:field="*{positionen[__${iter.index}__].id}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{positionen[__${iter.index}__].beschreibung}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{positionen[__${iter.index}__].quantity}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{positionen[__${iter.index}__].price}"/></td>
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <input type="submit"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

@@ -195,10 +195,6 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$P{Versandart}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement x="10" y="0" width="236" height="80" uuid="bbdebce5-3b6d-4d8e-b564-5ea3f33090f7"/>
-					<textFieldExpression><![CDATA[(EQUALS("Vorauskasse",$P{Versandart})?"Bitte überweisen Sie den Betrag umgehen auf unser Konto IBAN: AT71 2032 0321 0041 4451. ":"Die Zahlung wurde per Onlineüberweisung geleistet.")]]></textFieldExpression>
-				</textField>
 			</band>
 		</groupFooter>
 	</group>
