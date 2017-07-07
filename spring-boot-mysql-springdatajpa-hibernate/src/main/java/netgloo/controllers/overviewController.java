@@ -69,7 +69,12 @@ public class overviewController {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+
+    //Test
     Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+
+   //Live
+   // Mpay24 mpay24 = new Mpay24("74894", "KD-PHmUue+", Mpay24.Environment.PRODUCTION);
     PaymentRequest paymentRequest = new PaymentRequest();
     User kunde;
     Bestellung bestellung;
@@ -273,6 +278,7 @@ public class overviewController {
             textPrint = "Sehr geehrte Damen und Herren," +
                     "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
                     "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachnahme." +
+                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: "+
                     "\r\n Rechnungsadresse: \r\n" +
                     "Heligraphy Matthias Oberegger \r\n" +
                     "Pfarrgraben 6 \r\n" +
@@ -288,6 +294,7 @@ public class overviewController {
             textPrint = "Sehr geehrte Damen und Herren," +
                     "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
                     "Gewünscht wird: " + textprintLeinwand + textprintPaper +
+                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: "+
                     "\r\n\n Rechnungsadresse: \r\n" +
                     "Heligraphy Matthias Oberegger \r\n" +
                     "Pfarrgraben 6 \r\n" +
