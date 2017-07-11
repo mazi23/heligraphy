@@ -6,15 +6,20 @@ import com.mpay24.payment.data.Payment;
 import com.mpay24.payment.data.PaymentRequest;
 import com.mpay24.payment.type.CreditCardPaymentType;
 import com.mpay24.payment.type.PaymentTypeData;
-import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import netgloo.Application;
-import netgloo.models.Code;
+import netgloo.models.*;
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.Service.MailClient;
 import netgloo.models.daos.BestellungDao;
 import netgloo.models.daos.BildDao;
+import netgloo.models.reportObjects.Abrechnung;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +37,11 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Properties;
 
 
@@ -51,11 +59,11 @@ public class indexController {
 
 
 
-    final String username = "info@heligraphy.at";
+    /*final String username = "info@heligraphy.at";
     final String password = "info@heligraphy";
     Properties props;
 
-    Session session ;
+    Session session ;*/
 
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -89,9 +97,9 @@ public class indexController {
     }
 
 
+/*
 
-
-/*    public void generateAbrechnungsReport() throws JRException {
+    public void generateAbrechnungsReport() throws JRException {
         JasperReport jasperReport;
         JasperPrint jasperPrint;
         HashMap<String, Object> parameter = new HashMap<String, Object>();
@@ -124,7 +132,7 @@ public class indexController {
 
     }
 
-    public void generateReport() throws JRException {
+    public byte[] generateReport() throws JRException {
 
 
         Bestellung bs = new Bestellung();
@@ -189,8 +197,7 @@ public class indexController {
 
             kunde.setAdresse(versandadresse);
             kunde.setTelefon("06573992343");
-            kunde.setVorname("Franz");
-            kunde.setNachname("huber");
+            kunde.setName("hasn");
             kunde.setEmail("irgendetwas@ggm.cd");
             kunde.setRole(Role.USER);
             kunde.addBestellung(bs);
@@ -220,12 +227,12 @@ public class indexController {
         parameter.put("summemwst",bs.getSummemwst());
         parameter.put("auftragsDatum",bs.getAuftragsDatum());
         parameter.put("idBestellung",bs.getIdBestellung());
-        parameter.put("RAName",kunde.getVorname() + " " + kunde.getNachname());
+        parameter.put("RAName",kunde.getName());
         parameter.put("RAStrasse", bs.getRechnungsAdresse().getAnschrift());
         parameter.put("RAOrt",bs.getRechnungsAdresse().getPlz() + " " + bs.getRechnungsAdresse().getOrt());
         parameter.put("RALand",bs.getRechnungsAdresse().getLand());
 
-        parameter.put("VAName",kunde.getVorname() + " " + kunde.getNachname());
+        parameter.put("VAName",kunde.getName());
         parameter.put("VAStrasse", bs.getLieferAdresse().getAnschrift());
         parameter.put("VAOrt", bs.getLieferAdresse().getPlz() + " " + bs.getLieferAdresse().getOrt());
         parameter.put("VALand", bs.getLieferAdresse().getLand());
@@ -237,9 +244,16 @@ public class indexController {
 
         JasperExportManager.exportReportToPdfFile(jasperPrint,"./Example1.pdf");
 
-
+     return JasperExportManager.exportReportToPdf(jasperPrint);
 
     }
 
+
 */
+
+
+
+
+
+
 }

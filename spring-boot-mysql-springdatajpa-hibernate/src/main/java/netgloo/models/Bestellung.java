@@ -32,6 +32,7 @@ public class Bestellung {
     private Timestamp auftragsDatum;
     private String versandart;
     private double versankosten;
+    private String downloadUrl;
 
     @OneToMany
     private Set<BestellElement> bilder = new HashSet<>();
@@ -155,5 +156,21 @@ public class Bestellung {
 
     public void setVersankosten(double versankosten) {
         this.versankosten = versankosten;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
     }
 }

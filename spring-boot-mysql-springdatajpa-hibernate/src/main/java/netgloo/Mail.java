@@ -63,12 +63,14 @@ public class Mail {
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("bestellung@heligraphy.at"));
-            //Todo: Durckereimail einfügen
-            message.addRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(",info@heligraphy.at"));
-            //message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("info@heligraphy.at"));//(Address[]) adressen);
-            message.setSubject(subject);//"Wir werden uns in kürze bei Ihnen melden. \r\n\r\n "+subject+"---------------------\r\n");
-            //message.setText(text);
+
+            //Live
+           // message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("muenchen@whitewall.de,info@heligraphy.at"));
+
+        //Test
+            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("info@heligraphy.at"));
+
+            message.setSubject(subject);
 
 
             MimeMultipart content = new MimeMultipart();

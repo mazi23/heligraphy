@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
             "/createRechnung","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail","/404.html","/nextSite"
+            ,"/email"
     };//"/upload","/upload/*","/upload/*/*","/BackendBilderUpload",
 
     @Override

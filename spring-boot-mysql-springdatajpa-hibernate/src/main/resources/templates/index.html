@@ -1,5 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#edeff5",
+                    "text": "#838391"
+                },
+                "button": {
+                    "background": "#4b81e8"
+                }
+            },
+            "theme": "edgeless",
+            "content": {
+                "message": "Diese Seite verwendet Cookies.",
+                "dismiss": "Einverstanden!",
+                "link": "Nachlesen",
+                "href": "http://www.heligraphy.at/agb.html"
+            }
+        })});
+</script>
 <head th:include="fragments/head :: head">
     <meta name="google-site-verification" content="ZRJd35p8e0qhNgLjLqLJJtEXM-mR1qH1tt832Al0nAs" />
 
@@ -827,6 +850,7 @@
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>

@@ -8,7 +8,7 @@
       </database-info>
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
       <secret-storage>master_key</secret-storage>
-      <user-name>root1</user-name>
+      <user-name>root</user-name>
       <introspection-schemas>*:test</introspection-schemas>
       <resolve-scope>*:test</resolve-scope>
       <unqualified-resolve-schemas>*:test</unqualified-resolve-schemas>

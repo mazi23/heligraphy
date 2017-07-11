@@ -188,7 +188,7 @@
 				</textField>
 				<staticText>
 					<reportElement x="274" y="0" width="106" height="14" uuid="54838674-8a5b-4f57-a59a-eaf9731c0ee0"/>
-					<text><![CDATA[Versandart:]]></text>
+					<text><![CDATA[Zahlungsart:]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="440" y="0" width="110" height="14" uuid="ccc18dcc-e803-4dbf-bb69-0449ca447190"/>
@@ -199,9 +199,9 @@
 		</groupFooter>
 	</group>
 	<title>
-		<band height="189" splitType="Stretch">
+		<band height="177" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="90" width="190" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
+				<reportElement x="0" y="89" width="190" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -211,13 +211,13 @@
 				<text><![CDATA[Rechnungsadresse:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+				<reportElement x="0" y="87" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="410" y="90" width="146" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
+				<reportElement x="410" y="89" width="146" height="25" uuid="139ebe8d-25b0-411e-986c-270015400874">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -239,25 +239,25 @@
 				<text><![CDATA[Rechnungsnr:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="0" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+				<reportElement x="110" y="-2" width="210" height="20" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
 					<property name="local_mesure_unitheight" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement>
-					<font size="19" isBold="true"/>
+					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Heligraphy]]></text>
+				<text><![CDATA[Matthias Oberegger]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="55" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
+				<reportElement x="110" y="67" width="205" height="15" uuid="b8cc42fd-b569-497d-834d-7e854040ad18"/>
 				<text><![CDATA[+43 (0) 676 4677 516]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="25" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
+				<reportElement x="110" y="37" width="205" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
 				<text><![CDATA[Pfarrgraben 6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="40" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
+				<reportElement x="110" y="52" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
 				<text><![CDATA[4713, Gallspach 
 Austira]]></text>
 			</staticText>
@@ -272,42 +272,44 @@ Austira]]></text>
 				<textFieldExpression><![CDATA[$P{idBestellung}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="115" width="100" height="15" uuid="724fa207-7b9d-4329-b6c7-7a5bdace17c1"/>
+				<reportElement x="0" y="114" width="100" height="15" uuid="724fa207-7b9d-4329-b6c7-7a5bdace17c1"/>
 				<textFieldExpression><![CDATA[$P{RAName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="130" width="100" height="15" uuid="9b8048e8-45fc-4b96-a081-5afc29d67a54"/>
+				<reportElement x="0" y="129" width="100" height="15" uuid="9b8048e8-45fc-4b96-a081-5afc29d67a54"/>
 				<textFieldExpression><![CDATA[$P{RAStrasse}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="145" width="100" height="15" uuid="89f4b305-6ec7-4df0-94c7-64f5c82ed655"/>
+				<reportElement x="0" y="144" width="100" height="15" uuid="89f4b305-6ec7-4df0-94c7-64f5c82ed655"/>
 				<textFieldExpression><![CDATA[$P{RAOrt}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="160" width="100" height="15" uuid="04d52c1d-733a-4c06-bb8d-834971c99b2e"/>
+				<reportElement x="0" y="159" width="100" height="15" uuid="04d52c1d-733a-4c06-bb8d-834971c99b2e"/>
 				<textFieldExpression><![CDATA[$P{RALand}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="115" width="146" height="15" uuid="d1af6824-f4d5-42e7-b449-ef7b895a28fb"/>
+				<reportElement x="410" y="114" width="146" height="15" uuid="d1af6824-f4d5-42e7-b449-ef7b895a28fb"/>
 				<textFieldExpression><![CDATA[$P{VAName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="130" width="146" height="15" uuid="20d57819-37d4-4449-b7ab-ecb360f15df4"/>
+				<reportElement x="410" y="129" width="146" height="15" uuid="20d57819-37d4-4449-b7ab-ecb360f15df4"/>
 				<textFieldExpression><![CDATA[$P{VAStrasse}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="145" width="146" height="15" uuid="fb9d16da-6fed-48dd-a0f5-1f3a21c2ba4b"/>
+				<reportElement x="410" y="144" width="146" height="15" uuid="fb9d16da-6fed-48dd-a0f5-1f3a21c2ba4b"/>
 				<textFieldExpression><![CDATA[$P{VAOrt}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="160" width="146" height="15" uuid="5e9b7de5-218c-4ac6-8115-a1291b839fa9"/>
+				<reportElement x="410" y="159" width="146" height="15" uuid="5e9b7de5-218c-4ac6-8115-a1291b839fa9"/>
 				<textFieldExpression><![CDATA[$P{VALand}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement x="0" y="0" width="95" height="71" uuid="8b29a63e-477e-4e4a-95e3-4dee7a9197b6"/>
 				<image>
-					<reportElement x="0" y="0" width="95" height="71" uuid="21321b4d-6298-4ee6-881a-b0e9f2c26196"/>
-					<imageExpression><![CDATA["static/images/logos/RElogo.png"]]></imageExpression>
+					<reportElement x="0" y="0" width="95" height="81" uuid="21321b4d-6298-4ee6-881a-b0e9f2c26196">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<imageExpression><![CDATA["static/images/logos/logo.png"]]></imageExpression>
 				</image>
 			</frame>
 			<staticText>
@@ -321,6 +323,13 @@ Austira]]></text>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{kundennummer}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="110" y="18" width="205" height="15" uuid="42eb2e0e-dde8-4d7a-8b6a-78d3ff6d0a8c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Heligraphy]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
@@ -464,7 +473,12 @@ Tel.: +43 6764677516]]></text>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Bank: Erste Bank und Sparkasse
-IBAN: AT71 2032 0321 0041 4451, BIC: ASPKAT2LXXX]]></text>
+IBAN: AT71 2032 0321 0041 4451, BIC: ASPKAT2LXXX
+UID: ATU72351206]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="280" height="48" uuid="f4fe788b-92b8-43da-9e1e-7049615653d6"/>
+				<text><![CDATA[Lieferzeit für Druckaufträge betragen ab Zahlungseingang ca. 7 Werktage. ]]></text>
 			</staticText>
 		</band>
 	</lastPageFooter>

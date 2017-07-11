@@ -13,6 +13,7 @@ import netgloo.models.*;
 import netgloo.models.DisplayObjects.OverviewPrice;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
+import netgloo.models.Service.MailClient;
 import netgloo.models.daos.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +67,8 @@ public class overviewController {
 
     @Autowired
     FotografAbrechnungDao abrechnungDao;
+    @Autowired
+    private MailClient mailClient;
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -74,7 +77,7 @@ public class overviewController {
     Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
 
    //Live
-   // Mpay24 mpay24 = new Mpay24("74894", "KD-PHmUue+", Mpay24.Environment.PRODUCTION);
+    //Mpay24 mpay24 = new Mpay24("74894", "KD-PHmUue+", Mpay24.Environment.PRODUCTION);
     PaymentRequest paymentRequest = new PaymentRequest();
     User kunde;
     Bestellung bestellung;
@@ -89,6 +92,8 @@ public class overviewController {
         try {
             OverviewPrice overviewPrice = new OverviewPrice();
             String zahlungsart = adressenCommand.getZahlungsart();
+
+            //preis wird weiter unten nochmals geptüft und geändert
             if (zahlungsart == null) overviewPrice.setVersandkosten(5);
             else if (zahlungsart.equals("Nachname")) overviewPrice.setVersandkosten(8);
             else if (zahlungsart.equals("Vorauskasse")) overviewPrice.setVersandkosten(5);
@@ -183,22 +188,42 @@ public class overviewController {
             } else {
                 kunde.addBestellung(bestellung);
             }
-            bestellung.setuser(kunde);
-            bestellungDao.save(bestellung);
+            boolean enthaeltVersand = false;
             String urlid = "";
             for (ShoppingCartItem item : shoppingCart.getItems()) {
                 if (item.getPrice() == PreisPlan.STANDARD.getValue() || item.getPrice() == PreisPlan.PROFESSIONAL.getValue()) {
                     urlid = bildDao.findCodeByid((long) item.getId()) + "," + urlid;
+                }else{
+                    enthaeltVersand=true;
                 }
 
             }
+            if (enthaeltVersand){
+                overviewPrice.setVersandkosten(5);
+            }else {
+                overviewPrice.setVersandkosten(0);
+            }
+
+            overviewPrice.setGesamtkosten(overviewPrice.getZwischenSumme() + overviewPrice.getVersandkosten());
+            bestellung.setAuftragsDatum(new Timestamp(System.currentTimeMillis()));
+            bestellung.setBildgruppenID(Integer.parseInt(shoppingCart.getBildgruppe()));
+            bestellung.setMwst(20);
+            bestellung.setSummebrutto(overviewPrice.getGesamtkosten());
+            bestellung.setVersankosten(overviewPrice.getVersandkosten());
+            bestellung.setVersandart(zahlungsart);
+            bestellung.setSummenetto(overviewPrice.getGesamtkosten() / 1.2);
+            bestellung.setSummemwst(overviewPrice.getGesamtkosten() / 1.2 * 0.2);
 
             if (urlid.length() > 0) {
-                setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()), urlid.substring(0, urlid.length() - 1), kunde.getEmail());
-
+                String successurl = "http://www.heligraphy.at/abgeschlossen/" +kunde.getEmail() + "/" + urlid.substring(0, urlid.length() - 1);
+                setPaymentRequest(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()), successurl);
+                bestellung.setDownloadUrl(successurl);
             } else {
                 setPaymentRequestNormal(new BigDecimal(bestellung.getSummebrutto()), Long.toString(bestellung.getIdBestellung()));
             }
+
+            bestellung.setuser(kunde);
+
             model.addAttribute("overviewPrice", overviewPrice);
             model.addAttribute("Items", shoppingCart.getItems());
             model.addAttribute("ausgewaehlteZahlungsart", adressenCommand.getZahlungsart());
@@ -226,6 +251,7 @@ public class overviewController {
     @RequestMapping(value = "/BestellungAbsenden")
     public String bestellungAbsenden(Model model) throws IOException, MessagingException, JRException {
         //try {
+        bestellungDao.save(bestellung);
         boolean druckerreiverstaendigen = false;
         Mail mailToPrint = new Mail();
         //logger.info("-------------------------------------- \n Gesendet");
@@ -278,7 +304,7 @@ public class overviewController {
             textPrint = "Sehr geehrte Damen und Herren," +
                     "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
                     "Gewünscht wird: " + textprintLeinwand + textprintPaper + "\n Bitte mit der Versandart Nachnahme." +
-                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: "+
+                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: ATU72351206"+
                     "\r\n Rechnungsadresse: \r\n" +
                     "Heligraphy Matthias Oberegger \r\n" +
                     "Pfarrgraben 6 \r\n" +
@@ -294,7 +320,7 @@ public class overviewController {
             textPrint = "Sehr geehrte Damen und Herren," +
                     "anbei finden sie die gewünschten Bilddateien zum Drucken. \r\n" +
                     "Gewünscht wird: " + textprintLeinwand + textprintPaper +
-                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: "+
+                    "\n Rabattcode: SRM3Q2IF17  Die Rechnung bitte ohne Mwst und für folgende UID ausstellen: ATU72351206"+
                     "\r\n\n Rechnungsadresse: \r\n" +
                     "Heligraphy Matthias Oberegger \r\n" +
                     "Pfarrgraben 6 \r\n" +
@@ -310,23 +336,24 @@ public class overviewController {
         }
 
         if (bilder.size() >= 1) {
-            mailToPrint.sendMail("HeliGrapyh Druckanfrage", textPrint, bilder);
+            mailToPrint.sendMail("Heligrapyh Druckanfrage", textPrint, bilder);
         }
         String textCustomer = "";
         if (druckerreiverstaendigen) {
             if (!enthaeltDownload) paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossenOhneDownload");
             textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                     "wir haben Ihre Bestellung erhalten und geben die Bilder an unsere Druckerei weiter. " +
-                    "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                    "Sollten Sie die Zahlungsweise Vorauskasse gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
                     "\r\n Bitte beachten Sie auch, dass, sobald wir die Bestellung an die Druckerei weitergeleitet haben keine Stornierung mehr möglich ist. \n " +
-                    "Ihr Heligraphy Team \n \n" +
+                    "Ihr Heligraphy Team  \n \n" +
                     "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
         } else {
             textCustomer = "Sehr geehrte(r) Frau/Herr " + kunde.getName() + ", \r\n \r\n " +
                     "wir haben Ihre Bestellung erhalten. Wenn Sie die Zahlung geleistet haben, erhalten Sie den Bilddownload. " +
-                    "Sollten Sie die Zahlungsweise Vorauskassa gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
-                    "\r\n Anschließend erhalten Sie den Download link.  \n Ihr Heligraphy Team \n\n" +
+                    "Sollten Sie die Zahlungsweise Vorauskasse gewählt haben, so bitten wir Sie den Betrag aus der Rechnung umgehend zu überweisen. Verwenden Sie als Zahlungsreferenz bitte die Rechnungsnummer. " +
+                    "\r\n Anschließend erhalten Sie den Download link.  \n" +
+                    "Ihr Heligraphy Team  \n \n" +
                     "Unsere AGBs finden sie unter http://www.heligraphy.at/agb";
 
         }
@@ -345,19 +372,18 @@ public class overviewController {
             logger.error("Fehler beim RechnungPDF speichern");
         }
 
-        mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf, bestellungDao.count());
+        mailClient.prepareAndSend(kunde.getEmail(),"Bestellbestätigung",textCustomer,pdf,bestellungDao.count());
+        //mailtoCustomer.sendMailWithBill(kunde.getEmail(), textCustomer, pdf, bestellungDao.count());
         AbrechnungGenerieren();
 
         //sendet info wenn raw Bilder zum versenden sind
-        Mail myRawInfo = new Mail();
+        //Mail myRawInfo = new Mail();
         if (!bilderRaw.equals("")) {
-            myRawInfo.sendCustomMail("info@heligraphy.at", "Neue Raw Bilder zum Versenden", bilderRaw + " sind zum versenden an " + kunde.getEmail());
+            mailClient.prepareAndSend("info@heligraphy.at","Neue Raw Bilder zum Versenden",bilderRaw + " sind zum versenden an " + kunde.getEmail());
+            //myRawInfo.sendCustomMail("info@heligraphy.at", "Neue Raw Bilder zum Versenden", bilderRaw + " sind zum versenden an " + kunde.getEmail());
         }
 
-        /*} catch (Exception e) {
-            logger.error("----------------------------\n"+e.getMessage());
-        }
-*/
+
         if (bestellung.getVersandart().equals("Onlineueberweisung")) {
             Payment response = null;
             try {
@@ -380,10 +406,10 @@ public class overviewController {
     }
 
 
-    protected void setPaymentRequest(BigDecimal amount, String transactionsid, String bilderliste, String email) {
+    protected void setPaymentRequest(BigDecimal amount, String transactionsid, String successurl) {
         paymentRequest.setAmount(amount);
         paymentRequest.setTransactionID(transactionsid);
-        paymentRequest.setSuccessUrl("http://www.heligraphy.at/abgeschlossen/" + email + "/" + bilderliste);
+        paymentRequest.setSuccessUrl(successurl);
     }
 
     public void AbrechnungGenerieren() {

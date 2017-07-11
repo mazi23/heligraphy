@@ -9,7 +9,7 @@
         <module name="spring-boot-mysql-springdatajpa-hibernate" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="spring-boot-mysql-springdatajpa-hibernate" target="1.8" />
     </bytecodeTargetLevel>
   </component>
