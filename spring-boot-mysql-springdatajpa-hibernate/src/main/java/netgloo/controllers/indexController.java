@@ -1,46 +1,27 @@
 package netgloo.controllers;
 
-import com.mpay24.payment.Mpay24;
-import com.mpay24.payment.PaymentException;
-import com.mpay24.payment.data.Payment;
-import com.mpay24.payment.data.PaymentRequest;
-import com.mpay24.payment.type.CreditCardPaymentType;
-import com.mpay24.payment.type.PaymentTypeData;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.JRException;
 import netgloo.Application;
-import netgloo.models.*;
+import netgloo.models.Code;
 import netgloo.models.DisplayObjects.ShoppingCart;
-import netgloo.models.Service.MailClient;
-import netgloo.models.daos.BestellungDao;
+import netgloo.models.Websitecounter;
 import netgloo.models.daos.BildDao;
-import netgloo.models.reportObjects.Abrechnung;
+import netgloo.models.daos.WebsiteCounterDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.codec.Hex;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.*;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.util.*;
+import java.util.Scanner;
 
 
 /**
@@ -55,7 +36,8 @@ public class indexController {
     @Autowired
     ShoppingCart shoppingChart;
 
-
+    @Autowired
+    WebsiteCounterDao websiteCounterDao;
 
     /*final String username = "info@heligraphy.at";
     final String password = "info@heligraphy";
@@ -67,13 +49,18 @@ public class indexController {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping({"/", "/index",""})
-    public String getIndex(Model model) throws JRException {
+    public String getIndex(Model model, HttpServletRequest request) throws JRException {
 
         //model.addAttribute("products", null);
         model.addAttribute("suchcode", new Code());
         //generateAbrechnungsReport();
         //generateReport();
+        Websitecounter websitecounter = new Websitecounter();
+        websitecounter.setSeite("Index");
+        websitecounter.setIp(request.getRemoteAddr());
 
+
+        websiteCounterDao.save(websitecounter);
 
         return "index";
     }

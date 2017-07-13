@@ -4,13 +4,18 @@ import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
 import netgloo.models.DisplayObjects.PictureGridObject;
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.Websitecounter;
 import netgloo.models.daos.BildDao;
+import netgloo.models.daos.WebsiteCounterDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,21 +34,20 @@ public class PictureGridController {
 
     @Autowired
     ShoppingCart shoppingChart;
+    @Autowired
+    WebsiteCounterDao websiteCounterDao;
 
     @RequestMapping(value = {"/picture-grid","/picture-grid.html"})
-    public String getPictureSite(@ModelAttribute("code") String code, Model model){
+    public String getPictureSite(@ModelAttribute("code") String code, Model model, HttpServletRequest request, HttpServletResponse response){
 
-        /*
-        bilder = new HashMap<Integer, Bild>();
-         Bildgruppe bildgruppenId = bildDao.findByid(code);
-         List<Bild> list = bildDao.findBildermitgruppe(bildgruppenId);
-        for (Bild b:list) {
-            if(b!=null){
+        Websitecounter websitecounter = new Websitecounter();
+        websitecounter.setSeite("Grid");
+        websitecounter.setIp(request.getRemoteAddr());
 
-                bilder.put(Math.toIntExact(b.getId()),b);
-            }
-        }
-*/
+
+        websiteCounterDao.save(websitecounter);
+
+
         bilder = new HashMap<Integer, PictureGridObject>();
         Bildgruppe bildgruppenId = bildDao.findByid(code);
         List<Object[]> list = bildDao.findThumbnailbyBildgruppe(bildgruppenId);
@@ -55,7 +59,7 @@ public class PictureGridController {
         }
 
 
-
+        response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
         model.addAttribute("Bilder",bilder);
 
         return "picture-grid";

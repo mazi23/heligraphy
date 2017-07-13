@@ -2,22 +2,22 @@ package netgloo.controllers;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
-import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
 import netgloo.models.Bild;
 import netgloo.models.DisplayObjects.BildDetailObject;
-import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.DisplayObjects.ShoppingCart;
+import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.daos.PreisDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -43,7 +43,8 @@ public class pictrueDetailController {
     BildDetailObject bildDetailObject = new BildDetailObject();
     Bild b;
     @RequestMapping("/picture-details")
-    public String start(@ModelAttribute(value = "bild") final Bild bild, Model model) throws ImageProcessingException, IOException {
+    public String start(@ModelAttribute(value = "bild") final Bild bild, Model model, HttpServletResponse response) throws ImageProcessingException, IOException {
+
 
         ByteArrayInputStream stream = new ByteArrayInputStream(bild.getDatei());
         Metadata metadata = ImageMetadataReader.readMetadata(stream);
@@ -93,13 +94,16 @@ public class pictrueDetailController {
 
         model.addAttribute("Item",new ShoppingCartItem());
 
+        response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
+        response.setContentLength(b.getDatei().length);
         return "picture-details";
     }
 
     @RequestMapping(value="/picture-details/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getImages(@PathVariable final String id) {
-
+    public byte[] getImages(@PathVariable final String id, HttpServletResponse response) {
+        response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
+        response.setContentLength(b.getDatei().length);
         return b.getDatei();
     }
 
