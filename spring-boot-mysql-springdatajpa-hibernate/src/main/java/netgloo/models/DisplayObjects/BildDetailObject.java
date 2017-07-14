@@ -1,7 +1,5 @@
 package netgloo.models.DisplayObjects;
 
-import com.drew.metadata.StringValue;
-
 import java.util.Date;
 import java.util.HashMap;
 
@@ -12,8 +10,8 @@ public class BildDetailObject {
 
     int id;
 
-    Date aufnahmeDatum;
-    HashMap<String,String> metadata;
+    public Date aufnahmeDatum;
+    public HashMap<String,String> metadata;
 
     public BildDetailObject(int id, Date aufnahmeDatum, HashMap<String, String> metadata) {
         this.id = id;

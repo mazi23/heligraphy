@@ -5,11 +5,16 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifSubIFDDirectory;
 import com.drew.metadata.exif.makernotes.SonyType1MakernoteDirectory;
+import netgloo.Application;
 import netgloo.models.Bild;
 import netgloo.models.DisplayObjects.BildDetailObject;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
+import netgloo.models.Websitecounter;
 import netgloo.models.daos.PreisDao;
+import netgloo.models.daos.WebsiteCounterDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -17,14 +22,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * Created by mazi on 17.04.17.
@@ -40,10 +44,15 @@ public class pictrueDetailController {
     @Autowired
     PreisDao preisDao;
 
+    @Autowired
+    WebsiteCounterDao websiteCounterDao;
+
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
+
     BildDetailObject bildDetailObject = new BildDetailObject();
     Bild b;
     @RequestMapping("/picture-details")
-    public String start(@ModelAttribute(value = "bild") final Bild bild, Model model, HttpServletResponse response) throws ImageProcessingException, IOException {
+    public String start(@ModelAttribute(value = "bild") final Bild bild, Model model, HttpServletResponse response, HttpServletRequest request) throws ImageProcessingException, IOException {
 
 
         ByteArrayInputStream stream = new ByteArrayInputStream(bild.getDatei());
@@ -64,38 +73,48 @@ public class pictrueDetailController {
         HashMap<String,String> data = new HashMap<>();
         try {
             //bildDetailObject.setPreis(Integer.toString(bild.getPreis().getPreis()));
-            DateFormat formatter = new SimpleDateFormat("MM.dd.yyyy", Locale.GERMAN);
-            String dt = formatter.format(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
-            data.put("Datum",dt);
+            //DateFormat formatter = new SimpleDateFormat("MM.dd.yyyy", Locale.GERMAN);
+            //String dt = formatter.format(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
+            //data.put("Datum",dt);
 
 
-            data.put("Belichtungszeit",directory.getString(ExifSubIFDDirectory.TAG_EXPOSURE_TIME) );
+            //data.put("Belichtungszeit",directory.getString(ExifSubIFDDirectory.TAG_EXPOSURE_TIME) );
 
-            data.put("ISO",directory.getString(ExifSubIFDDirectory.TAG_ISO_EQUIVALENT));
+            //data.put("ISO",directory.getString(ExifSubIFDDirectory.TAG_ISO_EQUIVALENT));
 
-            //data.put("Kamera",directory.getString(ExifSubIFDDirectory.TAG_MAKE) + " " + directory.getString(ExifSubIFDDirectory.TAG_MODEL));
+
             bildDetailObject.setAufnahmeDatum( directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
+
+            Websitecounter websitecounter = new Websitecounter();
+            websitecounter.setSeite("Detail");
+            websitecounter.setIp(request.getRemoteAddr());
+            websitecounter.setDatum(new Date());
+            websitecounter.setInfo(bild.getId()+"");
+
+            websiteCounterDao.save(websitecounter);
+
+
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
+        }finally {
+            bildDetailObject.setId((int) bild.getId());
+            bildDetailObject.setMetadata(data);
+
+            //bildDetailObject.setBild(bild.getThumbnail());
+            //directory.getStringValue(ExifSubIFDDirectory.TAG_LENS_SPECIFICATION);
+            //bildDetailObject.setFullImageSize(directory1.getStringValue(directory1.TAG_FULL_IMAGE_SIZE));
+            // bildDetailObject.setWidth(directory1.getStringValue(JpegDirectory.TAG_IMAGE_WIDTH));
+
+            model.addAttribute("bild",bildDetailObject);
+
+
+            model.addAttribute("preise",preisDao.findAll());
+
+            model.addAttribute("Item",new ShoppingCartItem());
+
+            response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
+            //response.setContentLength(b.getDatei().length);
         }
-
-        bildDetailObject.setId((int) bild.getId());
-        bildDetailObject.setMetadata(data);
-
-        //bildDetailObject.setBild(bild.getThumbnail());
-        //directory.getStringValue(ExifSubIFDDirectory.TAG_LENS_SPECIFICATION);
-        //bildDetailObject.setFullImageSize(directory1.getStringValue(directory1.TAG_FULL_IMAGE_SIZE));
-       // bildDetailObject.setWidth(directory1.getStringValue(JpegDirectory.TAG_IMAGE_WIDTH));
-
-        model.addAttribute("bild",bildDetailObject);
-
-
-        model.addAttribute("preise",preisDao.findAll());
-
-        model.addAttribute("Item",new ShoppingCartItem());
-
-        response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
-        response.setContentLength(b.getDatei().length);
         return "picture-details";
     }
 
@@ -103,7 +122,7 @@ public class pictrueDetailController {
     @ResponseBody
     public byte[] getImages(@PathVariable final String id, HttpServletResponse response) {
         response.setContentType(String.valueOf(MediaType.IMAGE_JPEG));
-        response.setContentLength(b.getDatei().length);
+        //response.setContentLength(b.getDatei().length);
         return b.getDatei();
     }
 

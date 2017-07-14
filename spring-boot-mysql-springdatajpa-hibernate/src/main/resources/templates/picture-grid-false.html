@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+<body onload="msieversion()">
+
+<!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Suchergebnisse</h2>
+                        <p>Hier finden Sie alle Bilder, die wir von Ihrem Objekt aufgenommen haben.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- Car grid start-->
+<div class="car-grid content-area">
+
+    <div class="container">
+        <div class="row">
+
+             <div class="col-lg-12 col-md-12 col-xs-12">
+
+
+               <b><p>Leider keine Bilder vorhanden. Vielleicht habe Sie den Code falsch eingegeben.</p></b>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Car grid end-->
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<script>
+    function msieversion() {
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+        //if(document.documentMode || /Edge/.test(navigator.userAgent)) //Includes MS Edge
+        {
+            alert("Leider kann es mit dem Windows Internet Explorer zu Anzeigeproblemen auf unserer Website kommen. Verwenden Sie am besten Microsoft Edge, Firefox oder Google Chrome.");
+        }
+        else  // If another browser, return 0
+        {
+
+        }
+
+        return false;
+    }
+
+</script>
+
+</body>
+</html>

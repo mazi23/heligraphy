@@ -1,6 +1,7 @@
 package netgloo.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by mazi on 13.07.17.
@@ -13,6 +14,8 @@ public class Websitecounter {
     private long id;
     private String seite;
     private String ip;
+    private Date datum;
+    private String info;
 
     public Websitecounter() {
     }
@@ -39,5 +42,21 @@ public class Websitecounter {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

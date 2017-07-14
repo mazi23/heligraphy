@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -49,18 +50,13 @@ public class indexController {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping({"/", "/index",""})
-    public String getIndex(Model model, HttpServletRequest request) throws JRException {
+    public String getIndex(Model model) throws JRException {
 
         //model.addAttribute("products", null);
         model.addAttribute("suchcode", new Code());
         //generateAbrechnungsReport();
         //generateReport();
-        Websitecounter websitecounter = new Websitecounter();
-        websitecounter.setSeite("Index");
-        websitecounter.setIp(request.getRemoteAddr());
 
-
-        websiteCounterDao.save(websitecounter);
 
         return "index";
     }
@@ -68,9 +64,16 @@ public class indexController {
 
 
     @RequestMapping(value = "/suchen", method = RequestMethod.POST)
-    public String sendCodeToGridView(@RequestParam(value = "code")String code, RedirectAttributes redirectAttributes){
+    public String sendCodeToGridView(@RequestParam(value = "code")String code, RedirectAttributes redirectAttributes, HttpServletRequest request){
         //String x = Integer.parseInt(code, 16)+"";
-        redirectAttributes.addFlashAttribute("code",Integer.parseInt(code, 16)+"");
+        redirectAttributes.addFlashAttribute("code",code);
+        Websitecounter websitecounter = new Websitecounter();
+        websitecounter.setSeite("Index");
+        websitecounter.setIp(request.getRemoteAddr());
+        websitecounter.setDatum(new Date());
+        websitecounter.setInfo(code);
+
+        websiteCounterDao.save(websitecounter);
         return "redirect:picture-grid";
     }
 
@@ -78,7 +81,7 @@ public class indexController {
     public String sendCodeToGridViewViaUrl(@PathVariable(value = "code")String code, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
         //String x = Integer.parseInt(code, 16)+"";
 
-        redirectAttributes.addFlashAttribute("code",Integer.parseInt(code, 16)+"");
+        redirectAttributes.addFlashAttribute("code",code);
         return "redirect:picture-grid";
     }
 

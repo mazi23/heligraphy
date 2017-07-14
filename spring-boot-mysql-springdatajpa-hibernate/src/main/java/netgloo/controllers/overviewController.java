@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +35,7 @@ import java.security.SecureRandom;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -69,6 +71,8 @@ public class overviewController {
     FotografAbrechnungDao abrechnungDao;
     @Autowired
     private MailClient mailClient;
+    @Autowired
+    WebsiteCounterDao websiteCounterDao;
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -86,7 +90,14 @@ public class overviewController {
     boolean enthaeltDownload = false; //wird auf true gesetz wenn in der Bestellung mehrere Items enthält und davon mindestens einer als Download gekauft wurde
 
     @RequestMapping("/overview")
-    public String start(Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand) {
+    public String start(Model model, @ModelAttribute(value = "adressenCommand") AdressenCommand adressenCommand, HttpServletRequest request) {
+
+        Websitecounter websitecounter = new Websitecounter();
+        websitecounter.setSeite("Overview");
+        websitecounter.setIp(request.getRemoteAddr());
+        websitecounter.setDatum(new Date());
+
+        websiteCounterDao.save(websitecounter);
 
 
         try {
