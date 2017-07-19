@@ -47,17 +47,19 @@ public class pictrueDetailController {
     @Autowired
     WebsiteCounterDao websiteCounterDao;
 
+
+    @Autowired
+    BildDetailObject bildDetailObject = new BildDetailObject();
+
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    BildDetailObject bildDetailObject = new BildDetailObject();
+
     Bild b;
     @RequestMapping("/picture-details")
     public String start(@ModelAttribute(value = "bild") final Bild bild, Model model, HttpServletResponse response, HttpServletRequest request) throws ImageProcessingException, IOException {
 
 
-        ByteArrayInputStream stream = new ByteArrayInputStream(bild.getDatei());
-        Metadata metadata = ImageMetadataReader.readMetadata(stream);
-        b=bild;
+
 /*
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
@@ -65,27 +67,37 @@ public class pictrueDetailController {
             }
         }*/
 
-        ExifSubIFDDirectory directory
-                = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
-        SonyType1MakernoteDirectory directory1 = metadata.getFirstDirectoryOfType(SonyType1MakernoteDirectory.class);
 
-
-        HashMap<String,String> data = new HashMap<>();
         try {
-            //bildDetailObject.setPreis(Integer.toString(bild.getPreis().getPreis()));
-            //DateFormat formatter = new SimpleDateFormat("MM.dd.yyyy", Locale.GERMAN);
-            //String dt = formatter.format(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
-            //data.put("Datum",dt);
+            System.out.println(bildDetailObject.getId());
+            if (bild!=null||bildDetailObject.getId()!=bild.getId()) {
+
+                ByteArrayInputStream stream = new ByteArrayInputStream(bild.getDatei());
+                Metadata metadata = ImageMetadataReader.readMetadata(stream);
+                b = bild;
+                ExifSubIFDDirectory directory
+                        = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+                SonyType1MakernoteDirectory directory1 = metadata.getFirstDirectoryOfType(SonyType1MakernoteDirectory.class);
 
 
-            //data.put("Belichtungszeit",directory.getString(ExifSubIFDDirectory.TAG_EXPOSURE_TIME) );
+                HashMap<String, String> data = new HashMap<>();
+                //bildDetailObject.setPreis(Integer.toString(bild.getPreis().getPreis()));
+                //DateFormat formatter = new SimpleDateFormat("MM.dd.yyyy", Locale.GERMAN);
+                //String dt = formatter.format(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
+                //data.put("Datum",dt);
 
-            //data.put("ISO",directory.getString(ExifSubIFDDirectory.TAG_ISO_EQUIVALENT));
+
+                //data.put("Belichtungszeit",directory.getString(ExifSubIFDDirectory.TAG_EXPOSURE_TIME) );
+
+                //data.put("ISO",directory.getString(ExifSubIFDDirectory.TAG_ISO_EQUIVALENT));
 
 
-            bildDetailObject.setAufnahmeDatum( directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
-
-            Websitecounter websitecounter = new Websitecounter();
+                bildDetailObject.setAufnahmeDatum(directory.getDate(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL));
+                bildDetailObject.setMetadata(data);
+            }else{
+                System.out.println("lere");
+            }
+                Websitecounter websitecounter = new Websitecounter();
             websitecounter.setSeite("Detail");
             websitecounter.setIp(request.getRemoteAddr());
             websitecounter.setDatum(new Date());
@@ -98,7 +110,7 @@ public class pictrueDetailController {
             logger.error(e.getMessage());
         }finally {
             bildDetailObject.setId((int) bild.getId());
-            bildDetailObject.setMetadata(data);
+
 
             //bildDetailObject.setBild(bild.getThumbnail());
             //directory.getStringValue(ExifSubIFDDirectory.TAG_LENS_SPECIFICATION);

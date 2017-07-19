@@ -1,5 +1,7 @@
 package netgloo.controllers;
 
+import netgloo.models.daos.PreisDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class priceController {
 
+    @Autowired
+    PreisDao preisDao;
+
     @RequestMapping({"/pricing-tables"})
     public String start(Model model){
+
+        model.addAttribute("preise",preisDao.findAll());
+
         return "pricing-tables";
     }
 }

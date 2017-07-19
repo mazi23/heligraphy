@@ -429,7 +429,7 @@ public class overviewController {
             double mwst;
             double druckpreis = 0.0;
             if (p.getPreis() == PreisPlan.BASIC.getValue()) {
-                druckpreis = 6.0;
+                druckpreis = 10.0;
             }
             if (p.getPreis() == PreisPlan.PREMIUM.getValue()) {
                 druckpreis = 80.0;

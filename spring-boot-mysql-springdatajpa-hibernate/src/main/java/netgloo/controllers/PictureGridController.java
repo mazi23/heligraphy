@@ -4,6 +4,7 @@ import netgloo.Application;
 import netgloo.models.Bild;
 import netgloo.models.Bildgruppe;
 import netgloo.models.DisplayObjects.PictureGridObject;
+import netgloo.models.DisplayObjects.SessionCode;
 import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.Websitecounter;
 import netgloo.models.daos.BildDao;
@@ -40,11 +41,18 @@ public class PictureGridController {
     ShoppingCart shoppingChart;
     @Autowired
     WebsiteCounterDao websiteCounterDao;
+   @Autowired
+    SessionCode sessionCode;
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     @RequestMapping(value = {"/picture-grid","/picture-grid.html"})
     public String getPictureSite(@ModelAttribute("code") String code, Model model, HttpServletRequest request, HttpServletResponse response){
+
+        if(code.equals("")){
+            code = sessionCode.getCode();
+        }
+        sessionCode.setCode(code);
 
 
         Websitecounter websitecounter = new Websitecounter();
@@ -93,7 +101,7 @@ public class PictureGridController {
         return b.getThubnail();
     }
 
-    @RequestMapping(value = "/picture-grid/detail/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/picture-grid/detail/{id}", method = RequestMethod.GET)
     public String toBildDetails(@PathVariable final String id, RedirectAttributes redirectAttributes){
         //Bild b = bilder.get(Integer.parseInt(id));
         Bild b = bildDao.findBildByid(Long.parseLong(id));

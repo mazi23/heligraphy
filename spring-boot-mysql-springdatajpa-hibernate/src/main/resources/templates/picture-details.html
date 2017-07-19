@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:include="fragments/head :: head">
 
 </head>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <div class="header-price">
-                                <h3 hidden="true" >$399,500</h3>
+                                <h3 hidden="true">$399,500</h3>
                                 <p>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -78,7 +78,8 @@
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class='item active'>
-                                        <img th:src="@{/picture-details/}+${bild.id}"  class="thumb-preview auto-height" id="auto-height" alt='Detail Bild' style="height: 100px"  />
+                                        <img th:src="@{/picture-details/}+${bild.id}" class="thumb-preview auto-height"
+                                             id="auto-height" alt='Detail Bild' style="height: 100px"/>
                                         <img src="images/logos/logo.png" id="wasserzeichen"/>
                                     </div>
 
@@ -86,7 +87,7 @@
 
                             </div>
                             <!-- Indicators -->
-                           
+
                         </div>
                     </div>
                     <!-- Car detail slider end-->
@@ -138,36 +139,338 @@
                         </div>
 
 
-
-
                     </div>
                     <!-- Car details end -->
 
                     <!-- Panel box start -->
-                    <div class="panel-box">
+                    <div class="panel-box" >
+
+
+
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab1default" data-toggle="tab" aria-expanded="true">Allgemeine Infos</a></li>
-                            <li class=""><a href="#tab2default" data-toggle="tab" aria-expanded="false">Preise</a></li>
+                            <li class="active"><a href="#tab1default" data-toggle="tab" aria-expanded="true">Preise</a></li>
+                           <!-- <li class=""><a href="#tab2default" data-toggle="tab" aria-expanded="false">Allgemeine Infos</a></li>-->
                             <li class=""><a href="#tab3default" data-toggle="tab" aria-expanded="false">Häufige Fragen</a></li>
                         </ul>
                         <div class="panel with-nav-tabs panel-default">
                             <div class="panel-body">
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="tab1default">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wow fadeInLeft delay-03s">
+                                                <!-- Pricing tables box start-->
+                                                <div class="pricing-tables-box">
+                                                    <!-- Price Header -->
+                                                    <div class="price-header">
+                                                        <!-- Title-->
+                                                        <h3 th:text="${preise[0].preisPlan}" ></h3>
+                                                        <!-- Price -->
+
+                                                 <em>€</em> <span th:text="${#numbers.formatDecimal(preise[0].preis, 2, 'COMMA', 00, 'POINT')}"></span>
+                                                    </div>
+                                                    <!-- details -->
+                                                    <div class="details">
+                                                        <ul>
+                                                            <li>
+                                                                Druck auf DIN A3 Bild
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                Glänzendes Fotopapier
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li >
+                                                                weitere Bildrechte
+                                                                <div class="checks">&#10060;</div>
+                                                            </li>
+                                                            <li>
+                                                                Vervielfältigung
+                                                                <div class="checks">&#10060;</div>
+                                                            </li>
+                                                            <li>
+                                                                Download Datei
+                                                                <div class="checks">&#10060;</div>
+                                                            </li>
+                                                            <li >
+                                                                Jedes weitere Bild ab<sup>*1</sup>
+                                                                <i>60€</i>
+                                                            </li>
+
+                                                        </ul>
+                                                        <!-- Btn -->
+
+                                                    </div>
+                                                </div>
+                                                <!-- Pricing tables box end-->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-03s">
+                                                <!-- Pricing tables box start-->
+                                                <div class="pricing-tables-box " >
+                                                    <!-- Price Header -->
+                                                    <div class="price-header price-header-red" style="background: #0088CC">
+                                                        <!-- Title-->
+                                                        <h3 th:text="${preise[1].preisPlan}" ></h3>
+                                                        <!-- Price -->
+
+                            <em>€</em> <span th:text="${#numbers.formatDecimal(preise[1].preis, 2, 'COMMA', 00, 'POINT')}"></span>
+                                                    </div>
+                                                    <!-- details -->
+                                                    <div class="details">
+                                                        <ul>
+                                                            <li>
+                                                                Download
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                Drucken so oft Sie wollen
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li >
+                                                                Vervielfältigen so oft Sie wollen
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                online verwenden
+                                                                <div class="checks">&#10060;</div>
+
+                                                            </li>
+                                                            <li>
+                                                                Datei im Raw Format
+                                                                <div class="checks">&#10060;</div>
+
+                                                            </li>
+
+                                                            <li >
+                                                                Jedes weitere Bild ab<sup>*1</sup>
+                                                                <i >80€</i>
+                                                            </li>
+                                                        </ul>
+                                                        <!-- Btn -->
+
+                                                    </div>
+                                                </div>
+                                                <!-- Pricing tables box end-->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-03s">
+                                                <!-- Pricing tables box start-->
+                                                <div class="pricing-tables-box">
+                                                    <!-- Price Header -->
+                                                    <div class="price-header">
+                                                        <!-- Title-->
+                                                        <h3 th:text="${preise[2].preisPlan}" ></h3>
+                                                        <!-- Price -->
+
+                            <em>€</em> <span th:text="${#numbers.formatDecimal(preise[2].preis, 2, 'COMMA', 00, 'POINT')}"></span>
+                                                    </div>
+                                                    <!-- details -->
+                                                    <div class="details">
+                                                        <ul>
+                                                            <li>
+                                                                Fotoleinwand
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                hochwertiges Material
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li >
+                                                                90x60 (auf Wunsch auch in anderen Formaten)
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                Perfekt fürs Wohnzimmer
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+
+
+                                                        </ul>
+                                                        <!-- Btn -->
+
+                                                    </div>
+                                                </div>
+                                                <!-- Pricing tables box end-->
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wow fadeInRight delay-03s">
+                                                <!-- Pricing tables box start-->
+                                                <div class="pricing-tables-box">
+                                                    <!-- Price Header -->
+                                                    <div class="price-header">
+                                                        <!-- Title-->
+                                                        <h3 th:text="${preise[3].preisPlan}" ></h3>
+                                                        <!-- Price -->
+
+                                                        <span th:text="${#numbers.formatDecimal(preise[3].preis, 0, 'COMMA', 00, 'POINT')} =='599' ? 'Preis auf Anrage':'€'+${#numbers.formatDecimal(preise[3].preis, 0, 'COMMA', 00, 'POINT')}"></span>
+                                                    </div>
+                                                    <!-- details -->
+                                                    <div class="details">
+                                                        <ul>
+                                                            <li>
+                                                                Download
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                Lizenz zur Bearbeitung
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li >
+                                                                Lizenz zur kommerziellen Verwendung
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li>
+                                                                Datei im Raw Format
+                                                                <div class="checks">&#9989;</div>
+                                                            </li>
+                                                            <li hidden="true">
+                                                                inkl. Basic Paket
+                                                                <i class="fa fa-check"></i>
+                                                            </li>
+
+                                                        </ul>
+                                                        <!-- Btn -->
+
+                                                    </div>
+                                                </div>
+                                                <!-- Pricing tables box end-->
+                                            </div>
+                                            <br/>
+
+                                            <sup>*1</sup><p>Bitte für weitere Bilder eine Anfrage an info@heligraphy.at senden damit wir Ihnen ein an Sie angepasstes Angebot schreiben können.</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade technical" id="tab2default">
                                         <p>Das Kopieren dieses Bildes ist ausdrücklich verboten. </p>
                                         <p></p>
 
                                     </div>
 
-                                    <div class="tab-pane fade technical" id="tab2default">
-                                        <p>Preisinfos finden Sie unter <a href="pricing-tables.html">Preise.</a>
-                                        </p>
-
-                                    </div>
-
                                     <div class="tab-pane fade technical" id="tab3default">
-                                        <p> <a href="faq.html">Infos zu häufig gesellte Fragen.</a>
-                                        </p>
+                                        <div class="panel with-nav-tabs panel-default">
+                                            <div class="panel-body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade active in" id="generalInformataion">
+                                                        <div class="panel-div">
+                                                            <div class="panel-group" role="tablist">
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading active" role="tab" id="heading1">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+                                                                                <i class="fa fa-plus"></i>Wie kann ich bezahlen?
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-expanded="false">
+                                                                        <div class="panel-body panel-body-2">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                                    <p>Es besteht die Möglichkeit per Vorkasse oder Onlinebanking zu bezahlen.  </p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading" role="tab" id="heading2">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false">
+                                                                                <i class="fa fa-plus"></i>Dürfen von meinem Haus Bilder aufgenommen werden?
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                                        <div class="panel-body panel-body-2">
+                                                                            <div class="row">
+                                                                                <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                                    <p>Laut §130 des österreichischen Luftfahrtgesetzes, Stand 22.09.2015, dürfen Luftaufnahmen durchgeführt werden. Bilder dürfen aber nicht einfach öffentlich bereit gestellt
+                                                                                        werden. Deshalb sind unsere Bilder mit einem zufällig erstellten Code hinterlegt. Dieser Code wird an den Besitzer des fotografierten Hauses zugesandt. Somit können die Bilder nur von jenen
+                                                                                        eingesehen werden die diesen Code besitzen.</p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading" role="tab" id="heading3">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false">
+                                                                                <i class="fa fa-plus"></i> Wie komme ich zu einem Bild?
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                                        <div class="panel-body panel-body-2">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                                    <p>Sobald wir ein Bild für Sie gemacht haben, erhalten Sie eine Postkarte mit einem persönlichen Code. Mit diesem Code können Sie auf unserer <a href="index.html">Startseite</a>
+                                                                                        Ihre Bilder einsehen. Wenn Ihnen ein Bild gefällt, können Sie das gewünschte Paket auswählen und das Bild in den Einkaufswagen legen. Dann werden noch Ihre Adressdaten benötigt.
+                                                                                        Bevor Sie die Bestellung abschließen, können Sie nochmals Ihren Einkauf überprüfen. Wenn Sie auf den Button "Zahlungspflichtig bestellen" drücken, ist Ihre Bestellung abgeschlossen und
+                                                                                        Sie erhalten eine Bestätigungsmail.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading" role="tab" id="heading4">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false">
+                                                                                <i class="fa fa-plus"></i> Sind Versandkosten zu zahlen?
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                                        <div class="panel-body panel-body-2">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                                    <p>Wir berechnen eine Versandpauschale von 5€ bei Zahlung per Vorkasse und 8€ bei Zahlung mit Nachnahme. Für einen Download verrechnen wir keine weiteren Kosten.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading" role="tab" id="heading5">
+                                                                        <h4 class="panel-title">
+                                                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false">
+                                                                                <i class="fa fa-plus"></i>Wie lange dauert der Versand?
+                                                                            </a>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+                                                                        <div class="panel-body panel-body-2">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-9 col-sm-8 col-xm-12">
+                                                                                    <p>Rechnen Sie mit etwa 7 Werktagen. In den meisten Fällen kommt das Paktet aber früher.
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -303,33 +606,37 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="#" th:action="@{/addToChart}" th:object="${Item}"  method="post">
-                        <ul>
+                        <form action="#" th:action="@{/addToChart}" th:object="${Item}" method="post">
+                            <ul>
 
-                            <li>
-                                <span text="">Heligraphy Bild ID</span><p th:text="${bild.id}"></p>
-                            </li>
-                            <li th:each="values: ${bild.metadata}">
-                                <span th:text="${values.key}"></span><p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}" th:field="*{id}" />
-                            </li>
-                            <li>
-                                <span>Land</span>Österreich
-                            </li>
-                            <li>
-                                <span>Preis zzgl. Versand</span>
-                               <select th:field="*{price}">
-                                   <option th:each="preis : ${preise}" th:value="${preis.id} " th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'" ></option>
-                               </select>
+                                <li>
+                                    <span text="">Heligraphy Bild ID</span>
+                                    <p th:text="${bild.id}"></p>
+                                </li>
+                                <li th:each="values: ${bild.metadata}">
+                                    <span th:text="${values.key}"></span>
+                                    <p th:text="${values.value}"></p><input hidden="true" th:value="${bild.id}"
+                                                                            th:field="*{id}"/>
+                                </li>
+                                <li>
+                                    <span>Land</span>Österreich
+                                </li>
+                                <li>
+                                    <span>Preis zzgl. Versand</span>
+                                    <select th:field="*{price}">
+                                        <option th:each="preis : ${preise}" th:value="${preis.id} "
+                                                th:text="${preis.preisPlan}+ ' '+ ${preis.preis}+' €'"></option>
+                                    </select>
 
-                            </li>
+                                </li>
 
-                            <li>
+                                <li>
 
-                                <span></span> <input class="btn btn-view" value="Kaufen" type="submit"/>
+                                    <span></span> <input class="btn btn-view" value="Kaufen" type="submit"/>
 
-                            </li>
+                                </li>
 
-                        </ul>
+                            </ul>
                         </form>
                     </div>
                     <!-- Car details end -->
@@ -423,7 +730,7 @@
 <div class="copy-right">
     <div class="container">
         <p>Copyright 2017. All rights reserved by: Heligraphy
-            </p>
+        </p>
     </div>
 </div>
 <!-- Copy right end-->
@@ -442,13 +749,14 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script>
     $('img').mousedown(function (e) {
-    if(e.button == 2) { // right click
-        return false; // do nothing!
-    }
-});
+        if (e.button == 2) { // right click
+            return false; // do nothing!
+        }
+    });
 </script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0N5pbJN10Y1oYFRd0MJ_v2g8W2QT74JE"></script>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0N5pbJN10Y1oYFRd0MJ_v2g8W2QT74JE"></script>
 <script type="text/javascript" src="js/custom.js"></script>
 </body>
 </html>

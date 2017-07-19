@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+
+</head>
+<body>
+
+
+<div th:fragment="preise">
+    <div class="pricing-tables content-area">
+        <!-- <div class="container">
+             Main title start -->
+            <div class="main-title">
+                <h1></h1>
+                <div class="border">
+                    <div class="border-inner"></div>
+                </div>
+                <p>Mit unseren Preisen können wir beste Leistung zu fairen Preisen bieten.</p>
+            </div>
+            <div class="row" >
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-03s">
+                    <!-- Pricing tables box start-->
+                    <div class="pricing-tables-box">
+                        <!-- Price Header -->
+                        <div class="price-header">
+                            <!-- Title-->
+                            <h3 th:text="${preise[0].preisPlan}" ></h3>
+                            <!-- Price -->
+                            <span >
+                            <em>€</em> <span th:text="${#numbers.formatDecimal(preise[0].preis, 0, 'COMMA', 00, 'POINT')}"></span>
+                        </span>
+                        </div>
+                        <!-- details -->
+                        <div class="details">
+                            <ul>
+                                <li>
+                                    Druck auf DIN A3 Bild
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    Glänzendes Fotopapier
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li >
+                                    weitere Bildrechte
+                                    <div class="checks">&#10060;</div>
+                                </li>
+                                <li>
+                                    Vervielfältigung
+                                    <div class="checks">&#10060;</div>
+                                </li>
+                                <li>
+                                    Download Datei
+                                    <div class="checks">&#10060;</div>
+                                </li>
+                                <li >
+                                    Jedes weitere Bild ab<sup>*1</sup>
+                                    <i>60€</i>
+                                </li>
+
+                            </ul>
+                            <!-- Btn -->
+
+                        </div>
+                    </div>
+                    <!-- Pricing tables box end-->
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-03s">
+                    <!-- Pricing tables box start-->
+                    <div class="pricing-tables-box " >
+                        <!-- Price Header -->
+                        <div class="price-header price-header-red" style="background: #0088CC">
+                            <!-- Title-->
+                            <h3 th:text="${preise[1].preisPlan}" ></h3>
+                            <!-- Price -->
+                            <span >
+                            <em>€</em> <span th:text="${#numbers.formatDecimal(preise[1].preis, 0, 'COMMA', 00, 'POINT')}"></span>
+                        </span>
+                        </div>
+                        <!-- details -->
+                        <div class="details">
+                            <ul>
+                                <li>
+                                    Download
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    Drucken so oft Sie wollen
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li >
+                                    Vervielfältigen so oft Sie wollen
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    online verwenden
+                                    <div class="checks">&#10060;</div>
+
+                                </li>
+                                <li>
+                                    Datei im Raw Format
+                                    <div class="checks">&#10060;</div>
+
+                                </li>
+
+                                <li >
+                                    Jedes weitere Bild ab<sup>*1</sup>
+                                    <i >80€</i>
+                                </li>
+                            </ul>
+                            <!-- Btn -->
+
+                        </div>
+                    </div>
+                    <!-- Pricing tables box end-->
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInUp delay-03s">
+                    <!-- Pricing tables box start-->
+                    <div class="pricing-tables-box">
+                        <!-- Price Header -->
+                        <div class="price-header">
+                            <!-- Title-->
+                            <h3 th:text="${preise[2].preisPlan}" ></h3>
+                            <!-- Price -->
+                            <span >
+                            <em>€</em> <span th:text="${#numbers.formatDecimal(preise[2].preis, 2, 'COMMA', 00, 'POINT')}"></span>
+                        </span>
+                        </div>
+                        <!-- details -->
+                        <div class="details">
+                            <ul>
+                                <li>
+                                    Fotoleinwand
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    hochwertiges Material
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li >
+                                    90x60 (auf Wunsch auch in anderen Formaten)
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    Perfekt fürs Wohnzimmer
+                                    <div class="checks">&#9989;</div>
+                                </li>
+
+
+                            </ul>
+                            <!-- Btn -->
+
+                        </div>
+                    </div>
+                    <!-- Pricing tables box end-->
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-03s">
+                    <!-- Pricing tables box start-->
+                    <div class="pricing-tables-box">
+                        <!-- Price Header -->
+                        <div class="price-header">
+                            <!-- Title-->
+                            <h3 th:text="${preise[3].preisPlan}" ></h3>
+                            <!-- Price -->
+                            <span >
+                             <span th:text="${#numbers.formatDecimal(preise[3].preis, 0, 'COMMA', 00, 'POINT')} =='599' ? 'Preis auf Anrage':'€'+${#numbers.formatDecimal(preise[3].preis, 0, 'COMMA', 00, 'POINT')}"></span>
+                        </span>
+                        </div>
+                        <!-- details -->
+                        <div class="details">
+                            <ul>
+                                <li>
+                                    Download
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    Lizenz zur Bearbeitung
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li >
+                                    Lizenz zur kommerziellen Verwendung
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li>
+                                    Datei im Raw Format
+                                    <div class="checks">&#9989;</div>
+                                </li>
+                                <li hidden="true">
+                                    inkl. Basic Paket
+                                    <i class="fa fa-check"></i>
+                                </li>
+
+                            </ul>
+                            <!-- Btn -->
+
+                        </div>
+                    </div>
+                    <!-- Pricing tables box end-->
+                </div>
+
+            </div>
+            <br/>
+
+        <sup>*1</sup><p>Bitte für weitere Bilder eine Anfrage an info@heligraphy.at senden damit wir Ihnen ein an Sie angepasstes Angebot schreiben können.</p>
+
+    </div>
+</div>
+
+
+</body>
+</html>
