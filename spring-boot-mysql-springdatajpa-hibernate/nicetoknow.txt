@@ -7,3 +7,51 @@ set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR
 sudo netstat -tulpn
 sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 
+
+SELECT HEX(CONVERT(live.bildgruppe.uniq_code,UNSIGNED INTEGER)) AS uniq_code,
+  live.adresse.anschrift,
+  live.adresse.plz,
+  live.adresse.ort,
+  live.adresse.land
+FROM live.bildgruppe
+  JOIN live.bild ON
+                   live.bildgruppe.id = live.bild.bildgruppe
+  JOIN live.adresse ON
+                      live.adresse.id = live.bildgruppe.adresse
+WHERE live.bildgruppe.id BETWEEN 1 AND 100
+GROUP BY live.bildgruppe.uniq_code
+
+
+SELECT HEX(CONVERT(live.bildgruppe.uniq_code,UNSIGNED INTEGER)) AS uniq_code,adresse.name,adresse.anschrift,adresse.plz,adresse.ort,adresse.land
+FROM  live.bildgruppe
+  JOIN  live.bild
+    ON live.bildgruppe.id = live.bild.bildgruppe
+  JOIN live.adresse
+    ON live.adresse.id=live.bildgruppe.adresse
+GROUP BY uniq_code,adresse.anschrift
+
+SELECT count(*) FROM bestellung;
+
+SELECT bild.id FROM bild;
+
+
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+set session sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
+
+SELECT HEX(CONVERT(live.bildgruppe.uniq_code,UNSIGNED INTEGER)),live.bildgruppe.uniq_code AS uniq_code FROM live.bildgruppe
+SELECT bild.code,bild.bildname FROM test.bild
+SELECT bildgruppe.id,bildgruppe.uniq_code From live.bildgruppe WHERE uniq_code=40604123
+SELECT bild.id FROM live.bild WHERE bildgruppe=1
+
+SELECT HEX(CONVERT(test.bildgruppe.uniq_code,UNSIGNED INTEGER)),test.bildgruppe.uniq_code AS uniq_code FROM test.bildgruppe;
+
+SELECT b.id FROM bildgruppe b WHERE HEX(CONVERT(uniq_code,UNSIGNED INTEGER)) = "36E7A9D3";
+
+
+SELECT HEX(CONVERT(g.uniq_code,UNSIGNED INTEGER))as uniq_code, g.adresse FROM live.bildgruppe g;
+
+                                                                                                      SELECT DISTINCT info  FROM live.websitecounter WHERE info is Not null and info != "" and length(info)>3;
+
+
+SELECT HEX(CONVERT(g.uniq_code,UNSIGNED INTEGER))as uniq_code,a.name, a.anschrift,a.plz FROM live.bildgruppe g JOIN live.adresse a On g.adresse = a.id WHERE HEX(CONVERT(g.uniq_code,UNSIGNED INTEGER)) in (SELECT DISTINCT info  FROM live.websitecounter WHERE info is Not null and info != "" and length(info)>3)

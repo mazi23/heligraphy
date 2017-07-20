@@ -56,6 +56,12 @@ public class indexController {
         model.addAttribute("suchcode", new Code());
         //generateAbrechnungsReport();
         //generateReport();
+    try {
+        model.addAttribute("pictureCount",bildDao.count());
+        System.out.println(bildDao.count());
+    }catch (Exception e){
+        logger.error(e.getMessage());
+    }
 
 
         return "index";

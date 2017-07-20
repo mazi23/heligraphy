@@ -7,8 +7,10 @@ import netgloo.models.DisplayObjects.ShoppingCart;
 import netgloo.models.DisplayObjects.ShoppingCartItem;
 import netgloo.models.PreisPlan;
 import netgloo.models.User;
+import netgloo.models.Websitecounter;
 import netgloo.models.daos.AdresseDao;
 import netgloo.models.daos.UserDao;
+import netgloo.models.daos.WebsiteCounterDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 
 /**
  * Created by mazi on 26.04.17.
@@ -33,9 +37,11 @@ public class CheckoutController {
     UserDao userDao;
     @Autowired
     AdresseDao adresseDao;
+    @Autowired
+    WebsiteCounterDao websiteCounterDao;
 
     @RequestMapping("/checkout")
-    public String start(Model model){
+    public String start(Model model, HttpServletRequest request){
         model.addAttribute("AdressenCommand",new AdressenCommand());
         model.addAttribute("LoginCommand", new LoginCommand());
         boolean versandartNachnahme = true;
@@ -46,6 +52,17 @@ public class CheckoutController {
 
         }
         model.addAttribute("nachnahme",versandartNachnahme);
+
+        try{
+            Websitecounter websitecounter = new Websitecounter();
+            websitecounter.setSeite("Index");
+            websitecounter.setIp(request.getRemoteAddr());
+            websitecounter.setDatum(new Date());
+
+            websiteCounterDao.save(websitecounter);
+        }catch (Exception e){
+
+        }
         return "checkout";
     }
 

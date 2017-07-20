@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -39,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/weiterEinkaufen","/itemDelete/*", "/overview","/overview/*","/BestellungAbsenden","/weitereinkaufen","/bildgruppel/**","/agb.html", "/agb","/faq","/faq.html","/sendMail","/VersandDetailsWithUser",
             "/memberArea","/PDFAbrechnung","/authorize","/memberArea/loeschen","/memberArea/aendern","/forgot-password.html","/forgot-password","/forgot-password/zuruecksetzen","/pay",
             "/createRechnung","/abgeschlossen/**","/abgeschlossen/fertig","/bestellungAbgeschlossen","/load","/download.zip","/load/*","/sendMailcontact","/abgeschlossenOhneDownload","/neueRechnung","/mail","/404.html","/nextSite"
-            ,"/email","robots.txt"
+            ,"/email","robots.txt","/vorregistrierung","/vorregistrierung.html"
     };//"/upload","/upload/*","/upload/*/*","/BackendBilderUpload",
 
     @Override

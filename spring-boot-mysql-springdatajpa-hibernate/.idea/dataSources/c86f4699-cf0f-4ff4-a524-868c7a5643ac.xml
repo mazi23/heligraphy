@@ -4163,7 +4163,11 @@ bestellung</ColNames>
       <Position>4</Position>
       <DataType>datetime|0</DataType>
     </column>
-    <key id="937" parent="94" name="PRIMARY">
+    <column id="937" parent="94" name="info">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="938" parent="94" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

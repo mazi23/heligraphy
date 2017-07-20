@@ -15,6 +15,11 @@
           <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.21" />
           <element id="library" level="project" name="Maven: org.slf4j:log4j-over-slf4j:1.7.21" />
           <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.16" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.3.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.0.33" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:8.0.33" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.33" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:8.0.33" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-validation:1.3.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.2.4.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
@@ -69,10 +74,6 @@
           <element id="library" level="project" name="Maven: org.imgscalr:imgscalr-lib:4.2" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:1.3.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.3.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.5.2.RELEASE" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:8.0.33" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:8.0.33" />
-          <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:8.0.33" />
           <element id="library" level="project" name="Maven: javax.mail:mail:1.4" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: com.drewnoakes:metadata-extractor:2.10.1" />

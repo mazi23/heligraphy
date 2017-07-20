@@ -67,10 +67,10 @@ public class Mail {
             message.setFrom(new InternetAddress("bestellung@heligraphy.at"));
 
             //Live
-           // message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("muenchen@whitewall.de,info@heligraphy.at"));
+            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("muenchen@whitewall.de,info@heligraphy.at"));
 
         //Test
-            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("info@heligraphy.at"));
+            //message.addRecipients(Message.RecipientType.TO, InternetAddress.parse("info@heligraphy.at"));
 
             message.setSubject(subject);
 

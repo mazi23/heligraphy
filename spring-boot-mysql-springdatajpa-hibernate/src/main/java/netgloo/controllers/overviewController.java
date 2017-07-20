@@ -78,10 +78,10 @@ public class overviewController {
 
 
     //Test
-    Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
+    //Mpay24 mpay24 = new Mpay24("94894", "JoY?Mz8a9w", Mpay24.Environment.TEST);
 
    //Live
-    //Mpay24 mpay24 = new Mpay24("74894", "KD-PHmUue+", Mpay24.Environment.PRODUCTION);
+    Mpay24 mpay24 = new Mpay24("74894", "KD-PHmUue+", Mpay24.Environment.PRODUCTION);
     PaymentRequest paymentRequest = new PaymentRequest();
     User kunde;
     Bestellung bestellung;

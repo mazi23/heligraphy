@@ -96,7 +96,7 @@
             <scope>compile</scope>
             <optional>true</optional> <!-- value will be true or false only -->
         </dependency>
-
+<!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -108,7 +108,7 @@
             </exclusions>
             <version>1.5.2.RELEASE</version>
         </dependency>
-
+-->
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
             <groupId>javax.mail</groupId>

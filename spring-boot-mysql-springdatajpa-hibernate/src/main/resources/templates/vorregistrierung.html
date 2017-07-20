@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="fragments/head :: head">
+
+</head>
+
+<body>
+<!-- Header start -->
+<header>
+    <div class="container" th:replace="fragments/header :: header">
+        <p>header</p>
+    </div>
+</header>
+<!-- Header end -->
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-area">
+                        <h2>Foto auf Auftrag</h2>
+                        <p>Sie möchten ein Foto. Sie registrieren sich. Wir machen die Fotos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sub banner end -->
+
+<!-- About item start-->
+<div class="about-item">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+
+
+
+
+
+
+                    <div class="col-md-6">
+                        <figure>
+                            <a href="/images/bilder/umkreis.png">  <img class="img-responsive" style="pointer-events: auto; " src="/images/bilder/umkreis.png" alt="Chania"/></a>
+                            <figcaption>
+                                25 km Radius um Wels. Grau markierter Bereich ist von dieser Aktion ausgenommen.
+                                <br/>
+
+                            </figcaption>
+                        </figure>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="textbox">
+                            <h3><b>10% auf das gewählte Paket</b></h3>
+                            <p>Sie erhalten 10% auf den aktuellen Preis. Alles was Sie tun müssen, ist uns zu sagen wo Ihr Haus oder Firmengebäude steht.</p>
+                            <ul class="liststyle1">
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Geld sparen</li>
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Mehr Auswahl für Sie</li>
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Sie können uns für Details Bescheid geben</li>
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Auswahl von vier fantastischen Preispakten</li>
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Bilder sind nur für Sie verfügbar</li>
+                                <li> <i class="material-icons" style="font-size: 15px">add_circle</i> Auch auf jedes weitere Bild 10%</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <button type="button" class="btn text-center btn-submit" style="left:42%;position: relative;" data-toggle="collapse" data-target="#demo">Jetzt anmelden</button>
+
+
+
+            <div id="demo" class="collapse" th:classappend="${in}">
+                <div id="menu1" class="tab-pane fade in active">
+                    <form id="contact_form" th:action="@{/vorregistrierungSpeichern}" th:object="${vorregist}" method="POST"
+                          enctype="multipart/form-data">
+                        <h3 class="text-center">Versand Adresse</h3>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                            </div>
+                            <hr/>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="Vorname" id="first_name" class="form-control input-md"
+                                           placeholder="Vor- und Nachname"
+                                           th:field="*{name}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="email" name="Email" id="email" class="form-control input-md"
+                                           placeholder="Email"
+                                           th:field="*{email}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6" >
+                                <div class="form-group">
+                                    <input type="text" name="tel" id="tel" class="form-control input-md"
+                                           placeholder="Telefonnummer"
+                                           th:field="*{tel}"/>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="strasse" id="strasse" class="form-control input-md"
+                                           placeholder="Straße"
+                                           th:field="*{strasse}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="ort" id="ort" class="form-control input-md"
+                                           placeholder="Ort"
+                                           th:field="*{ort}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="land" id="land" class="form-control input-md"
+                                           placeholder="Land"
+                                           th:field="*{land}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="plz" id="plz" class="form-control input-md"
+                                           placeholder="PLZ"
+                                           th:field="*{plz}"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="Koordinaten" id="Koordinaten" class="form-control input-md"
+                                           placeholder="Koordinaten"
+                                           th:field="*{koordinaten}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" value="Absenden" style="float: right" class="btn"/>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+</div>
+</div>
+<!-- About item end -->
+
+
+
+<!-- We best start-->
+<div class="we-best content-area">
+    <div class="container">
+        <div class="main-title">
+            <h1>Von den Besten das Beste</h1>
+            <p></p>
+        </div>
+        <div class="row mgn-btm">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-call-center-agent"></i>
+                    <h4>Persönliches Gespräch</h4>
+                    <p>Sie wünschen ein persönliches Gespräch um uns Ihre Wünsche zu berichten? Rufen Sie einfach an oder verwenden Sie das Kontaktformular.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInLeft delay-02s">
+                <div class="content">
+                    <i class="flaticon-car"></i>
+                    <h4>Winter Aufnahmen</h4>
+                    <p>Sie wollen Ihr Haus im Wintermantel haben? Kein Problem. Wir fliegen auch im Winter.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-mixer"></i>
+                    <h4>Mit der besten Technik</h4>
+                    <p>Wir verwenden modernste Technik um die Bilder aufzunehmen, zu bearbeiten sowie für die Speicherung und Archivierung.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 wow fadeInRight delay-02s">
+                <div class="content">
+                    <i class="flaticon-satellite-transmission"></i>
+                    <h4>Verfügbarkeit</h4>
+                    <p>Ihre Bilder sind jederzeit für Sie zugänlich. Egal ob Handy, Tablet oder PC.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <a href="services-2.html" class="btn btn-submit">Unser Angebot</a>
+    </div>
+</div>
+<!-- We best end -->
+
+<!-- Testimonial style two start-->
+<div hidden="true" class="testimonial-style-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                <div class="sec-title-three">
+                    <h4>Happy Clients</h4>
+                    <h2>Our Happy<br/>Clients Feedbacks</h2>
+                    <div class="text">
+                        Dolor sit amet auctor egestas libero is arcu. Wisi anteati lis pulvinar officiiss neque massa egestas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+                <div class="testimonials">
+                    <div id="carouse2-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                        For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content active clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                        For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                        For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sub>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sub>
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="item content clearfix">
+                                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="avatar">
+                                        <img  src="http://placehold.it/220x220" alt="avatar-1" class="img-responsive" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-7 col-sm-7 col-xs-12 ">
+                                    <div class="text">
+                                        <sup>
+                                            <i class="fa fa-quote-left"></i>
+                                        </sup>
+                                        For me as a student it was a great challenge world and decide about my career. Now I am positive everything is going to be settled fast.
+                                        <sup>
+                                            <i class="fa fa-quote-right"></i>
+                                        </sup>
+
+                                    </div>
+                                    <div class="author-name">
+                                        John Deo
+                                    </div>
+                                    <ul class="rating">
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star"></i>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-star-half-full"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carouse2-example-generic" role="button" data-slide="prev">
+                            <span class="slider-mover-left" aria-hidden="true">
+                                <img  src="images/png/chevron-left.png" alt="left-chevron" />
+                            </span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carouse2-example-generic" role="button" data-slide="next">
+                            <span class="slider-mover-right" aria-hidden="true">
+                                <img  src="images/png/chevron-right.png" alt="right-chevron" />
+                            </span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial style two end-->
+
+<!-- Footer start-->
+<footer>
+    <div class="container" th:replace="fragments/footer :: footer">
+        <p>footer</p>
+    </div>
+</footer>
+<!-- Footer end-->
+
+<!-- Copy right start-->
+<div class="copy-right">
+    <div class="container">
+        <p>Copyright 2017. All rights reserved by: Heligraphy</p>
+    </div>
+</div>
+<!-- Copy right end-->
+
+
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+
+<!-- Custom javascript -->
+<script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
